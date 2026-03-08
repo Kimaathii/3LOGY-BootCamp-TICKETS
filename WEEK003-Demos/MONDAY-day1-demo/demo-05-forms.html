@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessible Form Patterns</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    form {
+      background: #f9f9f9;
+      padding: 30px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #007acc;
+      box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+    }
+    
+    button {
+      background: #007acc;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    button:hover {
+      background: #005a9c;
+    }
+    
+    button:focus {
+      outline: 3px solid #ffc107;
+      outline-offset: 2px;
+    }
+    
+    .required {
+      color: #e74c3c;
+    }
+    
+    .help-text {
+      font-size: 14px;
+      color: #666;
+      margin-top: 5px;
+    }
+    
+    fieldset {
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    
+    legend {
+      font-weight: bold;
+      padding: 0 10px;
+      color: #333;
+    }
+    
+    .radio-group label {
+      display: inline-block;
+      margin-right: 20px;
+      font-weight: normal;
+    }
+    
+    .checkbox-group label {
+      display: block;
+      font-weight: normal;
+      margin: 10px 0;
+    }
+    
+    .error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+    
+    input:invalid:not(:focus):not(:placeholder-shown) {
+      border-color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  
+  <h1>Accessible Form Patterns</h1>
+  <p><strong>Instructor:</strong> Demonstrate label-input connection by clicking labels. Show tab navigation through form.</p>
+
+  <!-- EXAMPLE 1: Basic Contact Form -->
+  <section>
+    <h2>Example 1: Basic Contact Form</h2>
+    <p>Demonstrates essential accessibility patterns:</p>
+    
+    <form action="/submit" method="POST">
+      
+      <!-- Text Input -->
+      <div class="form-group">
+        <label for="full-name">
+          Full Name <span class="required">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="full-name" 
+          name="full-name" 
+          placeholder="John Doe"
+          required
+          autocomplete="name"
+        >
+        <p class="help-text">Enter your first and last name</p>
+      </div>
+
+      <!-- Email Input -->
+      <div class="form-group">
+        <label for="email">
+          Email Address <span class="required">*</span>
+        </label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="john@example.com"
+          required
+          autocomplete="email"
+        >
+        <p class="help-text">We'll never share your email</p>
+      </div>
+
+      <!-- Phone Input -->
+      <div class="form-group">
+        <label for="phone">
+          Phone Number
+        </label>
+        <input 
+          type="tel" 
+          id="phone" 
+          name="phone" 
+          placeholder="(123) 456-7890"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          autocomplete="tel"
+        >
+        <p class="help-text">Format: 123-456-7890 (optional)</p>
+      </div>
+
+      <!-- Select Dropdown -->
+      <div class="form-group">
+        <label for="topic">
+          Topic <span class="required">*</span>
+        </label>
+        <select id="topic" name="topic" required>
+          <option value="">-- Select a topic --</option>
+          <option value="general">General Inquiry</option>
+          <option value="support">Technical Support</option>
+          <option value="feedback">Feedback</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Textarea -->
+      <div class="form-group">
+        <label for="message">
+          Message <span class="required">*</span>
+        </label>
+        <textarea 
+          id="message" 
+          name="message" 
+          rows="6"
+          placeholder="Tell us what's on your mind..."
+          required
+        ></textarea>
+        <p class="help-text">Minimum 10 characters</p>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit">Send Message</button>
+    </form>
+
+    <div style="background: #e6ffe6; padding: 15px; border-radius: 4px; margin-top: 20px;">
+      <h3>✅ Accessibility Features:</h3>
+      <ul>
+        <li>Every input has a matching label (for/id)</li>
+        <li>Required fields marked with asterisk and attribute</li>
+        <li>Help text provides guidance</li>
+        <li>Input types provide validation (email, tel)</li>
+        <li>Autocomplete helps fill forms faster</li>
+        <li>Placeholder text shows example format</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EXAMPLE 2: Radio Buttons & Checkboxes -->
+  <section>
+    <h2>Example 2: Radio Buttons & Checkboxes</h2>
+    
+    <form>
+      <!-- Radio Buttons with Fieldset -->
+      <fieldset>
+        <legend>Experience Level <span class="required">*</span></legend>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="experience" value="beginner" required>
+            Beginner
+          </label>
+          <label>
+            <input type="radio" name="experience" value="intermediate">
+            Intermediate
+          </label>
+          <label>
+            <input type="radio" name="experience" value="advanced">
+            Advanced
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Checkboxes with Fieldset -->
+      <fieldset>
+        <legend>Interested In <span class="required">*</span></legend>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="interests" value="web-dev">
+            Web Development
+          </label>
+          <label>
+            <input type="checkbox" name="interests" value="mobile">
+            Mobile Development
+          </label>
+          <label>
+            <input type="checkbox" name="interests" value="data">
+            Data Science
+          </label>
+          <label>
+            <input type="checkbox" name="interests" value="devops">
+            DevOps
+          </label>
+        </div>
+      </fieldset>
+
+      <!-- Agreement Checkbox -->
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="agree" value="yes" required>
+          I agree to the <a href="/terms">Terms of Service</a> <span class="required">*</span>
+        </label>
+      </div>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <div style="background: #fff3cd; padding: 15px; border-radius: 4px; margin-top: 20px;">
+      <h3>💡 Teaching Points:</h3>
+      <ul>
+        <li><code>&lt;fieldset&gt;</code> groups related inputs</li>
+        <li><code>&lt;legend&gt;</code> describes the group</li>
+        <li>Screen readers announce group context</li>
+        <li>Radio buttons: only one choice (same name attribute)</li>
+        <li>Checkboxes: multiple choices allowed</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EXAMPLE 3: Validation & Error Messages -->
+  <section>
+    <h2>Example 3: HTML5 Validation</h2>
+    <p><strong>Try:</strong> Submit form with invalid data to see browser validation!</p>
+    
+    <form>
+      <!-- Email Validation -->
+      <div class="form-group">
+        <label for="user-email">Email</label>
+        <input 
+          type="email" 
+          id="user-email" 
+          name="email" 
+          required
+          placeholder="user@example.com"
+        >
+        <p class="help-text">Must be a valid email address</p>
+      </div>
+
+      <!-- Number Validation -->
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input 
+          type="number" 
+          id="age" 
+          name="age" 
+          min="13" 
+          max="120"
+          required
+        >
+        <p class="help-text">Must be between 13 and 120</p>
+      </div>
+
+      <!-- URL Validation -->
+      <div class="form-group">
+        <label for="website">Website</label>
+        <input 
+          type="url" 
+          id="website" 
+          name="website" 
+          placeholder="https://example.com"
+        >
+        <p class="help-text">Must start with http:// or https://</p>
+      </div>
+
+      <!-- Pattern Validation -->
+      <div class="form-group">
+        <label for="zip">ZIP Code</label>
+        <input 
+          type="text" 
+          id="zip" 
+          name="zip" 
+          pattern="[0-9]{5}"
+          title="5-digit ZIP code"
+          placeholder="12345"
+          required
+        >
+        <p class="help-text">5 digits only (US ZIP code)</p>
+      </div>
+
+      <!-- Min Length Validation -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          minlength="3"
+          maxlength="20"
+          required
+        >
+        <p class="help-text">3-20 characters</p>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div style="background: #e6f3ff; padding: 15px; border-radius: 4px; margin-top: 20px;">
+      <h3>🔍 HTML5 Validation Attributes:</h3>
+      <ul>
+        <li><code>required</code> - Field must be filled</li>
+        <li><code>type="email"</code> - Must contain @</li>
+        <li><code>type="url"</code> - Must be valid URL</li>
+        <li><code>min</code> / <code>max</code> - Number range</li>
+        <li><code>minlength</code> / <code>maxlength</code> - Text length</li>
+        <li><code>pattern</code> - Regular expression match</li>
+        <li><code>title</code> - Shows in validation message</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- EXAMPLE 4: Accessible Form Layout -->
+  <section>
+    <h2>Example 4: Best Practices Summary</h2>
+    
+    <div style="background: #f9f9f9; padding: 20px; border-radius: 8px;">
+      <h3>✅ Always Do:</h3>
+      <ul>
+        <li>Match <code>label for=""</code> with <code>input id=""</code></li>
+        <li>Use descriptive label text (not just "Name" but "Full Name")</li>
+        <li>Mark required fields with <code>required</code> attribute AND visual indicator (*)</li>
+        <li>Use appropriate input types (email, tel, url, number, date, etc.)</li>
+        <li>Provide help text for complex fields</li>
+        <li>Group related inputs with <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code></li>
+        <li>Test Tab navigation (logical order)</li>
+        <li>Test keyboard-only form submission</li>
+        <li>Use <code>autocomplete</code> attributes to help users</li>
+      </ul>
+
+      <h3>❌ Never Do:</h3>
+      <ul>
+        <li>Use placeholder as label (placeholders disappear!)</li>
+        <li>Create custom inputs without keyboard support</li>
+        <li>Rely on color alone to show required fields</li>
+        <li>Use <code>disabled</code> when you mean <code>readonly</code></li>
+        <li>Forget to test with Tab key navigation</li>
+        <li>Hide focus indicators</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Interactive Demo -->
+  <section style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-top: 40px;">
+    <h2>🎯 Try This: Tab Navigation Demo</h2>
+    <p><strong>Exercise:</strong> Navigate through any form above using only keyboard!</p>
+    
+    <ol>
+      <li>Click anywhere on the page first</li>
+      <li>Press <kbd>Tab</kbd> to move forward through fields</li>
+      <li>Press <kbd>Shift + Tab</kbd> to move backward</li>
+      <li>Use <kbd>Space</kbd> to check/uncheck checkboxes</li>
+      <li>Use arrow keys in radio buttons and select dropdowns</li>
+      <li>Press <kbd>Enter</kbd> to submit form</li>
+    </ol>
+    
+    <p><strong>Notice:</strong> Focus indicators (blue outlines) show where you are!</p>
+  </section>
+
+</body>
+</html>
+
+<!--
+  INSTRUCTOR TEACHING POINTS:
+
+  1. DEMONSTRATE LABEL-INPUT CONNECTION:
+     - Click on "Full Name" label
+     - Show how it focuses the input
+     - Explain this helps mouse AND keyboard users
+
+  2. SHOW INPUT TYPES IN ACTION:
+     - type="email" on mobile shows @ key
+     - type="tel" shows number pad
+     - type="number" shows up/down arrows
+     - type="date" shows calendar picker
+
+  3. VALIDATION DEMO:
+     - Try submitting empty required field
+     - Try submitting invalid email
+     - Try submitting number out of range
+     - Show browser's built-in validation messages
+
+  4. KEYBOARD NAVIGATION:
+     - Close your eyes (or have student do it)
+     - Navigate entire form with Tab key
+     - Submit form with Enter key
+     - Emphasize: 15% of users rely on keyboard!
+
+  5. SCREEN READER (if available):
+     - Turn on screen reader
+     - Navigate through form
+     - Show how it announces labels
+     - Show how fieldset/legend creates context
+     - Compare to form without labels (confusing!)
+
+  6. FORM ACCESSIBILITY CHECKLIST:
+     - Every input has a label
+     - Required fields marked
+     - Help text provided
+     - Logical tab order
+     - Focus indicators visible
+     - Input types provide validation
+
+  COMMON STUDENT MISTAKES:
+  - Forgetting to match for/id
+  - Using placeholder instead of label
+  - Skipping required attribute
+  - Not testing keyboard navigation
+  - Using generic labels ("Name" vs "Full Name")
+
+  DISCUSSION QUESTIONS:
+  - "What happens if you fill a long form and it fails at the end?"
+  - "How frustrating is it when you can't see where your cursor is?"
+  - "Why is autocomplete helpful for everyone?"
+  
+  HOMEWORK REMINDER:
+  - Your forms MUST have labels!
+  - Test keyboard navigation before submitting
+  - Validate with W3C validator
+-->

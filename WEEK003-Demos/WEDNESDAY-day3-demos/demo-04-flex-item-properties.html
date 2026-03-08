@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 04 - Flex Item Properties</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    h2 {
+      color: #34495e;
+      margin: 2rem 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #3498db;
+    }
+
+    .demo-section {
+      background-color: white;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .explanation {
+      background-color: #e8f4f8;
+      padding: 1rem;
+      border-left: 4px solid #3498db;
+      margin-bottom: 1.5rem;
+    }
+
+    code {
+      background-color: #f8f8f8;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #e74c3c;
+    }
+
+    pre {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .container {
+      display: flex;
+      border: 3px dashed #3498db;
+      padding: 10px;
+      background-color: #eaf2f8;
+      margin: 1rem 0;
+      height: 150px;
+    }
+
+    .item {
+      background-color: #3498db;
+      color: white;
+      padding: 20px;
+      margin: 5px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .highlight {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .teaching-point {
+      background-color: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #2c3e50;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background-color: #ecf0f1;
+      border-radius: 3px;
+    }
+
+    /* Special item highlighting */
+    .item-special {
+      background-color: #e74c3c;
+      border: 3px solid #c0392b;
+    }
+
+    /* flex-grow examples */
+    .grow-0 { flex-grow: 0; }
+    .grow-1 { flex-grow: 1; }
+    .grow-2 { flex-grow: 2; }
+    .grow-3 { flex-grow: 3; }
+
+    /* flex-shrink examples */
+    .shrink-0 { flex-shrink: 0; min-width: 150px; }
+    .shrink-1 { flex-shrink: 1; min-width: 150px; }
+
+    /* flex-basis examples */
+    .basis-100 { flex-basis: 100px; }
+    .basis-200 { flex-basis: 200px; }
+    .basis-auto { flex-basis: auto; }
+
+    /* flex shorthand examples */
+    .flex-1 { flex: 1; }
+    .flex-2 { flex: 2; }
+    .flex-fixed { flex: 0 0 200px; }
+
+    /* align-self examples */
+    .self-start { align-self: flex-start; }
+    .self-end { align-self: flex-end; }
+    .self-center { align-self: center; }
+    .self-stretch { align-self: stretch; }
+
+    /* Real-world pattern demos */
+    .sidebar-layout {
+      display: flex;
+      gap: 1rem;
+      min-height: 300px;
+    }
+
+    .sidebar {
+      flex: 0 0 200px;
+      background-color: #34495e;
+      color: white;
+      padding: 1rem;
+      border-radius: 5px;
+    }
+
+    .main-content {
+      flex: 1;
+      background-color: white;
+      padding: 1rem;
+      border: 2px solid #3498db;
+      border-radius: 5px;
+    }
+
+    .three-column {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .col {
+      flex: 1;
+      background-color: #3498db;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 5px;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 Flex Item Properties - Individual Control</h1>
+
+  <!-- ========================================
+       PART 1: CONTAINER VS ITEM PROPERTIES
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Container vs Item Properties</h2>
+    
+    <div class="explanation">
+      So far we've learned <strong>container properties</strong> (affect ALL items).<br>
+      Now we learn <strong>item properties</strong> (affect INDIVIDUAL items).
+    </div>
+
+    <div class="comparison-grid">
+      <div style="background-color: #e8f5e9; padding: 1rem; border-radius: 5px; border: 2px solid #4caf50;">
+        <h3 style="color: #2e7d32;">Container Properties</h3>
+        <p style="color: #666; margin: 0.5rem 0;">Set on parent, affect ALL children</p>
+        <ul style="margin-left: 1.5rem; line-height: 2;">
+          <li>display: flex</li>
+          <li>justify-content</li>
+          <li>align-items</li>
+          <li>flex-direction</li>
+          <li>flex-wrap</li>
+          <li>gap</li>
+        </ul>
+      </div>
+
+      <div style="background-color: #fff3e0; padding: 1rem; border-radius: 5px; border: 2px solid #ff9800;">
+        <h3 style="color: #e65100;">Item Properties</h3>
+        <p style="color: #666; margin: 0.5rem 0;">Set on children, affect ONE item</p>
+        <ul style="margin-left: 1.5rem; line-height: 2;">
+          <li>flex-grow</li>
+          <li>flex-shrink</li>
+          <li>flex-basis</li>
+          <li>flex (shorthand)</li>
+          <li>align-self</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 2: FLEX-GROW
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 2: flex-grow (How Items Expand)</h2>
+    
+    <div class="explanation">
+      <code>flex-grow</code> controls how items <strong>expand</strong> to fill extra space.<br>
+      Default is <code>0</code> (don't grow). Higher numbers grow more.
+    </div>
+
+    <p class="label">All items: flex-grow: 0 (default - don't grow)</p>
+    <div class="container">
+      <div class="item grow-0">Item 1<br>grow: 0</div>
+      <div class="item grow-0">Item 2<br>grow: 0</div>
+      <div class="item grow-0">Item 3<br>grow: 0</div>
+    </div>
+    <p><em>Items stay at natural width, extra space on right</em></p>
+
+    <p class="label">Item 2: flex-grow: 1 (expands to fill space)</p>
+    <div class="container">
+      <div class="item grow-0">Item 1<br>grow: 0</div>
+      <div class="item item-special grow-1">Item 2<br>grow: 1</div>
+      <div class="item grow-0">Item 3<br>grow: 0</div>
+    </div>
+    <p><em>Item 2 grows to fill all extra space!</em></p>
+
+    <p class="label">All items: flex-grow: 1 (equal width)</p>
+    <div class="container">
+      <div class="item grow-1">Item 1<br>grow: 1</div>
+      <div class="item grow-1">Item 2<br>grow: 1</div>
+      <div class="item grow-1">Item 3<br>grow: 1</div>
+    </div>
+    <p><em>All items share extra space equally = equal width columns!</em></p>
+
+    <p class="label">Different grow values: 1, 2, 3</p>
+    <div class="container">
+      <div class="item grow-1">Item 1<br>grow: 1</div>
+      <div class="item item-special grow-2">Item 2<br>grow: 2</div>
+      <div class="item grow-3">Item 3<br>grow: 3</div>
+    </div>
+    <p><em>Item 3 gets 3× as much space as Item 1, Item 2 gets 2×</em></p>
+
+    <pre><code>/* Make one item expand */
+.item:nth-child(2) {
+  flex-grow: 1;  /* This item takes extra space */
+}
+
+/* Equal width columns */
+.item {
+  flex-grow: 1;  /* All items share space equally */
+}</code></pre>
+
+    <div class="teaching-point">
+      <strong>🎓 Real-world use:</strong><br>
+      - Search bar that expands in navigation<br>
+      - Main content area taking remaining space<br>
+      - Equal-width columns in a grid
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 3: FLEX-SHRINK
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 3: flex-shrink (How Items Contract)</h2>
+    
+    <div class="explanation">
+      <code>flex-shrink</code> controls how items <strong>shrink</strong> when space is tight.<br>
+      Default is <code>1</code> (can shrink). Set to <code>0</code> to prevent shrinking.
+    </div>
+
+    <p class="label">All items: flex-shrink: 1 (default - can shrink)</p>
+    <div class="container" style="width: 400px;">
+      <div class="item shrink-1">Item 1<br>shrink: 1</div>
+      <div class="item shrink-1">Item 2<br>shrink: 1</div>
+      <div class="item shrink-1">Item 3<br>shrink: 1</div>
+    </div>
+    <p><em>Container is narrow - all items shrink equally</em></p>
+
+    <p class="label">Item 1: flex-shrink: 0 (won't shrink)</p>
+    <div class="container" style="width: 400px;">
+      <div class="item item-special shrink-0">Item 1<br>shrink: 0</div>
+      <div class="item shrink-1">Item 2<br>shrink: 1</div>
+      <div class="item shrink-1">Item 3<br>shrink: 1</div>
+    </div>
+    <p><em>Item 1 maintains 150px width, others shrink to fit</em></p>
+
+    <pre><code>/* Prevent one item from shrinking */
+.sidebar {
+  flex-shrink: 0;   /* Maintains width */
+  min-width: 200px;
+}
+
+.main {
+  flex-shrink: 1;   /* Can shrink (default) */
+}</code></pre>
+
+    <div class="highlight">
+      <strong>💡 Common pattern:</strong> Fixed sidebar that doesn't shrink, flexible main content that does.
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 4: FLEX-BASIS
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 4: flex-basis (Initial Size)</h2>
+    
+    <div class="explanation">
+      <code>flex-basis</code> sets the <strong>initial size</strong> of an item before growing/shrinking.<br>
+      Think of it as "starting width" (better than width because it respects flex-direction).
+    </div>
+
+    <p class="label">Different flex-basis values</p>
+    <div class="container">
+      <div class="item basis-100">100px basis</div>
+      <div class="item item-special basis-200">200px basis</div>
+      <div class="item basis-100">100px basis</div>
+    </div>
+
+    <pre><code>.item {
+  flex-basis: 200px;  /* Start at 200px wide */
+}
+
+/* flex-basis vs width: */
+/* width: Always 200px wide */
+/* flex-basis: 200px starting point, can grow/shrink */</code></pre>
+
+    <div class="teaching-point">
+      <strong>🎓 Key difference:</strong><br>
+      <code>width</code>: Fixed size<br>
+      <code>flex-basis</code>: Starting size (can still grow/shrink with flex-grow/shrink)
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 5: FLEX SHORTHAND (Most Important!)
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 5: flex Shorthand ⭐ (Most Common)</h2>
+    
+    <div class="explanation">
+      <code>flex</code> is shorthand for: <code>flex-grow flex-shrink flex-basis</code><br>
+      This is what you'll use 90% of the time!
+    </div>
+
+    <div style="background-color: #fff3e0; padding: 1rem; border-radius: 5px; margin: 1rem 0;">
+      <h3>Common Patterns:</h3>
+      <pre style="background-color: #fff;"><code>flex: 1;              /* Same as: flex: 1 1 0 */
+                      /* = Grow, shrink, 0 basis */
+                      /* = Equal width columns */
+
+flex: 0 0 200px;      /* = Don't grow, don't shrink, 200px */
+                      /* = Fixed width sidebar */
+
+flex: 2;              /* Same as: flex: 2 1 0 */
+                      /* = Grows 2× as fast */
+
+flex: auto;           /* Same as: flex: 1 1 auto */
+                      /* = Grow/shrink from content size */</code></pre>
+    </div>
+
+    <p class="label">Example: Equal width columns (flex: 1)</p>
+    <div class="container">
+      <div class="item flex-1">flex: 1</div>
+      <div class="item flex-1">flex: 1</div>
+      <div class="item flex-1">flex: 1</div>
+    </div>
+
+    <p class="label">Example: One item grows more (flex: 2)</p>
+    <div class="container">
+      <div class="item flex-1">flex: 1</div>
+      <div class="item item-special flex-2">flex: 2</div>
+      <div class="item flex-1">flex: 1</div>
+    </div>
+
+    <p class="label">Example: Fixed + Flexible (sidebar pattern)</p>
+    <div class="container">
+      <div class="item item-special flex-fixed">flex: 0 0 200px<br>(Fixed sidebar)</div>
+      <div class="item flex-1">flex: 1<br>(Flexible main)</div>
+    </div>
+
+    <div class="highlight">
+      <strong>🎯 You'll mostly use:</strong><br>
+      <code>flex: 1;</code> for equal columns<br>
+      <code>flex: 0 0 200px;</code> for fixed sidebars
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 6: ALIGN-SELF
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 6: align-self (Override Alignment)</h2>
+    
+    <div class="explanation">
+      <code>align-self</code> overrides the container's <code>align-items</code> for ONE specific item.
+    </div>
+
+    <p class="label">Container: align-items: center (all items centered)</p>
+    <p class="label">But individual items can override with align-self</p>
+    <div class="container" style="align-items: center;">
+      <div class="item self-start">align-self:<br>flex-start</div>
+      <div class="item">Default<br>(centered)</div>
+      <div class="item item-special self-end">align-self:<br>flex-end</div>
+      <div class="item self-stretch">align-self:<br>stretch</div>
+    </div>
+
+    <pre><code>.container {
+  display: flex;
+  align-items: center;  /* All items: center */
+}
+
+.featured-item {
+  align-self: flex-start;  /* This one: top */
+}</code></pre>
+
+    <div class="teaching-point">
+      <strong>🎓 Use case:</strong> Featured item in a card grid that needs different alignment
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 7: REAL-WORLD PATTERNS
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 7: Real-World Patterns</h2>
+    
+    <h3 style="color: #3498db; margin-top: 1.5rem;">Pattern 1: Sidebar + Main Layout</h3>
+    <div class="sidebar-layout">
+      <aside class="sidebar">
+        <h4>Sidebar</h4>
+        <p>flex: 0 0 200px</p>
+        <p>(Fixed width)</p>
+      </aside>
+      <main class="main-content">
+        <h4>Main Content</h4>
+        <p>flex: 1</p>
+        <p>(Takes remaining space)</p>
+        <p>Resize the browser - sidebar stays 200px, this area grows/shrinks!</p>
+      </main>
+    </div>
+
+    <pre><code>.sidebar-layout {
+  display: flex;
+  gap: 1rem;
+}
+
+.sidebar {
+  flex: 0 0 200px;  /* Fixed 200px */
+}
+
+.main-content {
+  flex: 1;  /* Takes remaining space */
+}</code></pre>
+
+    <h3 style="color: #3498db; margin-top: 2rem;">Pattern 2: Three Equal Columns</h3>
+    <div class="three-column">
+      <div class="col">
+        <h4>Column 1</h4>
+        <p>flex: 1</p>
+      </div>
+      <div class="col">
+        <h4>Column 2</h4>
+        <p>flex: 1</p>
+      </div>
+      <div class="col">
+        <h4>Column 3</h4>
+        <p>flex: 1</p>
+      </div>
+    </div>
+
+    <pre><code>.three-column {
+  display: flex;
+  gap: 1rem;
+}
+
+.col {
+  flex: 1;  /* All columns equal width */
+}</code></pre>
+  </div>
+
+  <!-- ========================================
+       PART 8: KEY TAKEAWAYS
+       ======================================== -->
+  <div class="demo-section" style="background-color: #e8f4f8;">
+    <h2>🎯 Key Takeaways</h2>
+    
+    <ul style="line-height: 2; margin-left: 2rem;">
+      <li><code>flex-grow</code>: How items expand (0 = don't grow, 1 = grow equally)</li>
+      <li><code>flex-shrink</code>: How items contract (0 = don't shrink, 1 = can shrink)</li>
+      <li><code>flex-basis</code>: Starting size before growing/shrinking</li>
+      <li><code>flex: 1;</code> = Equal width columns (most common!)</li>
+      <li><code>flex: 0 0 200px;</code> = Fixed 200px width (sidebars)</li>
+      <li><code>align-self</code>: Override alignment for one item</li>
+    </ul>
+
+    <div class="highlight" style="margin-top: 1.5rem;">
+      <strong>🎓 For Instructor:</strong><br>
+      - Emphasize flex shorthand (this is what students will use most)<br>
+      - Show sidebar pattern - used on TONS of websites<br>
+      - Demonstrate flex: 1 vs flex: 2 (proportional growing)<br>
+      - Have students inspect in DevTools to see computed values<br>
+      - Remind: Container properties (all items) vs Item properties (one item)
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 9: PRACTICE EXERCISE
+       ======================================== -->
+  <div class="demo-section" style="background-color: #f3e5f5;">
+    <h2>💻 Try It Yourself!</h2>
+    
+    <p><strong>Challenge: Build this layout</strong></p>
+    <ol style="line-height: 2; margin-left: 2rem;">
+      <li>Container with 3 items</li>
+      <li>Item 1: Fixed 150px width</li>
+      <li>Item 2: Takes remaining space</li>
+      <li>Item 3: Fixed 100px width</li>
+    </ol>
+
+    <p style="margin-top: 1rem;"><strong>Solution:</strong></p>
+    <pre><code>.container {
+  display: flex;
+}
+
+.item1 {
+  flex: 0 0 150px;  /* Fixed 150px */
+}
+
+.item2 {
+  flex: 1;  /* Flexible */
+}
+
+.item3 {
+  flex: 0 0 100px;  /* Fixed 100px */
+}</code></pre>
+  </div>
+
+  <!-- INSTRUCTOR NOTES -->
+  <!--
+  TEACHING SEQUENCE:
+  1. Explain container vs item properties distinction
+  2. Show flex-grow: 0 (default) vs 1 (grows)
+  3. Show all items flex: 1 (equal width - very common!)
+  4. Introduce flex shorthand (this is what they'll use)
+  5. Build sidebar layout pattern (real-world!)
+  6. Show align-self for individual overrides
+
+  INTERACTIVE ELEMENTS:
+  - Ask: "Which properties affect ALL items?" (container)
+  - Ask: "Which affect ONE item?" (item properties)
+  - Have students predict: "What does flex: 1 mean?"
+  - Resize browser during sidebar demo
+
+  STOP POINTS:
+  - After flex-grow: "What number means don't grow? What means grow?"
+  - After flex shorthand: "This is the most important slide - memorize flex: 1"
+  - After sidebar pattern: "Where have you seen this layout?"
+
+  COMMON STRUGGLES:
+  - Understanding flex shorthand syntax
+  - Solution: Focus on flex: 1 and flex: 0 0 200px (most common patterns)
+  - Knowing when to use flex-grow vs flex shorthand
+  - Solution: "Always use shorthand (flex:) in real projects"
+
+  EMPHASIS:
+  - flex: 1 is THE most common pattern (equal columns)
+  - flex: 0 0 200px for fixed sidebars (second most common)
+  - These two patterns cover 80% of real-world usage!
+
+  TRANSITION:
+  "You now know ALL the Flexbox properties! Let's see how professionals  
+   combine them to build real layouts in the next demo."
+  -->
+
+</body>
+</html>

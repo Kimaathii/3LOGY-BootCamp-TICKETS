@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Demo 04 - Typography & Text Styling</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { padding: 20px; max-width: 900px; margin: 0 auto; background: #f5f5f5; }
+    
+    .example { background: white; padding: 25px; margin: 20px 0; border-radius: 8px; }
+    h2 { color: #2c3e50; margin-bottom: 15px; }
+    
+    /* Font Family Examples */
+    .serif { font-family: Georgia, 'Times New Roman', serif; }
+    .sans-serif { font-family: Arial, Helvetica, sans-serif; }
+    .monospace { font-family: 'Courier New', Courier, monospace; }
+    
+    /* Font Size */
+    .small { font-size: 14px; }
+    .medium { font-size: 18px; }
+    .large { font-size: 24px; }
+    
+    /* Font Weight */
+    .light { font-weight: 300; }
+    .normal { font-weight: 400; }
+    .bold { font-weight: 700; }
+    
+    /* Text Align */
+    .left { text-align: left; }
+    .center { text-align: center; }
+    .right { text-align: right; }
+    
+    /* Text Transform */
+    .uppercase { text-transform: uppercase; }
+    .lowercase { text-transform: lowercase; }
+    .capitalize { text-transform: capitalize; }
+    
+    /* Line Height */
+    .tight { line-height: 1.2; }
+    .normal-line { line-height: 1.6; }
+    .loose { line-height: 2.0; }
+    
+    .highlight { background: #fff3cd; padding: 3px 6px; border-radius: 3px; }
+    code { background: #f8f9fa; padding: 2px 6px; border-radius: 3px; color: #e74c3c; }
+  </style>
+</head>
+<body>
+
+  <header style="background: #2c3e50; color: white; padding: 30px; text-align: center; border-radius: 8px; margin-bottom: 30px;">
+    <h1>Typography & Text Styling</h1>
+  </header>
+
+  <div class="example">
+    <h2>Font Families</h2>
+    <p class="serif">Serif fonts (Georgia) - traditional, readable for long text</p>
+    <p class="sans-serif">Sans-serif fonts (Arial) - modern, clean, web-friendly</p>
+    <p class="monospace">Monospace fonts (Courier) - code, fixed-width characters</p>
+    <p><code>font-family: Arial, Helvetica, sans-serif;</code></p>
+  </div>
+
+  <div class="example">
+    <h2>Font Sizes</h2>
+    <p class="small">Small text (14px)</p>
+    <p class="medium">Medium text (18px) - good for body</p>
+    <p class="large">Large text (24px) - good for headings</p>
+    <p><code>font-size: 16px; /* or em, rem, % */</code></p>
+  </div>
+
+  <div class="example">
+    <h2>Font Weight (Thickness)</h2>
+    <p class="light">Light text (300)</p>
+    <p class="normal">Normal text (400)</p>
+    <p class="bold">Bold text (700)</p>
+    <p><code>font-weight: bold; /* or 100-900 */</code></p>
+  </div>
+
+  <div class="example">
+    <h2>Text Alignment</h2>
+    <p class="left">Left aligned (default)</p>
+    <p class="center">Center aligned</p>
+    <p class="right">Right aligned</p>
+    <p><code>text-align: center;</code></p>
+  </div>
+
+  <div class="example">
+    <h2>Text Transform</h2>
+    <p class="uppercase">Uppercase text</p>
+    <p class="lowercase">LOWERCASE TEXT</p>
+    <p class="capitalize">capitalize each word</p>
+    <p><code>text-transform: uppercase;</code></p>
+  </div>
+
+  <div class="example">
+    <h2>Line Height (Spacing Between Lines)</h2>
+    <p class="tight">Tight line height (1.2) makes text feel cramped. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, nemo.</p>
+    <p class="normal-line">Normal line height (1.6) is readable and comfortable. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, nemo.</p>
+    <p class="loose">Loose line height (2.0) gives lots of breathing room. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, nemo.</p>
+    <p><code>line-height: 1.6; /* 1.5-1.6 is ideal */</code></p>
+  </div>
+
+  <div class="example" style="background: #d5f4e6;">
+    <h2>✅ Typography Best Practices</h2>
+    <ul style="line-height: 1.8; margin-left: 25px;">
+      <li>Body text: 16px minimum</li>
+      <li>Line height: 1.5-1.6 for readability</li>
+      <li>Line length: 50-75 characters</li>
+      <li>Contrast: 4.5:1 for normal text, 3:1 for large text</li>
+      <li>Use web-safe fonts or Google Fonts</li>
+    </ul>
+  </div>
+
+</body>
+</html>

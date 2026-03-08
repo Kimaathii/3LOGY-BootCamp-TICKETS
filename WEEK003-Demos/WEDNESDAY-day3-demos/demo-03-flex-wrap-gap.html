@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 03 - flex-wrap & gap</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    h2 {
+      color: #34495e;
+      margin: 2rem 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #3498db;
+    }
+
+    .demo-section {
+      background-color: white;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .explanation {
+      background-color: #e8f4f8;
+      padding: 1rem;
+      border-left: 4px solid #3498db;
+      margin-bottom: 1.5rem;
+    }
+
+    code {
+      background-color: #f8f8f8;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #e74c3c;
+    }
+
+    pre {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .container {
+      display: flex;
+      border: 3px dashed #3498db;
+      padding: 10px;
+      background-color: #eaf2f8;
+      margin: 1rem 0;
+    }
+
+    .item {
+      background-color: #3498db;
+      color: white;
+      padding: 20px;
+      margin: 5px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .highlight {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #2c3e50;
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      background-color: #ecf0f1;
+      border-radius: 3px;
+    }
+
+    /* flex-wrap demos */
+    .nowrap {
+      flex-wrap: nowrap;
+      width: 500px; /* Fixed width to show overflow */
+    }
+
+    .wrap {
+      flex-wrap: wrap;
+      width: 500px;
+    }
+
+    .wrap-reverse {
+      flex-wrap: wrap-reverse;
+      width: 500px;
+    }
+
+    /* gap demos */
+    .no-gap {
+      gap: 0;
+    }
+
+    .small-gap {
+      gap: 10px;
+    }
+
+    .medium-gap {
+      gap: 20px;
+    }
+
+    .large-gap {
+      gap: 40px;
+    }
+
+    /* Comparison demos */
+    .comparison {
+      display: flex;
+      gap: 2rem;
+      margin: 1rem 0;
+    }
+
+    .comparison > div {
+      flex: 1;
+    }
+
+    .bad {
+      background-color: #ffebee;
+      color: #c62828;
+      padding: 0.5rem;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .good {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      padding: 0.5rem;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* Responsive card demo */
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .card {
+      flex: 1 1 200px; /* Grow, shrink, min 200px */
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border: 2px solid #3498db;
+    }
+
+    .card h3 {
+      color: #3498db;
+      margin-bottom: 0.5rem;
+    }
+
+    .teaching-point {
+      background-color: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .note {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    /* Margin hack example */
+    .margin-container {
+      display: flex;
+      border: 3px dashed #e74c3c;
+      padding: 10px;
+      background-color: #fadbd8;
+    }
+
+    .margin-item {
+      background-color: #e74c3c;
+      color: white;
+      padding: 20px;
+      margin-right: 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .margin-item:last-child {
+      margin-right: 0; /* Annoying hack! */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 flex-wrap & gap - Responsive Layouts</h1>
+
+  <!-- ========================================
+       PART 1: FLEX-WRAP
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 1: flex-wrap (Multi-line Layouts)</h2>
+    
+    <div class="explanation">
+      By default, flex items try to fit on a <strong>single line</strong>, even if they overflow the container.<br>
+      <code>flex-wrap</code> controls whether items can <strong>wrap</strong> to new lines.
+    </div>
+
+    <!-- nowrap (default) -->
+    <div>
+      <p class="label">flex-wrap: nowrap; (default) - Items stay on one line</p>
+      <div class="container nowrap">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3</div>
+        <div class="item">Item 4</div>
+        <div class="item">Item 5</div>
+        <div class="item">Item 6</div>
+      </div>
+      <p><em>⚠️ Items shrink or overflow to fit on one line (scroll right to see overflow)</em></p>
+    </div>
+
+    <!-- wrap -->
+    <div style="margin-top: 2rem;">
+      <p class="label">flex-wrap: wrap; - Items wrap to new lines ✅</p>
+      <div class="container wrap">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3</div>
+        <div class="item">Item 4</div>
+        <div class="item">Item 5</div>
+        <div class="item">Item 6</div>
+      </div>
+      <p><em>✅ Items wrap to multiple lines when they don't fit!</em></p>
+    </div>
+
+    <pre><code>.container {
+  display: flex;
+  flex-wrap: wrap;  /* Allow wrapping */
+  width: 500px;
+}
+
+.item {
+  min-width: 100px;  /* Items maintain minimum width */
+}</code></pre>
+
+    <!-- wrap-reverse -->
+    <div style="margin-top: 2rem;">
+      <p class="label">flex-wrap: wrap-reverse; - Wrap upward (rare)</p>
+      <div class="container wrap-reverse">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3</div>
+        <div class="item">Item 4</div>
+        <div class="item">Item 5</div>
+        <div class="item">Item 6</div>
+      </div>
+      <p><em>Items wrap in reverse order (bottom to top)</em></p>
+    </div>
+
+    <div class="teaching-point">
+      <strong>🎓 Teaching Point:</strong><br>
+      <code>flex-wrap: wrap;</code> is ESSENTIAL for responsive designs!<br>
+      Without it, items shrink or overflow on small screens.<br>
+      With it, items automatically move to new lines = responsive magic!
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 2: GAP (Modern Spacing)
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 2: gap (Modern Spacing Property)</h2>
+    
+    <div class="explanation">
+      <code>gap</code> adds spacing <strong>between</strong> flex items without using margin hacks!<br>
+      It's the <strong>modern</strong> way to add spacing. Clean, simple, perfect.
+    </div>
+
+    <!-- No gap -->
+    <div>
+      <p class="label">gap: 0; (no spacing)</p>
+      <div class="container no-gap">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+      </div>
+    </div>
+
+    <!-- Small gap -->
+    <div>
+      <p class="label">gap: 10px;</p>
+      <div class="container small-gap">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+      </div>
+    </div>
+
+    <!-- Medium gap -->
+    <div>
+      <p class="label">gap: 20px;</p>
+      <div class="container medium-gap">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+      </div>
+    </div>
+
+    <!-- Large gap -->
+    <div>
+      <p class="label">gap: 40px;</p>
+      <div class="container large-gap">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+      </div>
+    </div>
+
+    <pre><code>.container {
+  display: flex;
+  gap: 20px;  /* Space between items - so clean! */
+}</code></pre>
+  </div>
+
+  <!-- ========================================
+       PART 3: GAP VS MARGIN COMPARISON
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 3: Why gap is Better than Margin Hacks</h2>
+    
+    <div class="comparison">
+      <div>
+        <div class="bad">❌ OLD WAY: Margin Hacks</div>
+        <div class="margin-container">
+          <div class="margin-item">1</div>
+          <div class="margin-item">2</div>
+          <div class="margin-item">3</div>
+        </div>
+        <pre><code>.item {
+  margin-right: 20px;
+}
+
+.item:last-child {
+  margin-right: 0;  /* Annoying! */
+}</code></pre>
+        <p><strong>Problems:</strong></p>
+        <ul style="margin-left: 2rem; line-height: 1.8;">
+          <li>Need :last-child hack</li>
+          <li>Breaks with wrapping</li>
+          <li>More CSS to write</li>
+          <li>Hard to modify</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="good">✅ NEW WAY: gap Property</div>
+        <div class="container medium-gap">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <pre><code>.container {
+  display: flex;
+  gap: 20px;  /* Done! */
+}</code></pre>
+        <p><strong>Benefits:</strong></p>
+        <ul style="margin-left: 2rem; line-height: 1.8;">
+          <li>One line of CSS!</li>
+          <li>Works with wrapping</li>
+          <li>No :last-child needed</li>
+          <li>Easy to change</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <strong>🎯 Rule:</strong> ALWAYS use <code>gap</code> for spacing flex items. Never use margin hacks!
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 4: COMBINING WRAP + GAP
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Part 4: Responsive Card Grid (wrap + gap)</h2>
+    
+    <div class="explanation">
+      Combining <code>flex-wrap: wrap;</code> + <code>gap</code> creates responsive layouts that automatically adapt to screen size!
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>Card 1</h3>
+        <p>These cards automatically wrap to new lines when the screen gets smaller.</p>
+      </div>
+      <div class="card">
+        <h3>Card 2</h3>
+        <p>Resize your browser window to see them stack vertically on narrow screens!</p>
+      </div>
+      <div class="card">
+        <h3>Card 3</h3>
+        <p>No media queries needed (yet)! Flexbox handles it automatically.</p>
+      </div>
+      <div class="card">
+        <h3>Card 4</h3>
+        <p>Each card has a minimum width of 200px, then they wrap.</p>
+      </div>
+      <div class="card">
+        <h3>Card 5</h3>
+        <p>The gap property ensures consistent spacing between cards.</p>
+      </div>
+      <div class="card">
+        <h3>Card 6</h3>
+        <p>This is how modern responsive grids are built!</p>
+      </div>
+    </div>
+
+    <pre><code>.card-grid {
+  display: flex;
+  flex-wrap: wrap;     /* Allow wrapping */
+  gap: 1rem;           /* 16px spacing */
+}
+
+.card {
+  flex: 1 1 200px;  /* Grow, shrink, minimum 200px */
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+}</code></pre>
+
+    <div class="teaching-point">
+      <strong>🎓 Real-World Usage:</strong><br>
+      This pattern is used for:<br>
+      - Product grids (e-commerce)<br>
+      - Photo galleries<br>
+      - Blog post cards<br>
+      - Team member profiles<br>
+      - Portfolio projects
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 5: TRY RESIZING
+       ======================================== -->
+  <div class="demo-section" style="background-color: #fff3e0;">
+    <h2>💻 Interactive Exercise</h2>
+    
+    <div class="note">
+      <strong>Try This:</strong><br>
+      1. Resize your browser window (drag the corner smaller)<br>
+      2. Watch the cards above automatically wrap to new lines<br>
+      3. Make it narrow - cards stack vertically!<br>
+      4. Make it wide - cards spread horizontally!<br>
+      5. The gap stays consistent at all sizes!
+    </div>
+
+    <p style="margin-top: 1rem;"><strong>Inspect in DevTools:</strong></p>
+    <ol style="line-height: 2; margin-left: 2rem;">
+      <li>Right-click the card grid</li>
+      <li>Inspect element</li>
+      <li>Click the "flex" badge in Elements panel</li>
+      <li>See the gap spacing highlighted!</li>
+      <li>Try changing gap value live</li>
+    </ol>
+  </div>
+
+  <!-- ========================================
+       PART 6: KEY TAKEAWAYS
+       ======================================== -->
+  <div class="demo-section" style="background-color: #e8f4f8;">
+    <h2>🎯 Key Takeaways</h2>
+    
+    <ul style="line-height: 2; margin-left: 2rem;">
+      <li><code>flex-wrap: wrap;</code> allows items to wrap to multiple lines</li>
+      <li>Default <code>nowrap</code> keeps all items on one line (may overflow/shrink)</li>
+      <li><code>gap</code> is the modern way to add spacing between flex items</li>
+      <li><code>gap</code> is WAY better than margin hacks (no :last-child needed!)</li>
+      <li>Combining wrap + gap creates responsive layouts automatically</li>
+      <li>Cards with <code>flex: 1 1 200px;</code> + <code>flex-wrap: wrap;</code> = responsive grid!</li>
+    </ul>
+
+    <div class="highlight" style="margin-top: 1.5rem;">
+      <strong>🎓 For Instructor:</strong><br>
+      - Show nowrap overflow problem first (pain point)<br>
+      - Then reveal wrap solution (relief!)<br>
+      - Demonstrate margin hack messiness<br>
+      - Show gap simplicity (one line!)<br>
+      - Have students resize browser during card demo<br>
+      - Emphasize: "This is how pros build responsive layouts!"
+    </div>
+  </div>
+
+  <!-- ========================================
+       PART 7: COMMON PATTERNS
+       ======================================== -->
+  <div class="demo-section" style="background-color: #f3e5f5;">
+    <h2>📋 Common Patterns Cheat Sheet</h2>
+    
+    <div style="background-color: #fff; padding: 1rem; border-radius: 5px; border: 2px solid #9c27b0;">
+      <h3 style="color: #9c27b0;">Photo Gallery</h3>
+      <pre><code>.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.photo {
+  flex: 1 1 250px;  /* Min 250px, wraps */
+}</code></pre>
+    </div>
+
+    <div style="background-color: #fff; padding: 1rem; border-radius: 5px; border: 2px solid #9c27b0; margin-top: 1rem;">
+      <h3 style="color: #9c27b0;">Product Grid</h3>
+      <pre><code>.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.product-card {
+  flex: 1 1 300px;  /* Min 300px */
+}</code></pre>
+    </div>
+
+    <div style="background-color: #fff; padding: 1rem; border-radius: 5px; border: 2px solid #9c27b0; margin-top: 1rem;">
+      <h3 style="color: #9c27b0;">Navigation with Wrapping</h3>
+      <pre><code>nav ul {
+  display: flex;
+  flex-wrap: wrap;   /* Stack on mobile */
+  gap: 1.5rem;
+  list-style: none;
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- INSTRUCTOR NOTES -->
+  <!--
+  TEACHING SEQUENCE:
+  1. Show nowrap problem - items overflow or shrink (pain)
+  2. Reveal wrap solution - items wrap nicely (relief!)
+  3. Show old margin hack - messy, lots of code
+  4. Show gap property - one line, clean (wow moment!)
+  5. Demonstrate responsive cards - resize browser live
+  6. Have students inspect gap in DevTools
+
+  INTERACTIVE ELEMENTS:
+  - Ask: "What happens to items that don't fit?" (before showing wrap)
+  - Resize browser during card demo (visual impact!)
+  - Have students predict what flex: 1 1 200px means
+  - Inspect gap in DevTools together
+
+  STOP POINTS:
+  - After nowrap: "What's the problem here?"
+  - After showing margin hack: "How many lines of CSS?"
+  - After showing gap: "How many lines? ONE!"
+  - During card demo: "Watch as I resize..."
+
+  COMMON STRUGGLES:
+  - Forgetting flex-wrap when items overflow
+  - Using margin instead of gap
+  - Not understanding flex: 1 1 200px syntax
+  - Solution: Show examples, emphasize gap is modern standard
+
+  TRANSITION:
+  "Now we can control container layout. But what about controlling 
+   INDIVIDUAL items? That's where flex-grow, flex-shrink, and flex-basis 
+   come in - next demo!"
+  -->
+
+</body>
+</html>

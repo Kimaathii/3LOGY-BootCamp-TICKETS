@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 01 - Media Queries Basics</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .box {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px;
+      border-radius: 8px;
+      text-align: center;
+      margin: 20px 0;
+      transition: all 0.3s;
+    }
+
+    .screen-info {
+      background: #e8f4f8;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #3498db;
+      margin: 20px 0;
+    }
+
+    .screen-info h2 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+
+    /* 📱 MOBILE: Up to 600px */
+    @media (max-width: 600px) {
+      .box {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        padding: 20px;
+      }
+
+      .screen-info {
+        background: #fce4ec;
+        border-left-color: #e91e63;
+      }
+
+      .screen-info h2 {
+        color: #c2185b;
+      }
+
+      .screen-info::before {
+        content: "📱 MOBILE VIEW";
+        display: block;
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+    }
+
+    /* 📱 TABLET: 601px to 900px */
+    @media (min-width: 601px) and (max-width: 900px) {
+      .box {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        padding: 30px;
+      }
+
+      .screen-info {
+        background: #fff3e0;
+        border-left-color: #ff9800;
+      }
+
+      .screen-info h2 {
+        color: #f57c00;
+      }
+
+      .screen-info::before {
+        content: "📱 TABLET VIEW";
+        display: block;
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+    }
+
+    /* 💻 DESKTOP: 901px and up */
+    @media (min-width: 901px) {
+      .box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 40px;
+      }
+
+      .screen-info {
+        background: #e8f5e9;
+        border-left-color: #4caf50;
+      }
+
+      .screen-info h2 {
+        color: #388e3c;
+      }
+
+      .screen-info::before {
+        content: "💻 DESKTOP VIEW";
+        display: block;
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #e91e63;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <h1>Media Queries Basics</h1>
+    
+    <div class="box">
+      <h2>Resize Your Browser Window!</h2>
+      <p>Watch this box change colors based on screen size</p>
+    </div>
+
+    <div class="screen-info">
+      <h2>What Are Media Queries?</h2>
+      <p>Media queries allow you to apply CSS styles based on device characteristics like screen width, height, orientation, etc.</p>
+      
+      <h3>Syntax:</h3>
+      <pre><code>@media (condition) {
+  /* CSS rules */
+}</code></pre>
+      
+      <h3>Common Breakpoints:</h3>
+      <ul>
+        <li><strong>Mobile:</strong> Up to 600px</li>
+        <li><strong>Tablet:</strong> 601px - 900px</li>
+        <li><strong>Desktop:</strong> 901px and above</li>
+      </ul>
+      
+      <h3>This Demo Uses:</h3>
+      <ul>
+        <li><code>max-width: 600px</code> - Mobile styles (pink gradient)</li>
+        <li><code>min-width: 601px AND max-width: 900px</code> - Tablet styles (orange gradient)</li>
+        <li><code>min-width: 901px</code> - Desktop styles (purple gradient)</li>
+      </ul>
+    </div>
+
+    <div class="screen-info">
+      <h2>How to Test:</h2>
+      <ol>
+        <li>Open Chrome DevTools (F12)</li>
+        <li>Click the device toolbar icon (Ctrl+Shift+M)</li>
+        <li>Select different devices or manually resize</li>
+        <li>Watch the colors and info box change!</li>
+      </ol>
+    </div>
+
+  </div>
+
+  <!-- INSTRUCTOR NOTES:
+    Key Teaching Points:
+    1. Media queries are conditional CSS
+    2. max-width = "up to this size"
+    3. min-width = "from this size and up"
+    4. Can combine conditions with "and"
+    5. Test in DevTools responsive mode
+    6. Mobile-first means starting with mobile, adding larger breakpoints
+    7. Desktop-first means starting with desktop, subtracting for smaller sizes
+    
+    Common Student Questions:
+    - "Which breakpoints should I use?" → Depends on your design, but 600/900 is common
+    - "Mobile-first or desktop-first?" → Mobile-first is modern best practice
+    - "Why not use px exactly?" → Some use em/rem for accessibility (zoom)
+    - "Do I need all three?" → No, depends on design needs
+  -->
+
+</body>
+</html>

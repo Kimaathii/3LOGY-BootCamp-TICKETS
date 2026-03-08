@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 01 - Flexbox Basics</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f5f5f5;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    h2 {
+      color: #34495e;
+      margin: 2rem 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #3498db;
+    }
+
+    .demo-section {
+      background-color: white;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .explanation {
+      background-color: #e8f4f8;
+      padding: 1rem;
+      border-left: 4px solid #3498db;
+      margin-bottom: 1.5rem;
+    }
+
+    code {
+      background-color: #f8f8f8;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+
+    pre {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+
+    /* EXAMPLE 1: Default Block Behavior (NO FLEXBOX) */
+    .container-default {
+      border: 3px solid #e74c3c;
+      padding: 10px;
+      background-color: #fadbd8;
+    }
+
+    .container-default .item {
+      background-color: #ffcccc;
+      border: 2px solid #e74c3c;
+      padding: 20px;
+      margin: 5px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* EXAMPLE 2: With Flexbox Enabled */
+    .container-flex {
+      display: flex;  /* ← THE MAGIC LINE! */
+      border: 3px solid #27ae60;
+      padding: 10px;
+      background-color: #d5f4e6;
+    }
+
+    .container-flex .item {
+      background-color: #abebc6;
+      border: 2px solid #27ae60;
+      padding: 20px;
+      margin: 5px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* EXAMPLE 3: Visual Comparison */
+    .comparison {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .comparison > div {
+      flex: 1;
+    }
+
+    .label {
+      font-weight: bold;
+      padding: 0.5rem;
+      text-align: center;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+    }
+
+    .bad {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+
+    .good {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .note {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .teaching-point {
+      background-color: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 Flexbox Basics - The Foundation</h1>
+
+  <!-- ========================================
+       SECTION 1: Default Behavior (NO FLEXBOX)
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Example 1: Default Block Behavior (NO Flexbox)</h2>
+    
+    <div class="explanation">
+      By default, <code>&lt;div&gt;</code> elements are <strong>block-level</strong>, which means they stack <strong>vertically</strong> (one on top of the other).
+    </div>
+
+    <div class="container-default">
+      <div class="item">Item 1</div>
+      <div class="item">Item 2</div>
+      <div class="item">Item 3</div>
+    </div>
+
+    <pre><code>&lt;div class="container-default"&gt;
+  &lt;div class="item"&gt;Item 1&lt;/div&gt;
+  &lt;div class="item"&gt;Item 2&lt;/div&gt;
+  &lt;div class="item"&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <pre><code>.container-default {
+  border: 3px solid red;
+  padding: 10px;
+  /* No display: flex - default block behavior */
+}
+
+.item {
+  padding: 20px;
+  margin: 5px;
+}</code></pre>
+
+    <div class="note">
+      <strong>What you see:</strong> Items stack vertically (default block behavior).<br>
+      <strong>Why:</strong> Divs are block-level elements by default, so each takes up full width and stacks.
+    </div>
+  </div>
+
+  <!-- ========================================
+       SECTION 2: WITH FLEXBOX ENABLED
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Example 2: With Flexbox Enabled ✨</h2>
+    
+    <div class="explanation">
+      Add <code>display: flex;</code> to the parent container, and <strong>BOOM</strong> - the items automatically arrange in a <strong>horizontal row</strong>!
+    </div>
+
+    <div class="container-flex">
+      <div class="item">Item 1</div>
+      <div class="item">Item 2</div>
+      <div class="item">Item 3</div>
+    </div>
+
+    <pre><code>&lt;div class="container-flex"&gt;
+  &lt;div class="item"&gt;Item 1&lt;/div&gt;
+  &lt;div class="item"&gt;Item 2&lt;/div&gt;
+  &lt;div class="item"&gt;Item 3&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <pre><code>.container-flex {
+  display: flex;  /* ← THE MAGIC LINE! */
+  border: 3px solid green;
+  padding: 10px;
+}
+
+.item {
+  padding: 20px;
+  margin: 5px;
+}</code></pre>
+
+    <div class="teaching-point">
+      <strong>🎓 Teaching Point:</strong><br>
+      ONE line of CSS (<code>display: flex;</code>) transforms the layout!<br>
+      Items that were stacking vertically now align horizontally in a row!
+    </div>
+  </div>
+
+  <!-- ========================================
+       SECTION 3: SIDE-BY-SIDE COMPARISON
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Example 3: Side-by-Side Comparison</h2>
+    
+    <div class="comparison">
+      <div>
+        <div class="label bad">❌ WITHOUT Flexbox</div>
+        <div class="container-default">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <p style="margin-top: 1rem;">Items stack <strong>vertically</strong> (default)</p>
+      </div>
+
+      <div>
+        <div class="label good">✅ WITH Flexbox</div>
+        <div class="container-flex">
+          <div class="item">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+        </div>
+        <p style="margin-top: 1rem;">Items align <strong>horizontally</strong> (flex)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================
+       SECTION 4: FLEXBOX TERMINOLOGY
+       ======================================== -->
+  <div class="demo-section">
+    <h2>Flexbox Terminology 📚</h2>
+    
+    <div class="explanation">
+      <strong>Flex Container:</strong> The parent element with <code>display: flex;</code><br>
+      <strong>Flex Items:</strong> The direct children of the flex container<br>
+      <strong>Main Axis:</strong> Primary direction items flow (horizontal by default)<br>
+      <strong>Cross Axis:</strong> Perpendicular direction (vertical by default)
+    </div>
+
+    <pre><code>┌─────────────────────────────────────────┐
+│  FLEX CONTAINER (parent)                │
+│                                         │
+│  ┌──────┐  ┌──────┐  ┌──────┐          │
+│  │Item 1│  │Item 2│  │Item 3│  ← FLEX ITEMS (children)
+│  └──────┘  └──────┘  └──────┘          │
+│                                         │
+│  ←────── MAIN AXIS ──────→              │
+│     (horizontal by default)             │
+│                                         │
+│  ↑                                      │
+│  │ CROSS AXIS                           │
+│  │ (vertical)                           │
+│  ↓                                      │
+└─────────────────────────────────────────┘</code></pre>
+  </div>
+
+  <!-- ========================================
+       SECTION 5: KEY TAKEAWAYS
+       ======================================== -->
+  <div class="demo-section" style="background-color: #e8f4f8;">
+    <h2>🎯 Key Takeaways</h2>
+    
+    <ul style="line-height: 2; margin-left: 2rem;">
+      <li><strong>display: flex;</strong> is the ONE line that enables Flexbox</li>
+      <li>Add it to the <strong>parent container</strong>, not the items</li>
+      <li>Items automatically change from <strong>vertical stack</strong> to <strong>horizontal row</strong></li>
+      <li>The parent becomes the <strong>flex container</strong></li>
+      <li>The children become <strong>flex items</strong></li>
+      <li>Default direction is <strong>horizontal</strong> (main axis)</li>
+    </ul>
+
+    <div class="teaching-point" style="margin-top: 1.5rem;">
+      <strong>🎓 For Instructor:</strong><br>
+      - Ask students: "What do you see without flexbox?"<br>
+      - Add display: flex live, ask: "What changed?"<br>
+      - Have students predict before revealing<br>
+      - Emphasize: ONE line changes everything!<br>
+      - Show in DevTools: inspect container, see "flex" badge
+    </div>
+  </div>
+
+  <!-- ========================================
+       SECTION 6: TRY IT YOURSELF
+       ======================================== -->
+  <div class="demo-section" style="background-color: #fff3e0;">
+    <h2>💻 Try It Yourself!</h2>
+    
+    <p><strong>Exercise:</strong></p>
+    <ol style="line-height: 2; margin-left: 2rem;">
+      <li>Open this file in VS Code</li>
+      <li>Find <code>.container-default</code> in the CSS</li>
+      <li>Add <code>display: flex;</code> to it</li>
+      <li>Save and refresh the browser</li>
+      <li>What happened? Items should now be horizontal!</li>
+      <li>Remove <code>display: flex;</code> and see the difference</li>
+    </ol>
+
+    <div class="note" style="margin-top: 1rem;">
+      <strong>Tip:</strong> Use Chrome DevTools (F12) to toggle <code>display: flex;</code> on and off live without editing code!
+    </div>
+  </div>
+
+  <!-- ========================================
+       INSTRUCTOR NOTES
+       ======================================== -->
+  <!--
+  TEACHING SEQUENCE:
+  1. Show Example 1 (default behavior) - ask students what they observe
+  2. Show Example 2 (with flexbox) - ask what changed
+  3. Emphasize: ONE LINE (display: flex;) did all this!
+  4. Draw the mental model on whiteboard (container + items + axes)
+  5. Show Example 3 (side-by-side) for visual impact
+  6. Review terminology
+  7. Have students try it themselves
+
+  STOP POINTS:
+  - After Example 1: "What do you see? Why are items vertical?"
+  - After Example 2: "What changed? What did display: flex do?"
+  - After terminology: "Can someone explain main axis vs cross axis?"
+
+  COMMON STRUGGLES:
+  - Forgetting to add display: flex to PARENT, not items
+  - Confusing which element is container vs item
+  - Solution: Always inspect in DevTools, look for "flex" badge
+
+  TRANSITION TO NEXT DEMO:
+  "Now that items are in a row, how do we control WHERE they sit?
+   That's what justify-content does - let's see it in action!"
+  -->
+
+</body>
+</html>

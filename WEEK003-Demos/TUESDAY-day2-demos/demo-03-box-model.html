@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Demo 03 - Box Model Interactive</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; max-width: 1000px; margin: 0 auto; }
+    h1 { text-align: center; color: #2c3e50; }
+    
+    .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+    
+    /* BAD: Default content-box */
+    .box-bad {
+      width: 200px;
+      padding: 20px;
+      border: 5px solid #e74c3c;
+      margin: 20px;
+      background: #ffe5e5;
+      box-sizing: content-box; /* DEFAULT */
+    }
+    
+    /* GOOD: border-box */
+    .box-good {
+      width: 200px;
+      padding: 20px;
+      border: 5px solid #27ae60;
+      margin: 20px;
+      background: #e8f5e9;
+      box-sizing: border-box; /* THE FIX! */
+    }
+    
+    .card { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
+    h3 { color: #2c3e50; margin-top: 0; }
+    pre { background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; overflow-x: auto; }
+    
+    /* Visual layers */
+    .layers {
+      padding: 30px; background: #fff3cd; border: 3px dashed #f39c12;
+    }
+    .layers > div { padding: 25px; background: #e3f2fd; border: 5px solid #3498db; }
+    .layers > div > div { padding: 20px; background: #f8f9fa; border: 2px solid #2c3e50; text-align: center; font-weight: bold; }
+    
+    table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    th, td { padding: 12px; text-align: left; border: 1px solid #ddd; }
+    th { background: #2c3e50; color: white; }
+    tr:nth-child(even) { background: #f8f9fa; }
+  </style>
+</head>
+<body>
+
+  <h1>🎁 The CSS Box Model</h1>
+
+  <div class="card">
+    <h3>Visual Layers (from outside in)</h3>
+    <div class="layers">
+      <strong>MARGIN</strong> (transparent, pushes elements away)
+      <div>
+        <strong>BORDER</strong> (visible edge)
+        <div>
+          <strong>PADDING</strong> (inside space, background shows)<br>
+          <strong>CONTENT</strong> (text, images)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class=" card">
+    <h3>⚠️ The Problem vs ✅ The Solution</h3>
+    <div class="comparison">
+      <div>
+        <h4 style="color: #e74c3c;">Default (content-box)</h4>
+        <div class="box-bad">
+          width: 200px<br>
+          Actual width: 250px!
+        </div>
+        <p>200 + (20×2) + (5×2) = 250px</p>
+        <p style="background: #ffe5e5; padding: 10px; border-radius: 4px;">
+          <strong>Problem:</strong> Width grows with padding/border!
+        </p>
+      </div>
+      <div>
+        <h4 style="color: #27ae60;">With border-box</h4>
+        <div class="box-good">
+          width: 200px<br>
+          Actual width: 200px!
+        </div>
+        <p>Padding/border included in width</p>
+        <p style="background: #e8f5e9; padding: 10px; border-radius: 4px;">
+          <strong>Solution:</strong> Width means TOTAL width!
+        </p>
+      </div>
+    </div>
+    <p style="background: #d5f4e6; padding: 15px; border-radius: 5px;">
+      <strong>👉 Inspect both boxes in DevTools to see the box model diagram!</strong>
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>🎯 Best Practice</h3>
+    <p>Add this to EVERY CSS file:</p>
+    <pre>* {
+  box-sizing: border-box;
+}</pre>
+    <p>This makes ALL elements use border-box. CSS becomes predictable!</p>
+  </div>
+
+  <div class="card">
+    <h3>📏 Shorthand Values</h3>
+    <table>
+      <tr><th>Values</th><th>Example</th><th>Meaning</th></tr>
+      <tr><td>One</td><td>padding: 20px;</td><td>All sides: 20px</td></tr>
+      <tr><td>Two</td><td>padding: 20px 40px;</td><td>Top/Bottom: 20px, Left/Right: 40px</td></tr>
+      <tr><td>Four</td><td>padding: 10px 20px 30px 40px;</td><td>Top, Right, Bottom, Left (TRouBLe!)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>🤔 Padding vs Margin</h3>
+    <table>
+      <tr><th></th><th>PADDING</th><th>MARGIN</th></tr>
+      <tr><td>Location</td><td>INSIDE element</td><td>OUTSIDE element</td></tr>
+      <tr><td>Background</td><td>Shows through</td><td>Transparent</td></tr>
+      <tr><td>Use for</td><td>Button inner space</td><td>Space between sections</td></tr>
+    </table>
+  </div>
+
+</body>
+</html>

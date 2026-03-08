@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 01 - CSS Basics: Three Ways to Add CSS</title>
+  
+  <!-- METHOD 2: INTERNAL CSS (inside <style> tag) -->
+  <style>
+    .internal-example {
+      color: green;
+      font-size: 20px;
+      padding: 15px;
+      background-color: #e8f5e9;
+      border-left: 4px solid green;
+      margin: 20px 0;
+    }
+  </style>
+  
+  <!-- METHOD 3: EXTERNAL CSS (best practice, but commented out for demo) -->
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body style="font-family: Arial, sans-serif; padding: 20px; max-width: 900px; margin: 0 auto;">
+  
+  <header style="background-color: #2c3e50; color: white; padding: 30px; text-align: center; border-radius: 8px; margin-bottom: 30px;">
+    <h1 style="margin: 0;">Three Ways to Add CSS</h1>
+    <p style="margin-top: 10px;">Understanding your options (and which to choose!)</p>
+  </header>
+
+  <main>
+    
+    <!-- METHOD 1: INLINE CSS -->
+    <section style="background-color: #fff3cd; padding: 20px; margin-bottom: 30px; border-radius: 8px; border-left: 4px solid #ff6b6b;">
+      <h2 style="color: #d63031; margin-top: 0;">❌ Method 1: Inline CSS (DON'T USE THIS)</h2>
+      
+      <p style="color: #d63031; font-size: 18px; font-weight: bold;">
+        This paragraph is styled with inline CSS
+      </p>
+      
+      <div style="background-color: white; padding: 15px; border-radius: 4px; margin: 15px 0;">
+        <strong>Code:</strong>
+        <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; margin: 10px 0;"><code>&lt;p style="color: #d63031; font-size: 18px; font-weight: bold;"&gt;
+  This paragraph is styled with inline CSS
+&lt;/p&gt;</code></pre>
+      </div>
+      
+      <h3 style="color: #d63031;">Problems with Inline CSS:</h3>
+      <ul style="line-height: 1.8;">
+        <li>❌ Mixes HTML structure with CSS presentation</li>
+        <li>❌ Not reusable (must copy-paste to every element)</li>
+        <li>❌ Hard to maintain (change 100 buttons? Edit 100 places!)</li>
+        <li>❌ Can't be cached by browser</li>
+        <li>❌ Highest specificity (overrides everything)</li>
+        <li>❌ Makes HTML messy and hard to read</li>
+      </ul>
+      
+      <p style="background-color: #ffe5e5; padding: 10px; border-radius: 4px; border-left: 3px solid #d63031; margin-top: 15px;">
+        <strong>When to use:</strong> NEVER in production code! (Only acceptable for quick email HTML)
+      </p>
+    </section>
+
+    <!-- METHOD 2: INTERNAL CSS -->
+    <section style="background-color: #fff8e1; padding: 20px; margin-bottom: 30px; border-radius: 8px; border-left: 4px solid #f39c12;">
+      <h2 style="color: #f39c12; margin-top: 0;">⚠️ Method 2: Internal CSS (OK for Small Projects)</h2>
+      
+      <p class="internal-example">
+        This paragraph is styled with INTERNAL CSS (in the &lt;style&gt; tag in the &lt;head&gt;)
+      </p>
+      
+      <div style="background-color: white; padding: 15px; border-radius: 4px; margin: 15px 0;">
+        <strong>Code in &lt;head&gt; section:</strong>
+        <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; margin: 10px 0;"><code>&lt;head&gt;
+  &lt;style&gt;
+    .internal-example {
+      color: green;
+      font-size: 20px;
+      padding: 15px;
+      background-color: #e8f5e9;
+      border-left: 4px solid green;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;</code></pre>
+        
+        <strong>Code in &lt;body&gt; section:</strong>
+        <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; margin-top: 10px;"><code>&lt;p class="internal-example"&gt;
+  This paragraph is styled with INTERNAL CSS
+&lt;/p&gt;</code></pre>
+      </div>
+      
+      <h3 style="color: #f39c12;">Pros of Internal CSS:</h3>
+      <ul style="line-height: 1.8;">
+        <li>✅ Separates CSS from HTML structure</li>
+        <li>✅ Reusable within the same page</li>
+        <li>✅ Better than inline CSS</li>
+        <li>✅ All styles in one file (single HTML file)</li>
+      </ul>
+      
+      <h3 style="color: #f39c12;">Cons of Internal CSS:</h3>
+      <ul style="line-height: 1.8;">
+        <li>⚠️ Can't be reused across multiple pages</li>
+        <li>⚠️ Page loads slower (CSS not cached)</li>
+        <li>⚠️ Hard to maintain large websites</li>
+      </ul>
+      
+      <p style="background-color: #fff9e6; padding: 10px; border-radius: 4px; border-left: 3px solid #f39c12; margin-top: 15px;">
+        <strong>When to use:</strong> Single-page projects, quick prototypes, or email templates
+      </p>
+    </section>
+
+    <!-- METHOD 3: EXTERNAL CSS -->
+    <section style="background-color: #e8f5e9; padding: 20px; margin-bottom: 30px; border-radius: 8px; border-left: 4px solid #27ae60;">
+      <h2 style="color: #27ae60; margin-top: 0;">✅ Method 3: External CSS (BEST PRACTICE)</h2>
+      
+      <div style="background-color: white; padding: 20px; border-radius: 4px; border: 2px solid #27ae60;">
+        <h3 style="margin-top: 0;">How External CSS Works:</h3>
+        
+        <p><strong>1. Create separate CSS file (styles.css):</strong></p>
+        <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; margin: 10px 0;"><code>/* styles.css */
+.button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}</code></pre>
+        
+        <p style="margin-top: 20px;"><strong>2. Link CSS file in HTML &lt;head&gt;:</strong></p>
+        <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; margin: 10px 0;"><code>&lt;head&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;</code></pre>
+        
+        <p style="margin-top: 20px;"><strong>3. Use classes in HTML:</strong></p>
+        <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; margin: 10px 0;"><code>&lt;button class="button"&gt;Click Me&lt;/button&gt;
+&lt;button class="button"&gt;Another Button&lt;/button&gt;</code></pre>
+      </div>
+      
+      <h3 style="color: #27ae60; margin-top: 20px;">✅ Why External CSS is Best:</h3>
+      <ul style="line-height: 1.8;">
+        <li>✅ <strong>Reusable:</strong> One CSS file styles entire website</li>
+        <li>✅ <strong>Maintainable:</strong> Change one line, update everywhere</li>
+        <li>✅ <strong>Performance:</strong> Browser caches CSS file</li>
+        <li>✅ <strong>Organized:</strong> Separation of concerns (HTML structure, CSS presentation)</li>
+        <li>✅ <strong>Scalable:</strong> Easy to add new styles</li>
+        <li>✅ <strong>Collaborative:</strong> Designers work on CSS, developers on HTML</li>
+        <li>✅ <strong>Professional:</strong> Industry standard</li>
+      </ul>
+      
+      <p style="background-color: #d5f4e6; padding: 15px; border-radius: 4px; border-left: 3px solid #27ae60; margin-top: 15px; font-weight: bold; font-size: 18px;">
+        🎯 ALWAYS USE EXTERNAL CSS for real projects!
+      </p>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section style="background-color: #f8f9fa; padding: 20px; border-radius: 8px;">
+      <h2 style="color: #2c3e50; text-align: center;">📊 Quick Comparison</h2>
+      
+      <table style="width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white;">
+        <thead>
+          <tr style="background-color: #2c3e50; color: white;">
+            <th style="padding: 15px; text-align: left; border: 1px solid #ddd;">Method</th>
+            <th style="padding: 15px; text-align: left; border: 1px solid #ddd;">Syntax</th>
+            <th style="padding: 15px; text-align: left; border: 1px solid #ddd;">Reusable?</th>
+            <th style="padding: 15px; text-align: center; border: 1px solid #ddd;">Recommendation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 15px; border: 1px solid #ddd;"><strong>Inline</strong></td>
+            <td style="padding: 15px; border: 1px solid #ddd;"><code>style="..."</code></td>
+            <td style="padding: 15px; border: 1px solid #ddd;">❌ No</td>
+            <td style="padding: 15px; text-align: center; border: 1px solid #ddd;"><span style="background-color: #ffe5e5; color: #d63031; padding: 5px 10px; border-radius: 4px;">❌ Avoid</span></td>
+          </tr>
+          <tr style="background-color: #f8f9fa;">
+            <td style="padding: 15px; border: 1px solid #ddd;"><strong>Internal</strong></td>
+            <td style="padding: 15px; border: 1px solid #ddd;"><code>&lt;style&gt;</code> in <code>&lt;head&gt;</code></td>
+            <td style="padding: 15px; border: 1px solid #ddd;">⚠️ Same page only</td>
+            <td style="padding: 15px; text-align: center; border: 1px solid #ddd;"><span style="background-color: #fff9e6; color: #f39c12; padding: 5px 10px; border-radius: 4px;">⚠️ Sometimes</span></td>
+          </tr>
+          <tr>
+            <td style="padding: 15px; border: 1px solid #ddd;"><strong>External</strong></td>
+            <td style="padding: 15px; border: 1px solid #ddd;"><code>&lt;link rel="stylesheet"&gt;</code></td>
+            <td style="padding: 15px; border: 1px solid #ddd;">✅ Entire website</td>
+            <td style="padding: 15px; text-align: center; border: 1px solid #ddd;"><span style="background-color: #d5f4e6; color: #27ae60; padding: 5px 10px; border-radius: 4px; font-weight: bold;">✅ BEST</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer style="margin-top: 40px; padding: 20px; background-color: #34495e; color: white; text-align: center; border-radius: 8px;">
+    <p style="margin: 0;">🎨 <strong>Key Takeaway:</strong> Always use External CSS for professional projects!</p>
+    <p style="margin-top: 10px; font-size: 14px; opacity: 0.8;">Separation of concerns = Clean, maintainable code</p>
+  </footer>
+
+</body>
+</html>
+
+<!-- 
+INSTRUCTOR NOTES:
+
+TEACHING POINTS:
+1. Show this page first - demonstrates all three methods IN ONE PAGE
+2. Point out the irony: This demo uses inline/internal CSS to TEACH why NOT to use them!
+3. Ask: "Why is this entire page hard to read in the code?" (Too much inline CSS!)
+4. Open DevTools, show how messy the HTML looks
+5. Emphasize: "Imagine changing the color scheme - you'd have to edit EVERY element!"
+
+DEMO STEPS:
+1. Show the page in browser
+2. Open source code in VS Code
+3. Point out inline styles everywhere (messy!)
+4. Show <style> section in <head>
+5. Explain external CSS linking
+6. Ask: "Which method keeps HTML clean and readable?" (External!)
+
+STOP POINTS FOR QUESTIONS:
+- After explaining each method
+- After showing comparison table
+- "Any questions before we move to live coding with external CSS?"
+
+TRANSITION TO NEXT DEMO:
+"Now that you know external CSS is best, let's create an actual external CSS file and learn selectors!"
+-->

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 02 - CSS Selectors & Specificity</title>
+  <link rel="stylesheet" href="demo-02-styles.css">
+</head>
+<body>
+  
+  <header id="main-header">
+    <h1>CSS Selectors Playground</h1>
+    <p class="tagline">Understanding how to target HTML elements</p>
+  </header>
+
+  <main>
+    
+    <section class="demo-section">
+      <h2>Element Selectors</h2>
+      <p>All paragraphs styled with: p { }</p>
+      <a href="#">All links styled with: a { }</a>
+    </section>
+
+    <section class="demo-section highlight">
+      <h2>Class Selectors (Most Common!)</h2>
+      <p class="intro">Styled with .intro { }</p>
+      <p class="warning">Styled with .warning { }</p>
+      <button class="btn">Button 1</button>
+      <button class="btn btn-primary">Primary (multiple classes)</button>
+    </section>
+
+    <section class="demo-section" id="unique-section">
+      <h2>ID Selectors (Use for JS, not styling)</h2>
+      <p id="special">This has ID #special - unique on page!</p>
+    </section>
+
+    <section class="demo-section">
+      <h2>Descendant Selectors</h2>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <p>Notice nav links look different? That's: nav a { }</p>
+    </section>
+
+    <section class="demo-section">
+      <h2>Specificity Battle</h2>
+      <p class="intro" id="test">What color am I?</p>
+      <ul>
+        <li>p { color: blue; } → Specificity: 1</li>
+        <li>.intro { color: green; } → Specificity: 10</li>
+        <li>#test { color: red; } → Specificity: 100 (WINS!)</li>
+      </ul>
+    </section>
+
+  </main>
+
+</body>
+</html>

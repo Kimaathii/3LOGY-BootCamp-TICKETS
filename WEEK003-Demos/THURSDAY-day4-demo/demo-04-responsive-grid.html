@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 04 - Responsive Card Grid</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* MOBILE-FIRST GRID LAYOUT */
+    .card-grid {
+      display: grid;
+      gap: 20px;
+      /* Mobile: 1 column by default */
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card-content h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+
+    .card-content p {
+      color: #7f8c8d;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .tag {
+      background: #ecf0f1;
+      color: #34495e;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .card-footer {
+      padding: 15px 20px;
+      background: #f8f9fa;
+      border-top: 1px solid #ecf0f1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #764ba2;
+    }
+
+    .info-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .info-box h2 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+
+    .code-block {
+      background: #2c3e50;
+      color: #2ecc71;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+    }
+
+    .highlight {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 15px 0;
+    }
+
+    /* TABLET: 2 columns */
+    @media (min-width: 600px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+      }
+
+      .header h1 {
+        font-size: 3rem;
+      }
+    }
+
+    /* DESKTOP: 3 columns */
+    @media (min-width: 900px) {
+      .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+    }
+
+    /* LARGE DESKTOP: 4 columns */
+    @media (min-width: 1200px) {
+      .card-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .card-image {
+        height: 220px;
+      }
+    }
+
+    /* EXTRA LARGE: 5 columns */
+    @media (min-width: 1600px) {
+      .card-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="header">
+    <h1>Responsive Card Grid</h1>
+    <p>Resize your browser to see the grid adapt!</p>
+  </div>
+
+  <div class="container">
+    
+    <div class="info-box">
+      <h2>📐 How This Grid Works</h2>
+      <p>This uses <strong>CSS Grid</strong> with mobile-first responsive design. The number of columns changes based on screen width:</p>
+      
+      <ul style="margin: 15px 0; line-height: 2;">
+        <li>📱 <strong>Mobile (&lt;600px):</strong> 1 column</li>
+        <li>📱 <strong>Tablet (600-899px):</strong> 2 columns</li>
+        <li>💻 <strong>Desktop (900-1199px):</strong> 3 columns</li>
+        <li>🖥️ <strong>Large (1200-1599px):</strong> 4 columns</li>
+        <li>🖥️ <strong>Extra Large (1600px+):</strong> 5 columns</li>
+      </ul>
+
+      <div class="highlight">
+        <strong>💡 Pro Tip:</strong> CSS Grid is perfect for card layouts because it automatically handles alignment and spacing, even when cards have different heights!
+      </div>
+
+      <div class="code-block">
+/* Mobile-first grid */
+.card-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;  /* 1 column */
+}
+
+/* Tablet and up */
+@media (min-width: 600px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);  /* 2 columns */
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 900px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);  /* 3 columns */
+  }
+}
+      </div>
+    </div>
+
+    <div class="card-grid">
+      
+      <div class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          🚀
+        </div>
+        <div class="card-content">
+          <h3>E-commerce Site</h3>
+          <p>Full-stack online shopping platform with payment integration and admin dashboard.</p>
+          <div class="card-tags">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">MongoDB</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: #7f8c8d;">Mar 2026</span>
+          <button class="btn">View Project</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+          🎨
+        </div>
+        <div class="card-content">
+          <h3>Portfolio Website</h3>
+          <p>Responsive portfolio showcasing projects with smooth animations and dark mode.</p>
+          <div class="card-tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: #7f8c8d;">Feb 2026</span>
+          <button class="btn">View Project</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+          📱
+        </div>
+        <div class="card-content">
+          <h3>Weather App</h3>
+          <p>Real-time weather forecasts using OpenWeather API with geolocation support.</p>
+          <div class="card-tags">
+            <span class="tag">Vue.js</span>
+            <span class="tag">API</span>
+            <span class="tag">PWA</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: #7f8c8d;">Jan 2026</span>
+          <button class="btn">View Project</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+          💬
+        </div>
+        <div class="card-content">
+          <h3>Chat Application</h3>
+          <p>Real-time messaging app with WebSocket connections and user authentication.</p>
+          <div class="card-tags">
+            <span class="tag">Socket.io</span>
+            <span class="tag">Express</span>
+            <span class="tag">JWT</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: #7f8c8d;">Dec 2025</span>
+          <button class="btn">View Project</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+          📊
+        </div>
+        <div class="card-content">
+          <h3>Analytics Dashboard</h3>
+          <p>Interactive data visualization dashboard with charts and real-time updates.</p>
+          <div class="card-tags">
+            <span class="tag">D3.js</span>
+            <span class="tag">React</span>
+            <span class="tag">Redux</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: #7f8c8d;">Nov 2025</span>
+          <button class="btn">View Project</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+          🎮
+        </div>
+        <div class="card-content">
+          <h3>Browser Game</h3>
+          <p>Interactive puzzle game with levels, scoring system, and leaderboard.</p>
+          <div class="card-tags">
+            <span class="tag">Canvas</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">LocalStorage</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: #7f8c8d;">Oct 2025</span>
+          <button class="btn">View Project</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+          📝
+        </div>
+        <div class="card-content">
+          <h3>Blog Platform</h3>
+          <p>Markdown-based blogging platform with commenting and search functionality.</p>
+          <div class="card-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">Markdown</span>
+            <span class="tag">SEO</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: #7f8c8d;">Sep 2025</span>
+          <button class="btn">View Project</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+          🛒
+        </div>
+        <div class="card-content">
+          <h3>Task Manager</h3>
+          <p>Kanban-style task management app with drag-and-drop and categories.</p>
+          <div class="card-tags">
+            <span class="tag">React</span>
+            <span class="tag">DnD</span>
+            <span class="tag">Firebase</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span style="color: #7f8c8d;">Aug 2025</span>
+          <button class="btn">View Project</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- INSTRUCTOR NOTES:
+    Key Teaching Points:
+    1. CSS Grid is ideal for card/tile layouts
+    2. repeat() function creates multiple columns
+    3. gap property adds spacing (replaces margin hacks)
+    4. Grid automatically handles alignment
+    5. Cards with different heights align properly
+    
+    CSS Grid vs Flexbox:
+    - Grid: 2D layouts (rows AND columns)
+    - Flexbox: 1D layouts (row OR column)
+    - Both are useful, not either/or
+    
+    Demo Flow:
+    1. Show on mobile (1 column)
+    2. Resize to tablet (watch 2 columns appear)
+    3. Resize to desktop (3 columns)
+    4. Show extra large (4-5 columns)
+    5. Open DevTools, show grid overlay
+    
+    Advanced Techniques (mention but don't teach yet):
+    - auto-fit and auto-fill
+    - minmax() for flexible sizing
+    - grid-template-areas for complex layouts
+    
+    Common Student Questions:
+    Q: "Grid or Flexbox?" → Grid for 2D, Flexbox for 1D
+    Q: "How many breakpoints?" → As few as needed (3-4 typical)
+    Q: "Equal height cards?" → Grid does this automatically!
+    Q: "Gaps on edges?" → No, gap is between items only
+  -->
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    DEMO 03: Complete Portfolio Page Example
+    
+    INSTRUCTOR: Type this LIVE with students!
+    Don't just show the completed version.
+    Stop after each section to explain.
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="John Doe's portfolio - Full-stack web developer showcasing projects and skills">
+  <title>John Doe - Web Developer</title>
+</head>
+<body>
+  
+  <!-- 
+    HEADER: Top of page
+    Contains site branding and main navigation
+  -->
+  <header>
+    <h1>John Doe</h1>
+    <p>Full-Stack Web Developer</p>
+    
+    <!-- 
+      NAV: Navigation links
+      ul > li structure is semantic for lists
+    -->
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!--
+    MAIN: Primary content area
+    Only ONE <main> per page!
+  -->
+  <main>
+    
+    <!-- 
+      SECTION: About Me
+      Thematic grouping of related content
+      ID allows anchor linking (#about)
+    -->
+    <section id="about">
+      <h2>About Me</h2>
+      <!-- 
+        IMG: Always include alt text for accessibility
+        Describe the image for screen reader users
+      -->
+      <img src="profile.jpg" alt="John Doe smiling at a coffee shop with laptop">
+      <p>
+        Hi! I'm John, a passionate web developer learning full-stack 
+        development at DevHub Bootcamp. I love solving problems with code 
+        and building solutions that help people.
+      </p>
+      <p>
+        My background is in marketing, but I decided to pursue my dream 
+        of becoming a software developer. I'm excited about creating 
+        modern, accessible web applications.
+      </p>
+    </section>
+
+    <!-- 
+      SECTION: Projects
+      Another thematic grouping
+    -->
+    <section id="projects">
+      <h2>My Projects</h2>
+      
+      <!-- 
+        ARTICLE: Self-contained content
+        Could be distributed independently
+        Perfect for blog posts, project cards
+      -->
+      <article>
+        <!-- H3 because we're inside H2 section -->
+        <h3>Number Guessing Game</h3>
+        <p>
+          An interactive browser game built with vanilla JavaScript. 
+          Try to guess the secret number with helpful hints!
+        </p>
+        <ul>
+          <li>JavaScript ES6+ logic</li>
+          <li>DOM manipulation</li>
+          <li>User input validation</li>
+        </ul>
+        <a href="projects/guessing-game.html">View Project</a>
+      </article>
+
+      <article>
+        <h3>Task Manager App</h3>
+        <p>
+          A productivity application to organize daily tasks with 
+          categories, due dates, and priority levels.
+        </p>
+        <ul>
+          <li>LocalStorage persistence</li>
+          <li>Responsive design</li>
+          <li>Filter and sort features</li>
+        </ul>
+        <a href="projects/task-manager.html">View Project</a>
+      </article>
+
+      <article>
+        <h3>Weather Dashboard</h3>
+        <p>
+          Real-time weather application using OpenWeather API. 
+          Search any city to see current conditions and forecast.
+        </p>
+        <ul>
+          <li>API integration</li>
+          <li>Asynchronous JavaScript</li>
+          <li>Dynamic UI updates</li>
+        </ul>
+        <a href="projects/weather-app.html">View Project</a>
+      </article>
+    </section>
+
+    <!-- 
+      SECTION: Contact Form
+      Demonstrates accessible form structure
+    -->
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <p>Let's build something amazing together! Send me a message.</p>
+      
+      <!-- 
+        FORM: Interactive user input
+        action="/submit" (where form data goes)
+        method="POST" (how data is sent)
+      -->
+      <form action="/submit" method="POST">
+        
+        <!-- 
+          LABEL + INPUT pattern:
+          - 'for' attribute MUST match input 'id'
+          - Clicking label focuses input (accessibility)
+          - Screen readers announce label when focused
+        -->
+        <label for="name">Your Name:</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          placeholder="John Smith"
+          required
+        >
+        
+        <label for="email">Your Email:</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="john@example.com"
+          required
+        >
+        <!-- 
+          type="email" provides:
+          - Browser validation (checks for @)
+          - Mobile keyboard shows @ symbol
+        -->
+        
+        <label for="message">Message:</label>
+        <textarea 
+          id="message" 
+          name="message" 
+          rows="5" 
+          placeholder="Tell me about your project..."
+          required
+        ></textarea>
+        
+        <!-- 
+          BUTTON: type="submit" triggers form submission
+          required attribute makes field mandatory
+        -->
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- 
+    FOOTER: Bottom of page
+    Typically contains copyright, links, contact info
+  -->
+  <footer>
+    <p>&copy; 2024 John Doe. All rights reserved.</p>
+    
+    <!-- 
+      Second NAV: Social media links
+      aria-label distinguishes from main nav
+      Helps screen reader users understand context
+    -->
+    <nav aria-label="Social Media">
+      <a href="https://github.com/johndoe" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/johndoe" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://twitter.com/johndoe" target="_blank" rel="noopener">Twitter</a>
+      <a href="mailto:john@example.com">Email</a>
+    </nav>
+    <!-- 
+      target="_blank" opens in new tab
+      rel="noopener" is security best practice
+    -->
+  </footer>
+
+</body>
+</html>
+
+<!-- 
+  INSTRUCTOR TEACHING POINTS:
+
+  As you type this live:
+
+  1. Explain DOCTYPE and html lang
+  2. Walk through <head> metadata importance
+  3. Show semantic structure (header/main/footer)
+  4. Emphasize ONE H1, ONE main per page
+  5. Demonstrate section vs article difference
+  6. Show label/input connection (click label!)
+  7. Open in browser multiple times as you build
+  8. Use Live Server for instant updates
+  9. View Source to see clean structure
+  10. Test Tab navigation (keyboard accessibility)
+
+  STOP POINTS:
+  - After <head>: "Questions so far?"
+  - After <header>: "Why use nav instead of div?"
+  - After each <section>: "What would you put here?"
+  - After <form>: "Try submitting without filling it out"
+  - After <footer>: "Let's validate this together!"
+
+  FINAL DEMO:
+  - Go to https://validator.w3.org/
+  - Validate this page
+  - Show it passes (no errors)
+  - Ask: "What makes this valid HTML?"
+-->

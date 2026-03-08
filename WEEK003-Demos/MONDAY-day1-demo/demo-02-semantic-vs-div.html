@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Div Soup vs Semantic HTML</title>
+  <style>
+    /* Basic styling to see structure */
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .comparison {
+      display: flex;
+      gap: 40px;
+      margin: 40px 0;
+    }
+    
+    .example {
+      flex: 1;
+      border: 2px solid #ccc;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    .bad {
+      border-color: #e74c3c;
+      background-color: #ffe6e6;
+    }
+    
+    .good {
+      border-color: #27ae60;
+      background-color: #e6ffe6;
+    }
+    
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 14px;
+    }
+    
+    h2 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  
+  <h1>Comparison: Div Soup vs Semantic HTML</h1>
+  <p><strong>Instructor:</strong> Show both examples side-by-side. Ask students which is clearer.</p>
+
+  <div class="comparison">
+    <!-- BAD EXAMPLE: Div Soup -->
+    <div class="example bad">
+      <h2>❌ Div Soup (Bad Practice)</h2>
+      <pre>&lt;div class="header"&gt;
+  &lt;div class="title"&gt;My Website&lt;/div&gt;
+  &lt;div class="nav"&gt;
+    &lt;div class="menu-item"&gt;Home&lt;/div&gt;
+    &lt;div class="menu-item"&gt;About&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="main-content"&gt;
+  &lt;div class="article"&gt;
+    &lt;div class="article-title"&gt;Welcome&lt;/div&gt;
+    &lt;div class="article-text"&gt;Content here&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="footer"&gt;
+  &lt;div class="copyright"&gt;© 2024&lt;/div&gt;
+&lt;/div&gt;</pre>
+      
+      <h3>Problems:</h3>
+      <ul>
+        <li>❌ No semantic meaning</li>
+        <li>❌ Screen readers can't navigate well</li>
+        <li>❌ Poor SEO (search engines confused)</li>
+        <li>❌ Relies on class names (can change)</li>
+        <li>❌ Not self-documenting</li>
+      </ul>
+    </div>
+
+    <!-- GOOD EXAMPLE: Semantic HTML -->
+    <div class="example good">
+      <h2>✅ Semantic HTML (Best Practice)</h2>
+      <pre>&lt;header&gt;
+  &lt;h1&gt;My Website&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;article&gt;
+    &lt;h2&gt;Welcome&lt;/h2&gt;
+    &lt;p&gt;Content here&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;&copy; 2024&lt;/p&gt;
+&lt;/footer&gt;</pre>
+      
+      <h3>Benefits:</h3>
+      <ul>
+        <li>✅ Clear semantic meaning</li>
+        <li>✅ Screen readers navigate easily</li>
+        <li>✅ Better SEO (search engines understand)</li>
+        <li>✅ Self-documenting code</li>
+        <li>✅ Accessibility built-in</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="background: #fff3cd; padding: 20px; border-radius: 8px; border-left: 4px solid #ffc107;">
+    <h2>💡 Teaching Point</h2>
+    <p><strong>Ask students:</strong> "If you opened this code in 6 months, which version would be easier to understand?"</p>
+    <p><strong>Emphasize:</strong> Semantic HTML is like writing with proper nouns instead of just "thing" - it's clear what everything is!</p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Examples - Good vs Bad</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .example {
+      margin: 30px 0;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    .bad {
+      background: #ffe6e6;
+      border-left: 4px solid #e74c3c;
+    }
+    
+    .good {
+      background: #e6ffe6;
+      border-left: 4px solid #27ae60;
+    }
+    
+    .demo {
+      background: #f4f4f4;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+    
+    pre {
+      background: #fff;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  
+  <h1>Accessibility Examples: Good vs Bad Practices</h1>
+  <p><strong>Instructor:</strong> Demonstrate each example. Use Tab key to navigate, show focus states.</p>
+
+  <!-- Example 1: Alt Text -->
+  <section>
+    <h2>1. Image Alt Text</h2>
+    
+    <div class="example bad">
+      <h3>❌ Bad: Missing or useless alt text</h3>
+      <pre>&lt;img src="sunset.jpg"&gt;
+&lt;img src="graph.jpg" alt="image"&gt;
+&lt;img src="profile.jpg" alt="picture of me"&gt;</pre>
+      <div class="demo">
+        <img src="https://via.placeholder.com/200x150" alt="">
+        <p><strong>Problem:</strong> Screen reader says nothing or generic "image"</p>
+      </div>
+    </div>
+    
+    <div class="example good">
+      <h3>✅ Good: Descriptive alt text</h3>
+      <pre>&lt;img src="sunset.jpg" alt="Golden sunset over mountain range with purple sky"&gt;
+&lt;img src="graph.jpg" alt="Bar chart showing 50% increase in sales from 2023 to 2024"&gt;
+&lt;img src="profile.jpg" alt="Jane Smith, web developer, smiling in office"&gt;</pre>
+      <div class="demo">
+        <img src="https://via.placeholder.com/200x150" alt="Placeholder image showing gray rectangle with dimensions 200x150">
+        <p><strong>Tip:</strong> Describe what's in the image concisely</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example 2: Form Labels -->
+  <section>
+    <h2>2. Form Labels</h2>
+    
+    <div class="example bad">
+      <h3>❌ Bad: Missing labels or placeholder-only</h3>
+      <pre>&lt;input type="text" placeholder="Enter your name"&gt;</pre>
+      <div class="demo">
+        <input type="text" placeholder="Enter your name">
+        <ul>
+          <li>❌ Placeholder disappears when typing</li>
+          <li>❌ Screen reader doesn't know purpose</li>
+          <li>❌ Can't click to focus</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="example good">
+      <h3>✅ Good: Proper label with for attribute</h3>
+      <pre>&lt;label for="username"&gt;Name:&lt;/label&gt;
+&lt;input type="text" id="username" name="username" placeholder="John Doe"&gt;</pre>
+      <div class="demo">
+        <label for="username">Name:</label>
+        <input type="text" id="username" name="username" placeholder="John Doe">
+        <ul>
+          <li>✅ Label always visible</li>
+          <li>✅ Click label to focus input</li>
+          <li>✅ Screen reader announces "Name, edit text"</li>
+        </ul>
+        <p><strong>Try it:</strong> Click the "Name:" label above!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example 3: Heading Hierarchy -->
+  <section>
+    <h2>3. Heading Hierarchy</h2>
+    
+    <div class="example bad">
+      <h3>❌ Bad: Skipping levels or using for styling</h3>
+      <pre>&lt;h1&gt;Page Title&lt;/h1&gt;
+&lt;h3&gt;Subsection&lt;/h3&gt;  &lt;!-- Skipped H2! --&gt;
+&lt;h5&gt;Bold text&lt;/h5&gt;    &lt;!-- Used for styling, not structure --&gt;</pre>
+      <div class="demo">
+        <p><strong>Problems:</strong></p>
+        <ul>
+          <li>❌ Confuses screen reader navigation</li>
+          <li>❌ Breaks document outline</li>
+          <li>❌ Poor SEO</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="example good">
+      <h3>✅ Good: Logical nesting</h3>
+      <pre>&lt;h1&gt;Page Title&lt;/h1&gt;
+  &lt;h2&gt;Section 1&lt;/h2&gt;
+    &lt;h3&gt;Subsection 1.1&lt;/h3&gt;
+    &lt;h3&gt;Subsection 1.2&lt;/h3&gt;
+  &lt;h2&gt;Section 2&lt;/h2&gt;</pre>
+      <div class="demo">
+        <p><strong>Benefits:</strong></p>
+        <ul>
+          <li>✅ Clear document outline</li>
+          <li>✅ Screen readers can jump between headings</li>
+          <li>✅ Better SEO</li>
+        </ul>
+        <p><strong>Rule:</strong> Only ONE H1 per page, don't skip levels</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example 4: Keyboard Navigation -->
+  <section>
+    <h2>4. Keyboard Navigation</h2>
+    
+    <div class="example bad">
+      <h3>❌ Bad: Removed focus outline</h3>
+      <pre>&lt;style&gt;
+  *:focus { outline: none; }
+&lt;/style&gt;
+
+&lt;a href="#"&gt;Link with no focus indicator&lt;/a&gt;</pre>
+      <div class="demo">
+        <p>
+          <a href="#" style="outline: none;">Link with no focus (try Tab key)</a>
+        </p>
+        <p><strong>Problem:</strong> Keyboard users can't see where they are!</p>
+      </div>
+    </div>
+    
+    <div class="example good">
+      <h3>✅ Good: Visible focus indicator</h3>
+      <pre>&lt;style&gt;
+  a:focus {
+    outline: 3px solid #007acc;
+    outline-offset: 2px;
+  }
+&lt;/style&gt;
+
+&lt;a href="#"&gt;Link with clear focus indicator&lt;/a&gt;</pre>
+      <div class="demo">
+        <p>
+          <a href="#" style="outline: 3px solid #007acc; outline-offset: 2px;">Link with visible focus (try Tab key)</a>
+        </p>
+        <p><strong>Try:</strong> Tab to this link and see the blue outline!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example 5: Color Contrast -->
+  <section>
+    <h2>5. Color Contrast</h2>
+    
+    <div class="example bad">
+      <h3>❌ Bad: Low contrast (fails WCAG)</h3>
+      <pre>&lt;p style="color: #ccc; background: #fff;"&gt;
+  Light gray text on white background
+&lt;/p&gt;</pre>
+      <div class="demo">
+        <p style="color: #ccc; background: #fff;">
+          This text is hard to read (1.6:1 contrast ratio)
+        </p>
+        <p><strong>Problems:</strong></p>
+        <ul>
+          <li>❌ Hard to read for everyone</li>
+          <li>❌ Impossible with low vision</li>
+          <li>❌ Fails WCAG AA standard (needs 4.5:1)</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="example good">
+      <h3>✅ Good: High contrast (passes WCAG AA)</h3>
+      <pre>&lt;p style="color: #333; background: #fff;"&gt;
+  Dark gray text on white background
+&lt;/p&gt;</pre>
+      <div class="demo">
+        <p style="color: #333; background: #fff;">
+          This text is easy to read (12.6:1 contrast ratio)
+        </p>
+        <p><strong>Benefits:</strong></p>
+        <ul>
+          <li>✅ Easy to read for everyone</li>
+          <li>✅ Works in bright sunlight</li>
+          <li>✅ Passes WCAG AA and AAA</li>
+        </ul>
+        <p><strong>Tool:</strong> Chrome DevTools > Inspect > Accessibility tab</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Example 6: ARIA Labels -->
+  <section>
+    <h2>6. ARIA Labels</h2>
+    
+    <div class="example bad">
+      <h3>❌ Bad: Icon button with no label</h3>
+      <pre>&lt;button&gt;×&lt;/button&gt;</pre>
+      <div class="demo">
+        <button>×</button>
+        <p><strong>Problem:</strong> Screen reader says "times button" - not helpful!</p>
+      </div>
+    </div>
+    
+    <div class="example good">
+      <h3>✅ Good: ARIA label describes purpose</h3>
+      <pre>&lt;button aria-label="Close modal"&gt;×&lt;/button&gt;</pre>
+      <div class="demo">
+        <button aria-label="Close modal">×</button>
+        <p><strong>Benefit:</strong> Screen reader says "Close modal button" - clear!</p>
+      </div>
+    </div>
+
+    <div class="example good">
+      <h3>✅ Best: Use semantic HTML first</h3>
+      <pre>&lt;button&gt;
+  &lt;span aria-hidden="true"&gt;×&lt;/span&gt;
+  Close
+&lt;/button&gt;</pre>
+      <div class="demo">
+        <button>
+          <span aria-hidden="true">×</span>
+          Close
+        </button>
+        <p><strong>Best:</strong> Visible text is better than ARIA when possible</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keyboard Navigation Demo -->
+  <section style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-top: 40px;">
+    <h2>🎯 Interactive Demo: Tab Navigation</h2>
+    <p><strong>Instructor:</strong> Close your eyes and navigate this page using only Tab key!</p>
+    
+    <p>Try tabbing through these interactive elements:</p>
+    <a href="#section1">Link 1</a> |
+    <a href="#section2">Link 2</a> |
+    <button>Button 1</button> |
+    <button>Button 2</button>
+    
+    <p>
+      <label for="demo-input">Try clicking this label:</label>
+      <input type="text" id="demo-input" placeholder="See how it focuses?">
+    </p>
+    
+    <p><strong>Teaching Points:</strong></p>
+    <ul>
+      <li>Tab moves forward, Shift+Tab moves backward</li>
+      <li>Enter activates links and buttons</li>
+      <li>Focus must be visible (don't remove outlines!)</li>
+      <li>Logical tab order (top to bottom, left to right)</li>
+    </ul>
+  </section>
+
+</body>
+</html>
+
+<!--
+  INSTRUCTOR NOTES:
+
+  LIVE DEMONSTRATION IDEAS:
+
+  1. Screen Reader Demo (if available):
+     - Turn on screen reader (VoiceOver on Mac, NVDA on Windows)
+     - Navigate through bad examples (confusing)
+     - Navigate through good examples (clear)
+     - Show how headings create navigation menu
+
+  2. Keyboard Navigation Demo:
+     - Close eyes (or have student close eyes)
+     - Navigate with Tab key only
+     - Try to use form without labels
+     - Show frustration of removed focus outlines
+
+  3. Color Contrast Demo:
+     - Show page in bright sunlight (phone screen)
+     - Or squint eyes to simulate low vision
+     - Low contrast is impossible to read
+
+  4. Validator Demo:
+     - Run this page through W3C validator
+     - Show it passes
+     - Remove a closing tag and show error
+     - Fix and re-validate
+
+  DISCUSSION POINTS:
+
+  - "How many of you have broken an arm?" (temporary disability)
+  - "Ever try to read phone in bright sun?" (situational)
+  - "Imagine if you couldn't use a mouse" (permanent)
+  - Accessibility helps EVERYONE, not just "disabled" people
+
+  RESOURCES TO SHARE:
+  - WAVE browser extension (free accessibility checker)
+  - axe DevTools (Chrome extension)
+  - WebAIM Contrast Checker
+  - NVDA screen reader (free for Windows)
+-->
