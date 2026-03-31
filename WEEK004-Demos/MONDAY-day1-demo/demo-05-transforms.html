@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 05 - CSS Transform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .demo-section {
+      margin: 40px 0;
+      padding: 20px;
+      background: #ecf0f1;
+      border-radius: 8px;
+    }
+    
+    .box {
+      width: 120px;
+      height: 120px;
+      background: #3498db;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 40px;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+    
+    /*translate */
+    .translate-box {
+      transition: transform 0.3s ease;
+    }
+    
+    .translate-box:hover {
+      transform: translate(50px, 30px);
+    }
+    
+    /* rotate */
+    .rotate-box {
+      transition: transform 0.3s ease;
+    }
+    
+    .rotate-box:hover {
+      transform: rotate(45deg);
+    }
+    
+    /* Scale */
+    .scale-box {
+      transition: transform 0.3s ease;
+    }
+    
+    .scale-box:hover {
+      transform: scale(1.3);
+    }
+    
+    /* Skew */
+    .skew-box {
+      transition: transform 0.3s ease;
+    }
+    
+    .skew-box:hover {
+      transform: skew(10deg, 5deg);
+    }
+    
+    /* Multiple transforms */
+    .multi-transform-box {
+      transition: transform 0.3s ease;
+    }
+    
+    .multi-transform-box:hover {
+      transform: translate(20px, -10px) rotate(15deg) scale(1.1);
+    }
+    
+    /* 3D rotateY */
+    .rotate-y-box {
+      transition: transform 0.6s ease;
+      transform-style: preserve-3d;
+    }
+    
+    .rotate-y-box:hover {
+      transform: rotateY(180deg);
+    }
+    
+    /* 3D perspective */
+    .perspective-container {
+      perspective: 600px;
+      display: inline-block;
+    }
+    
+    .perspective-box {
+      transition: transform 0.5s ease;
+      transform-style: preserve-3d;
+    }
+    
+    .perspective-box:hover {
+      transform: rotateX(45deg) rotateY(45deg);
+    }
+    
+    /* Card flip real example */
+    .flip-card {
+      width: 300px;
+      height: 200px;
+      perspective: 1000px;
+      margin: 20px auto;
+    }
+    
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    
+    .flip-card-front {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .flip-card-back {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      transform: rotateY(180deg);
+    }
+    
+    /* Transform origin */
+    .origin-demo {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    
+    .origin-box {
+      width: 100px;
+      height: 100px;
+      background: #e74c3c;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      text-align: center;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    
+    .origin-box::after {
+      content: '•';
+      position: absolute;
+      font-size: 24px;
+      color: yellow;
+    }
+    
+    .origin-center::after {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .origin-top-left::after {
+      top: 0;
+      left: 0;
+    }
+    
+    .origin-bottom-right::after {
+      bottom: 0;
+      right: 0;
+    }
+    
+    .origin-center {
+      transform-origin: center center;
+    }
+    
+    .origin-center:hover {
+      transform: rotate(90deg);
+    }
+    
+    .origin-top-left {
+      transform-origin: top left;
+    }
+    
+    .origin-top-left:hover {
+      transform: rotate(90deg);
+    }
+    
+    .origin-bottom-right {
+      transform-origin: bottom right;
+    }
+    
+    .origin-bottom-right:hover {
+      transform: rotate(90deg);
+    }
+    
+    /* Interactive gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1;
+      background: #3498db;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .gallery-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover .gallery-label {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS Transform Demo</h1>
+  <p>Transform elements without affecting document flow! Hover to see effects.</p>
+  
+  <div class="demo-section">
+    <h2>1. Translate (Move)</h2>
+    <p>Move elements without affecting layout</p>
+    <div class="box translate-box">translate(50px, 30px)</div>
+    <code>transform: translate(50px, 30px);</code>
+    <p><small>Move right 50px, down 30px</small></p>
+  </div>
+  
+  <div class="demo-section">
+    <h2>2. Rotate</h2>
+    <p>Rotate around center point</p>
+    <div class="box rotate-box">rotate(45deg)</div>
+    <code>transform: rotate(45deg);</code>
+  </div>
+  
+  <div class="demo-section">
+    <h2>3. Scale</h2>
+    <p>Resize element (1.3 = 130% size)</p>
+    <div class="box scale-box">scale(1.3)</div>
+    <code>transform: scale(1.3);</code>
+    <p><small>scale(2) = double size, scale(0.5) = half size</small></p>
+  </div>
+  
+  <div class="demo-section">
+    <h2>4. Skew</h2>
+    <p>Slant element along X and Y axes</p>
+    <div class="box skew-box">skew(10deg, 5deg)</div>
+    <code>transform: skew(10deg, 5deg);</code>
+  </div>
+  
+  <div class="demo-section">
+    <h2>5. Multiple Transforms</h2>
+    <p>Combine multiple transforms (space-separated)</p>
+    <div class="box multi-transform-box">translate + rotate + scale</div>
+    <code>transform: translate(20px, -10px) rotate(15deg) scale(1.1);</code>
+  </div>
+  
+  <div class="demo-section">
+    <h2>6. 3D Rotate Y</h2>
+    <p>Flip element horizontally</p>
+    <div class="box rotate-y-box">rotateY(180deg)</div>
+    <code>transform: rotateY(180deg);</code>
+  </div>
+  
+  <div class="demo-section">
+    <h2>7. 3D with Perspective</h2>
+    <p>Adding perspective creates depth</p>
+    <div class="perspective-container">
+      <div class="box perspective-box">3D Cube!</div>
+    </div>
+    <code>perspective: 600px; transform: rotateX(45deg) rotateY(45deg);</code>
+  </div>
+  
+  <div class="demo-section">
+    <h2>8. Card Flip (Real-World Example)</h2>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <h3>Front Side</h3>
+          <p>Hover to flip!</p>
+        </div>
+        <div class="flip-card-back">
+          <h3>Back Side</h3>
+          <p>Card flipped!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="demo-section">
+    <h2>9. Transform Origin</h2>
+    <p>Change the pivot point for transforms (yellow dot = origin)</p>
+    <div class="origin-demo">
+      <div class="origin-box origin-center">
+        Center<br>(default)
+      </div>
+      <div class="origin-box origin-top-left">
+        Top Left
+      </div>
+      <div class="origin-box origin-bottom-right">
+        Bottom Right
+      </div>
+    </div>
+    <code>transform-origin: top left; /* or center, bottom right, etc. */</code>
+  </div>
+  
+  <div class="demo-section">
+    <h2>10. Interactive Gallery</h2>
+    <p>Hover gallery items to see combined transforms</p>
+    <div class="gallery">
+      <div class="gallery-item" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+        <div class="gallery-label">Image 1</div>
+      </div>
+      <div class="gallery-item" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+        <div class="gallery-label">Image 2</div>
+      </div>
+      <div class="gallery-item" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+        <div class="gallery-label">Image 3</div>
+      </div>
+      <div class="gallery-item" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+        <div class="gallery-label">Image 4</div>
+      </div>
+    </div>
+  </div>
+  
+  <div style="margin-top: 50px; padding: 20px; background: #ecf0f1; border-radius: 8px;">
+    <h3>📝 Transform Functions</h3>
+    <table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%; background: white;">
+      <tr>
+        <th>Function</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td>translate()</td>
+        <td>Move element</td>
+        <td>translate(50px, 20px)</td>
+      </tr>
+      <tr>
+        <td>translateX() / translateY()</td>
+        <td>Move on single axis</td>
+        <td>translateX(100px)</td>
+      </tr>
+      <tr>
+        <td>rotate()</td>
+        <td>Rotate element</td>
+        <td>rotate(45deg)</td>
+      </tr>
+      <tr>
+        <td>rotateX() / rotateY()</td>
+        <td>3D rotation</td>
+        <td>rotateY(180deg)</td>
+      </tr>
+      <tr>
+        <td>scale()</td>
+        <td>Resize element</td>
+        <td>scale(1.5) or scale(2, 0.5)</td>
+      </tr>
+      <tr>
+        <td>scaleX() / scaleY()</td>
+        <td>Scale on single axis</td>
+        <td>scaleX(2)</td>
+      </tr>
+      <tr>
+        <td>skew()</td>
+        <td>Slant element</td>
+        <td>skew(10deg, 5deg)</td>
+      </tr>
+    </table>
+    
+    <h3>⚡ Why Use Transform?</h3>
+    <ul>
+      <li><strong>Performance:</strong> Transform uses GPU (60fps animations)</li>
+      <li><strong>No Reflow:</strong> Doesn't affect document layout</li>
+      <li><strong>Smooth:</strong> Better for animations than changing width/height</li>
+      <li><strong>3D Effects:</strong> Can create depth with perspective</li>
+    </ul>
+    
+    <h3>🎯 Best Practices</h3>
+    <ul>
+      <li>Always use <code>transform</code> for animations (not top/left/margin)</li>
+      <li>Combine with <code>transition</code> for smooth effects</li>
+      <li>Use <code>transform-origin</code> to control pivot point</li>
+      <li>Add <code>will-change: transform;</code> for complex animations</li>
+      <li>For 3D, use <code>transform-style: preserve-3d;</code> on parent</li>
+    </ul>
+    
+    <h3>💡 Common Patterns</h3>
+    <pre><code>/* Lift on hover */
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Flip card */
+.card:hover {
+  transform: rotateY(180deg);
+}
+
+/* Zoom in */
+.image:hover {
+  transform: scale(1.1);
+}
+
+/* Pulse effect */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}</code></pre>
+  </div>
+  
+</body>
+</html>

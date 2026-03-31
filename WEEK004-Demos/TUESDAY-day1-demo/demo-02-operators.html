@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 02 - JavaScript Operators</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    h1 { color: #333; margin-bottom: 30px; }
+    .section {
+      margin: 30px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    .section h2 { color: #667eea; margin-bottom: 15px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th { background: #667eea; color: white; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .output {
+      background: #e8f4f8;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #17a2b8;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+    .warning {
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #ffc107;
+      margin: 10px 0;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔢 Demo 02: JavaScript Operators</h1>
+
+    <!-- Arithmetic Operators -->
+    <div class="section">
+      <h2>1. Arithmetic Operators</h2>
+      <table>
+        <tr>
+          <th>Operator</th>
+          <th>Name</th>
+          <th>Example</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td><code>+</code></td>
+          <td>Addition</td>
+          <td><code>5 + 3</code></td>
+          <td id="add"></td>
+        </tr>
+        <tr>
+          <td><code>-</code></td>
+          <td>Subtraction</td>
+          <td><code>10 - 4</code></td>
+          <td id="subtract"></td>
+        </tr>
+        <tr>
+          <td><code>*</code></td>
+          <td>Multiplication</td>
+          <td><code>6 * 7</code></td>
+          <td id="multiply"></td>
+        </tr>
+        <tr>
+          <td><code>/</code></td>
+          <td>Division</td>
+          <td><code>20 / 4</code></td>
+          <td id="divide"></td>
+        </tr>
+        <tr>
+          <td><code>%</code></td>
+          <td>Modulus (remainder)</td>
+          <td><code>17 % 5</code></td>
+          <td id="modulus"></td>
+        </tr>
+        <tr>
+          <td><code>**</code></td>
+          <td>Exponentiation</td>
+          <td><code>2 ** 3</code></td>
+          <td id="exponent"></td>
+        </tr>
+      </table>
+      
+      <div class="output">
+        <strong>Practical Example:</strong><br>
+        <div id="arithmetic-example"></div>
+      </div>
+    </div>
+
+    <!-- Comparison Operators -->
+    <div class="section">
+      <h2>2. Comparison Operators</h2>
+      <table>
+        <tr>
+          <th>Operator</th>
+          <th>Name</th>
+          <th>Example</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td><code>==</code></td>
+          <td>Equal to (loose)</td>
+          <td><code>5 == "5"</code></td>
+          <td id="equal-loose"></td>
+        </tr>
+        <tr>
+          <td><code>===</code></td>
+          <td>Equal to (strict)</td>
+          <td><code>5 === "5"</code></td>
+          <td id="equal-strict"></td>
+        </tr>
+        <tr>
+          <td><code>!=</code></td>
+          <td>Not equal (loose)</td>
+          <td><code>5 != "6"</code></td>
+          <td id="not-equal-loose"></td>
+        </tr>
+        <tr>
+          <td><code>!==</code></td>
+          <td>Not equal (strict)</td>
+          <td><code>5 !== "5"</code></td>
+          <td id="not-equal-strict"></td>
+        </tr>
+        <tr>
+          <td><code>&gt;</code></td>
+          <td>Greater than</td>
+          <td><code>10 &gt; 5</code></td>
+          <td id="greater"></td>
+        </tr>
+        <tr>
+          <td><code>&lt;</code></td>
+          <td>Less than</td>
+          <td><code>3 &lt; 8</code></td>
+          <td id="less"></td>
+        </tr>
+        <tr>
+          <td><code>&gt;=</code></td>
+          <td>Greater or equal</td>
+          <td><code>5 &gt;= 5</code></td>
+          <td id="gte"></td>
+        </tr>
+        <tr>
+          <td><code>&lt;=</code></td>
+          <td>Less or equal</td>
+          <td><code>4 &lt;= 10</code></td>
+          <td id="lte"></td>
+        </tr>
+      </table>
+
+      <div class="warning">
+        <strong>⚠️ Always use === and !==</strong><br>
+        Loose equality (==) does type coercion which can cause bugs!<br>
+        Example: <code>0 == false</code> is <strong>true</strong>, but <code>0 === false</code> is <strong>false</strong>
+      </div>
+    </div>
+
+    <!-- Logical Operators -->
+    <div class="section">
+      <h2>3. Logical Operators</h2>
+      <table>
+        <tr>
+          <th>Operator</th>
+          <th>Name</th>
+          <th>Example</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td><code>&&</code></td>
+          <td>AND</td>
+          <td><code>true && true</code></td>
+          <td id="and"></td>
+        </tr>
+        <tr>
+          <td><code>||</code></td>
+          <td>OR</td>
+          <td><code>false || true</code></td>
+          <td id="or"></td>
+        </tr>
+        <tr>
+          <td><code>!</code></td>
+          <td>NOT</td>
+          <td><code>!true</code></td>
+          <td id="not"></td>
+        </tr>
+      </table>
+
+      <div class="output">
+        <strong>Practical Example - User Permissions:</strong><br>
+        <div id="logical-example"></div>
+      </div>
+    </div>
+
+    <!-- Assignment Operators -->
+    <div class="section">
+      <h2>4. Assignment Operators</h2>
+      <table>
+        <tr>
+          <th>Operator</th>
+          <th>Example</th>
+          <th>Same As</th>
+        </tr>
+        <tr>
+          <td><code>=</code></td>
+          <td><code>x = 5</code></td>
+          <td><code>x = 5</code></td>
+        </tr>
+        <tr>
+          <td><code>+=</code></td>
+          <td><code>x += 3</code></td>
+          <td><code>x = x + 3</code></td>
+        </tr>
+        <tr>
+          <td><code>-=</code></td>
+          <td><code>x -= 2</code></td>
+          <td><code>x = x - 2</code></td>
+        </tr>
+        <tr>
+          <td><code>*=</code></td>
+          <td><code>x *= 4</code></td>
+          <td><code>x = x * 4</code></td>
+        </tr>
+        <tr>
+          <td><code>/=</code></td>
+          <td><code>x /= 2</code></td>
+          <td><code>x = x / 2</code></td>
+        </tr>
+      </table>
+
+      <div class="output">
+        <strong>Example:</strong><br>
+        <div id="assignment-example"></div>
+      </div>
+    </div>
+
+    <!-- Increment/Decrement -->
+    <div class="section">
+      <h2>5. Increment & Decrement</h2>
+      <div class="output">
+        <strong>Examples:</strong><br>
+        <div id="increment-example"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    console.log("=== DEMO 02: OPERATORS ===\n");
+
+    // Arithmetic
+    document.getElementById('add').textContent = 5 + 3;
+    document.getElementById('subtract').textContent = 10 - 4;
+    document.getElementById('multiply').textContent = 6 * 7;
+    document.getElementById('divide').textContent = 20 / 4;
+    document.getElementById('modulus').textContent = 17 % 5;
+    document.getElementById('exponent').textContent = 2 ** 3;
+
+    const price = 29.99;
+    const quantity = 3;
+    const total = price * quantity;
+    document.getElementById('arithmetic-example').textContent = 
+      `Price: $${price}, Quantity: ${quantity}, Total: $${total.toFixed(2)}`;
+    console.log("Arithmetic:", { price, quantity, total });
+
+    // Comparison
+    document.getElementById('equal-loose').textContent = 5 == "5";
+    document.getElementById('equal-strict').textContent = 5 === "5";
+    document.getElementById('not-equal-loose').textContent = 5 != "6";
+    document.getElementById('not-equal-strict').textContent = 5 !== "5";
+    document.getElementById('greater').textContent = 10 > 5;
+    document.getElementById('less').textContent = 3 < 8;
+    document.getElementById('gte').textContent = 5 >= 5;
+    document.getElementById('lte').textContent = 4 <= 10;
+
+    console.log("Comparison:");
+    console.log("5 == '5':", 5 == "5");
+    console.log("5 === '5':", 5 === "5");
+
+    // Logical
+    document.getElementById('and').textContent = true && true;
+    document.getElementById('or').textContent = false || true;
+    document.getElementById('not').textContent = !true;
+
+    const isLoggedIn = true;
+    const isAdmin = false;
+    const canEdit = isLoggedIn && isAdmin;
+    const canView = isLoggedIn || isAdmin;
+    document.getElementById('logical-example').innerHTML = 
+      `isLoggedIn: ${isLoggedIn}<br>` +
+      `isAdmin: ${isAdmin}<br>` +
+      `canEdit (isLoggedIn && isAdmin): ${canEdit}<br>` +
+      `canView (isLoggedIn || isAdmin): ${canView}`;
+    console.log("Logical:", { isLoggedIn, isAdmin, canEdit, canView });
+
+    // Assignment
+    let score = 10;
+    score += 5; // 15
+    score -= 3; // 12
+    score *= 2; // 24
+    score /= 4; // 6
+    document.getElementById('assignment-example').innerHTML =
+      `let score = 10;<br>` +
+      `score += 5; // ${10 + 5}<br>` +
+      `score -= 3; // ${15 - 3}<br>` +
+      `score *= 2; // ${12 * 2}<br>` +
+      `score /= 4; // ${24 / 4} (final value)`;
+    console.log("Assignment operations - final score:", score);
+
+    // Increment/Decrement
+    let counter = 0;
+    counter++; // 1
+    counter++; // 2
+    counter--; // 1
+    document.getElementById('increment-example').innerHTML =
+      `let counter = 0;<br>` +
+      `counter++; // counter is now 1<br>` +
+      `counter++; // counter is now 2<br>` +
+      `counter--; // counter is now 1<br>` +
+      `Final value: ${counter}`;
+    console.log("Increment/Decrement - final counter:", counter);
+
+    console.log("\n🎯 Practice these operators in your console!");
+  </script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 03 - CSS Transitions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .demo-section {
+      margin: 40px 0;
+      padding: 20px;
+      background: #ecf0f1;
+      border-radius: 8px;
+    }
+    
+    /* Basic transition */
+    .basic-box {
+      width: 200px;
+      height: 100px;
+      background: #3498db;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+      transition: background-color 0.3s ease;
+    }
+    
+    .basic-box:hover {
+      background: #e74c3c;
+    }
+    
+    /* Multiple properties */
+    .multi-box {
+      width: 200px;
+      height: 100px;
+      background: #2ecc71;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 0;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    
+    .multi-box:hover {
+      background: #9b59b6;
+      transform: scale(1.1);
+      border-radius: 50px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    
+    /* Timing functions comparison */
+    .timing-container {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .timing-box {
+      width: 150px;
+      height: 60px;
+      background: #3498db;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      text-align: center;
+      cursor: pointer;
+      margin: 5px 0;
+    }
+    
+    .timing-box.linear {
+      transition: transform 1s linear;
+    }
+    
+    .timing-box.ease {
+      transition: transform 1s ease;
+    }
+    
+    .timing-box.ease-in {
+      transition: transform 1s ease-in;
+    }
+    
+    .timing-box.ease-out {
+      transition: transform 1s ease-out;
+    }
+    
+    .timing-box.ease-in-out {
+      transition: transform 1s ease-in-out;
+    }
+    
+    .timing-box:hover {
+      transform: translateX(200px);
+    }
+    
+    /* Button transitions */
+    .btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    /* Menu transition */
+    .menu {
+      width: 250px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      max-height: 60px;
+      transition: max-height 0.4s ease;
+    }
+    
+    .menu:hover {
+      max-height: 300px;
+    }
+    
+    .menu-header {
+      padding: 20px;
+      background: #3498db;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .menu-item {
+      padding: 15px 20px;
+      border-bottom: 1px solid #ecf0f1;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    
+    .menu-item:hover {
+      background: #ecf0f1;
+    }
+    
+    /* Card flip */
+    .card-container {
+      width: 250px;
+      height: 150px;
+      margin: 20px 0;
+      perspective: 1000px;
+    }
+    
+    .card-flip {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    
+    .card-container:hover .card-flip {
+      transform: rotateY(180deg);
+    }
+    
+    .card-front, .card-back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-weight: bold;
+      color: white;
+    }
+    
+    .card-front {
+      background: #3498db;
+    }
+    
+    .card-back {
+      background: #e74c3c;
+      transform: rotateY(180deg);
+    }
+    
+    /* Transition delays */
+    .delay-container {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .delay-box {
+      width: 80px;
+      height: 80px;
+      background: #2ecc71;
+      transition: transform 0.5s ease;
+    }
+    
+    .delay-container:hover .delay-box:nth-child(1) {
+      transform: translateY(-20px);
+      transition-delay: 0s;
+    }
+    
+    .delay-container:hover .delay-box:nth-child(2) {
+      transform: translateY(-20px);
+      transition-delay: 0.1s;
+    }
+    
+    .delay-container:hover .delay-box:nth-child(3) {
+      transform: translateY(-20px);
+      transition-delay: 0.2s;
+    }
+    
+    .delay-container:hover .delay-box:nth-child(4) {
+      transform: translateY(-20px);
+      transition-delay: 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS Transitions Demo</h1>
+  <p>Hover over elements to see smooth transitions!</p>
+  
+  <div class="demo-section">
+    <h2>1. Basic Transition</h2>
+    <p>Hover to change background color smoothly</p>
+    <div class="basic-box">Hover Me!</div>
+    <code>transition: background-color 0.3s ease;</code>
+  </div>
+  
+  <div class="demo-section">
+    <h2>2. Multiple Properties</h2>
+    <p>Transition multiple properties at once using "all"</p>
+    <div class="multi-box">Hover Me!</div>
+    <code>transition: all 0.3s ease;</code>
+    <p><small>Changes: background, transform, border-radius, box-shadow</small></p>
+  </div>
+  
+  <div class="demo-section">
+    <h2>3. Timing Functions</h2>
+    <p>Different timing functions create different motion feels. Hover each box:</p>
+    <div class="timing-container">
+      <div class="timing-box linear">linear</div>
+      <div class="timing-box ease">ease (default)</div>
+      <div class="timing-box ease-in">ease-in</div>
+      <div class="timing-box ease-out">ease-out</div>
+      <div class="timing-box ease-in-out">ease-in-out</div>
+    </div>
+  </div>
+  
+  <div class="demo-section">
+    <h2>4. Button States</h2>
+    <p>Professional button with hover and active states</p>
+    <button class="btn">Click Me!</button>
+    <button class="btn">Another Button</button>
+    <p><small>Hover: lifts up. Click: presses down.</small></p>
+  </div>
+  
+  <div class="demo-section">
+    <h2>5. Expandable Menu</h2>
+    <p>Hover to reveal menu items</p>
+    <div class="menu">
+      <div class="menu-header">Hover to Expand ▼</div>
+      <div class="menu-item">Dashboard</div>
+      <div class="menu-item">Profile</div>
+      <div class="menu-item">Settings</div>
+      <div class="menu-item">Logout</div>
+    </div>
+    <code>transition: max-height 0.4s ease;</code>
+  </div>
+  
+  <div class="demo-section">
+    <h2>6. Card Flip Effect</h2>
+    <p>Hover to flip the card</p>
+    <div class="card-container">
+      <div class="card-flip">
+        <div class="card-front">Front Side</div>
+        <div class="card-back">Back Side</div>
+      </div>
+    </div>
+    <code>transition: transform 0.6s;</code>
+  </div>
+  
+  <div class="demo-section">
+    <h2>7. Transition Delays</h2>
+    <p>Stagger animations with delays. Hover the container:</p>
+    <div class="delay-container">
+      <div class="delay-box"></div>
+      <div class="delay-box"></div>
+      <div class="delay-box"></div>
+      <div class="delay-box"></div>
+    </div>
+    <code>transition-delay: 0s, 0.1s, 0.2s, 0.3s;</code>
+  </div>
+  
+  <div style="margin-top: 50px; padding: 20px; background: #ecf0f1; border-radius: 8px;">
+    <h3>📝 Transition Syntax</h3>
+    <pre><code>/* Shorthand */
+transition: property duration timing-function delay;
+
+/* Examples */
+transition: all 0.3s ease;
+transition: background-color 0.5s ease-in-out 0.1s;
+transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+/* Multiple properties */
+transition: 
+  background 0.3s ease,
+  transform 0.5s ease,
+  box-shadow 0.3s ease;</code></pre>
+    
+    <h3>🎯 Best Practices</h3>
+    <ul>
+      <li><strong>Duration:</strong> 0.2s-0.3s for UI interactions, 0.5s-1s for larger movements</li>
+      <li><strong>Timing:</strong> ease-out for entrances, ease-in for exits</li>
+      <li><strong>Performance:</strong> Transition transform & opacity (GPU accelerated)</li>
+      <li><strong>Avoid:</strong> Transitioning layout properties (width, height, margin) - use transform instead</li>
+    </ul>
+    
+    <h3>⚡ Common Timing Functions</h3>
+    <ul>
+      <li><strong>linear:</strong> Constant speed (robotic)</li>
+      <li><strong>ease:</strong> Slow start, fast middle, slow end (default, natural)</li>
+      <li><strong>ease-in:</strong> Slow start, fast end (falling)</li>
+      <li><strong>ease-out:</strong> Fast start, slow end (best for UI)</li>
+      <li><strong>ease-in-out:</strong> Slow start and end</li>
+      <li><strong>cubic-bezier():</strong> Custom curves (advanced)</li>
+    </ul>
+  </div>
+  
+</body>
+</html>

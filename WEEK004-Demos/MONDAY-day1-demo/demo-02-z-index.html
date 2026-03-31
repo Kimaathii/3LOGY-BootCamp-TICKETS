@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 02 - Z-Index & Stacking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    
+    .demo-section {
+      margin: 40px 0;
+      padding: 20px;
+      background: #ecf0f1;
+      border-radius: 8px;
+    }
+    
+    /* Example 1: Z-index basics */
+    .stacking-demo {
+      position: relative;
+      height: 200px;
+      margin: 20px 0;
+    }
+    
+    .card {
+      position: absolute;
+      width: 150px;
+      height: 100px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    
+    .card-1 {
+      background: #e74c3c;
+      top: 20px;
+      left: 20px;
+      z-index: 1;
+    }
+    
+    .card-2 {
+      background: #3498db;
+      top: 60px;
+      left: 60px;
+      z-index: 2;
+    }
+    
+    .card-3 {
+      background: #2ecc71;
+      top: 100px;
+      left: 100px;
+      z-index: 3;
+    }
+    
+    /* Example 2: Z-index doesn't work without positioning */
+    .no-position {
+      background: #9b59b6;
+      z-index: 999; /* Won't work! */
+      padding: 10px;
+      margin: 5px;
+    }
+    
+    .with-position {
+      position: relative;
+      background: #f39c12;
+      z-index: 1;
+      padding: 10px;
+      margin: 5px;
+      margin-top: -20px; /* Overlap */
+    }
+    
+    /* Example 3: Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      position: relative;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 500px;
+      z-index: 1001;
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    
+    .open-modal-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    /* Example 4: Stacking context */
+    .parent-1 {
+      position: relative;
+      z-index: 1;
+      background: #ecf0f1;
+      padding: 20px;
+      margin: 10px 0;
+    }
+    
+    .parent-2 {
+      position: relative;
+      z-index: 2;
+      background: #bdc3c7;
+      padding: 20px;
+      margin: 10px 0;
+    }
+    
+    .child {
+      position: relative;
+      background: #e74c3c;
+      color: white;
+      padding: 10px;
+      margin: 5px 0;
+    }
+    
+    .child-high-z {
+      z-index: 9999; /* Won't escape parent's stacking context! */
+    }
+  </style>
+</head>
+<body>
+  <h1>Z-Index & Stacking Context Demo</h1>
+  
+  <div class="demo-section">
+    <h2>1. Basic Z-Index</h2>
+    <p>Higher z-index appears on top. All cards are positioned absolute.</p>
+    <div class="stacking-demo">
+      <div class="card card-1">Card 1<br>z-index: 1</div>
+      <div class="card card-2">Card 2<br>z-index: 2</div>
+      <div class="card card-3">Card 3<br>z-index: 3</div>
+    </div>
+  </div>
+  
+  <div class="demo-section">
+    <h2>2. Z-Index Only Works on Positioned Elements</h2>
+    <p>Purple box has z-index: 999 but NO position property (won't work!)</p>
+    <p>Orange box has z-index: 1 and position: relative (works!)</p>
+    <div class="no-position">Purple: z-index: 999, NO position</div>
+    <div class="with-position">Orange: z-index: 1, position: relative (appears on top!)</div>
+  </div>
+  
+  <div class="demo-section">
+    <h2>3. Modal Overlay (Real-World Example)</h2>
+    <p>Modal uses high z-index to appear above all content.</p>
+    <button class="open-modal-btn" onclick="openModal()">Open Modal</button>
+    
+    <div class="modal-overlay" id="modal">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">×</button>
+        <h3>Modal Title</h3>
+        <p>This modal has z-index: 1001</p>
+        <p>Overlay has z-index: 1000</p>
+        <p>Both appear above page content.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="demo-section">
+    <h2>4. Stacking Context (Advanced)</h2>
+    <p><strong>Important:</strong> A parent's z-index creates a stacking context.</p>
+    <p>Children can't escape parent's z-index level!</p>
+    
+    <div class="parent-1">
+      Parent 1 (z-index: 1)
+      <div class="child child-high-z">
+        Child with z-index: 9999<br>
+        (Still below Parent 2!)
+      </div>
+    </div>
+    
+    <div class="parent-2">
+      Parent 2 (z-index: 2)
+      <div class="child">
+        Child (no z-index)<br>
+        (Appears above Parent 1's children!)
+      </div>
+    </div>
+  </div>
+  
+  <div style="margin-top: 50px; padding: 20px; background: #ecf0f1; border-radius: 8px;">
+    <h3>📝 Z-Index Rules</h3>
+    <ol>
+      <li><strong>Requires Positioning:</strong> Z-index only works on positioned elements (relative, absolute, fixed, sticky)</li>
+      <li><strong>Higher = On Top:</strong> Higher z-index values appear on top</li>
+      <li><strong>Stacking Context:</strong> Parent z-index creates boundary - children can't escape</li>
+      <li><strong>Default:</strong> Elements have z-index: auto (same as 0)</li>
+      <li><strong>Common Values:</strong> Tooltips (100), Dropdowns (1000), Modals (10000)</li>
+    </ol>
+    
+    <h3>🎯 Best Practices</h3>
+    <ul>
+      <li>Use scale: 1, 10, 100, 1000 (not 1, 2, 3, 4...)</li>
+      <li>Document z-index values in CSS comments</li>
+      <li>Avoid z-index wars (999999 is a code smell!)</li>
+      <li>Use CSS custom properties for z-index values</li>
+    </ul>
+  </div>
+  
+  <script>
+    function openModal() {
+      document.getElementById('modal').classList.add('active');
+    }
+    
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>

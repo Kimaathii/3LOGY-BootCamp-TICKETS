@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 03 - JavaScript Functions</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    h1 { color: #333; margin-bottom: 30px; }
+    .section {
+      margin: 30px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    .section h2 { color: #667eea; margin-bottom: 15px; }
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .output {
+      background: #e8f4f8;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #17a2b8;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+    .tip {
+      background: #d4edda;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #28a745;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚡ Demo 03: JavaScript Functions</h1>
+
+    <div class="section">
+      <h2>1. Function Declaration</h2>
+      <p>Traditional way to define functions:</p>
+      <div class="code-block">
+function greet(name) {<br>
+&nbsp;&nbsp;return `Hello, ${name}!`;<br>
+}<br>
+<br>
+const message = greet("Alice");<br>
+console.log(message); // "Hello, Alice!"
+      </div>
+      <div class="output">
+        <strong>Output:</strong><br>
+        <div id="output-declaration"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>2. Function Expression</h2>
+      <p>Function assigned to a variable:</p>
+      <div class="code-block">
+const add = function(a, b) {<br>
+&nbsp;&nbsp;return a + b;<br>
+};<br>
+<br>
+const sum = add(5, 3);<br>
+console.log(sum); // 8
+      </div>
+      <div class="output">
+        <strong>Output:</strong><br>
+        <div id="output-expression"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>3. Arrow Functions (Modern)</h2>
+      <p>Shorter syntax using <code>=></code>:</p>
+      <div class="code-block">
+// Single parameter (no parentheses needed)<br>
+const square = x => x * x;<br>
+<br>
+// Multiple parameters<br>
+const multiply = (a, b) => a * b;<br>
+<br>
+// Multi-line function<br>
+const calculateArea = (width, height) => {<br>
+&nbsp;&nbsp;const area = width * height;<br>
+&nbsp;&nbsp;return area;<br>
+};<br>
+<br>
+console.log(square(5));           // 25<br>
+console.log(multiply(4, 3));      // 12<br>
+console.log(calculateArea(10, 5)); // 50
+      </div>
+      <div class="output">
+        <strong>Output:</strong><br>
+        <div id="output-arrow"></div>
+      </div>
+
+      <div class="tip">
+        <strong>✅ When to use Arrow Functions:</strong><br>
+        - Shorter, cleaner syntax<br>
+        - Great for callbacks and short functions<br>
+        - Use function declarations for complex functions
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>4. Parameters & Arguments</h2>
+      <div class="code-block">
+// Default parameters<br>
+function greetUser(name = "Guest") {<br>
+&nbsp;&nbsp;return `Welcome, ${name}!`;<br>
+}<br>
+<br>
+console.log(greetUser());         // "Welcome, Guest!"<br>
+console.log(greetUser("Bob"));    // "Welcome, Bob!"<br>
+<br>
+// Multiple parameters<br>
+function createProfile(name, age, city) {<br>
+&nbsp;&nbsp;return `${name}, ${age} years old, from ${city}`;<br>
+}<br>
+<br>
+console.log(createProfile("Alice", 25, "NYC"));
+      </div>
+      <div class="output">
+        <strong>Output:</strong><br>
+        <div id="output-parameters"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>5. Return Values</h2>
+      <div class="code-block">
+// Function that returns value<br>
+function calculateTotal(price, quantity) {<br>
+&nbsp;&nbsp;return price * quantity;<br>
+}<br>
+<br>
+// Function without return (returns undefined)<br>
+function logMessage(msg) {<br>
+&nbsp;&nbsp;console.log(msg);<br>
+&nbsp;&nbsp;// No return statement<br>
+}<br>
+<br>
+const total = calculateTotal(19.99, 3);<br>
+const result = logMessage("Hello"); // undefined
+      </div>
+      <div class="output">
+        <strong>Output:</strong><br>
+        <div id="output-return"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>6. Scope Example</h2>
+      <div class="code-block">
+const globalVar = "I'm global";<br>
+<br>
+function testScope() {<br>
+&nbsp;&nbsp;const localVar = "I'm local";<br>
+&nbsp;&nbsp;console.log(globalVar);  // Can access global<br>
+&nbsp;&nbsp;console.log(localVar);   // Can access local<br>
+}<br>
+<br>
+testScope();<br>
+// console.log(localVar); // ❌ Error: localVar not defined
+      </div>
+      <div class="output">
+        <strong>Output:</strong><br>
+        <div id="output-scope"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>7. Practical Example - Calculator</h2>
+      <div class="code-block">
+const calculator = {<br>
+&nbsp;&nbsp;add: (a, b) => a + b,<br>
+&nbsp;&nbsp;subtract: (a, b) => a - b,<br>
+&nbsp;&nbsp;multiply: (a, b) => a * b,<br>
+&nbsp;&nbsp;divide: (a, b) => b !== 0 ? a / b : "Error: Division by zero"<br>
+};<br>
+<br>
+console.log(calculator.add(10, 5));      // 15<br>
+console.log(calculator.divide(10, 2));   // 5<br>
+console.log(calculator.divide(10, 0));   // "Error: Division by zero"
+      </div>
+      <div class="output">
+        <strong>Output:</strong><br>
+        <div id="output-calculator"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    console.log("=== DEMO 03: FUNCTIONS ===\n");
+
+    // 1. Function Declaration
+    function greet(name) {
+      return `Hello, ${name}!`;
+    }
+    const message = greet("Alice");
+    document.getElementById('output-declaration').textContent = message;
+    console.log("Function Declaration:", message);
+
+    // 2. Function Expression
+    const add = function(a, b) {
+      return a + b;
+    };
+    const sum = add(5, 3);
+    document.getElementById('output-expression').textContent = `add(5, 3) = ${sum}`;
+    console.log("Function Expression:", sum);
+
+    // 3. Arrow Functions
+    const square = x => x * x;
+    const multiply = (a, b) => a * b;
+    const calculateArea = (width, height) => {
+      const area = width * height;
+      return area;
+    };
+
+    document.getElementById('output-arrow').innerHTML =
+      `square(5) = ${square(5)}<br>` +
+      `multiply(4, 3) = ${multiply(4, 3)}<br>` +
+      `calculateArea(10, 5) = ${calculateArea(10, 5)}`;
+    console.log("Arrow Functions:", {
+      square: square(5),
+      multiply: multiply(4, 3),
+      area: calculateArea(10, 5)
+    });
+
+    // 4. Parameters
+    function greetUser(name = "Guest") {
+      return `Welcome, ${name}!`;
+    }
+
+    function createProfile(name, age, city) {
+      return `${name}, ${age} years old, from ${city}`;
+    }
+
+    document.getElementById('output-parameters').innerHTML =
+      `greetUser() = "${greetUser()}"<br>` +
+      `greetUser("Bob") = "${greetUser("Bob")}"<br>` +
+      `createProfile("Alice", 25, "NYC") = "${createProfile("Alice", 25, "NYC")}"`;
+    console.log("Parameters:", greetUser(), greetUser("Bob"));
+
+    // 5. Return Values
+    function calculateTotal(price, quantity) {
+      return price * quantity;
+    }
+
+    function logMessage(msg) {
+      console.log(msg);
+    }
+
+    const total = calculateTotal(19.99, 3);
+    const result = logMessage("Hello from logMessage!");
+
+    document.getElementById('output-return').innerHTML =
+      `calculateTotal(19.99, 3) = ${total.toFixed(2)}<br>` +
+      `logMessage() returns: ${result}`;
+    console.log("Return Values:", { total, result });
+
+    // 6. Scope
+    const globalVar = "I'm global";
+
+    function testScope() {
+      const localVar = "I'm local";
+      return { globalVar, localVar };
+    }
+
+    const scopeTest = testScope();
+    document.getElementById('output-scope').innerHTML =
+      `Inside function: globalVar = "${scopeTest.globalVar}", localVar = "${scopeTest.localVar}"`;
+    console.log("Scope:", scopeTest);
+
+    // 7. Calculator
+    const calculator = {
+      add: (a, b) => a + b,
+      subtract: (a, b) => a - b,
+      multiply: (a, b) => a * b,
+      divide: (a, b) => b !== 0 ? a / b : "Error: Division by zero"
+    };
+
+    document.getElementById('output-calculator').innerHTML =
+      `calculator.add(10, 5) = ${calculator.add(10, 5)}<br>` +
+      `calculator.divide(10, 2) = ${calculator.divide(10, 2)}<br>` +
+      `calculator.divide(10, 0) = "${calculator.divide(10, 0)}"`;
+    console.log("Calculator:", {
+      add: calculator.add(10, 5),
+      divide: calculator.divide(10, 2),
+      divideByZero: calculator.divide(10, 0)
+    });
+
+    console.log("\n🎯 Practice writing functions in your console!");
+  </script>
+</body>
+</html>

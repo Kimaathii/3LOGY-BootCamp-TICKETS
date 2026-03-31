@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 01 - Variables & Data Types</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 2em;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 1.1em;
+    }
+
+    .section {
+      margin: 30px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .section h2 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 1.4em;
+    }
+
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+
+    .code-block .comment {
+      color: #6a9955;
+    }
+
+    .code-block .keyword {
+      color: #569cd6;
+    }
+
+    .code-block .string {
+      color: #ce9178;
+    }
+
+    .code-block .number {
+      color: #b5cea8;
+    }
+
+    .output {
+      background: #e8f4f8;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #17a2b8;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+
+    .output-label {
+      font-weight: bold;
+      color: #17a2b8;
+      margin-bottom: 5px;
+    }
+
+    .warning {
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #ffc107;
+      margin: 10px 0;
+    }
+
+    .warning-label {
+      font-weight: bold;
+      color: #856404;
+      margin-bottom: 5px;
+    }
+
+    .tip {
+      background: #d4edda;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #28a745;
+      margin: 10px 0;
+    }
+
+    .tip-label {
+      font-weight: bold;
+      color: #155724;
+      margin-bottom: 5px;
+    }
+
+    .console-note {
+      background: #d1ecf1;
+      padding: 12px;
+      border-radius: 6px;
+      margin: 15px 0;
+      font-size: 0.95em;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #667eea;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Demo 01: Variables & Data Types</h1>
+    <p class="subtitle">Understanding how to store and manipulate data in JavaScript</p>
+
+    <div class="console-note">
+      <strong>👉 Open your browser console (F12) and follow along!</strong><br>
+      All examples below are also running in the console.
+    </div>
+
+    <!-- Section 1: Variable Declaration -->
+    <div class="section">
+      <h2>1. Variable Declaration: var, let, const</h2>
+      
+      <p><strong>var</strong> - Old way (avoid in modern JavaScript):</p>
+      <div class="code-block">
+<span class="keyword">var</span> oldWay = <span class="string">"I'm a var"</span>;<br>
+<span class="comment">// Function-scoped, can cause bugs</span>
+      </div>
+
+      <p><strong>let</strong> - Modern way for variables that change:</p>
+      <div class="code-block">
+<span class="keyword">let</span> age = <span class="number">25</span>;<br>
+age = <span class="number">26</span>; <span class="comment">// Can be reassigned</span><br>
+console.log(age); <span class="comment">// 26</span>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-let"></div>
+      </div>
+
+      <p><strong>const</strong> - For constants (can't be reassigned):</p>
+      <div class="code-block">
+<span class="keyword">const</span> PI = <span class="number">3.14159</span>;<br>
+<span class="comment">// PI = 3.14; // ❌ Error: Assignment to constant variable</span>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">✅ Best Practice:</div>
+        Use <code>const</code> by default. Only use <code>let</code> when you know the value will change. Avoid <code>var</code>!
+      </div>
+    </div>
+
+    <!-- Section 2: Data Types -->
+    <div class="section">
+      <h2>2. Primitive Data Types</h2>
+      
+      <p>JavaScript has 7 primitive data types:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Example</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>String</strong></td>
+            <td><code>"Hello"</code>, <code>'World'</code></td>
+            <td>Text data</td>
+          </tr>
+          <tr>
+            <td><strong>Number</strong></td>
+            <td><code>42</code>, <code>3.14</code></td>
+            <td>Integers and floats</td>
+          </tr>
+          <tr>
+            <td><strong>Boolean</strong></td>
+            <td><code>true</code>, <code>false</code></td>
+            <td>True or false</td>
+          </tr>
+          <tr>
+            <td><strong>Undefined</strong></td>
+            <td><code>undefined</code></td>
+            <td>Variable declared but not assigned</td>
+          </tr>
+          <tr>
+            <td><strong>Null</strong></td>
+            <td><code>null</code></td>
+            <td>Intentional absence of value</td>
+          </tr>
+          <tr>
+            <td><strong>Symbol</strong></td>
+            <td><code>Symbol()</code></td>
+            <td>Unique identifier (advanced)</td>
+          </tr>
+          <tr>
+            <td><strong>BigInt</strong></td>
+            <td><code>9007199254740991n</code></td>
+            <td>Very large integers (advanced)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top: 20px;">String Examples:</h3>
+      <div class="code-block">
+<span class="keyword">const</span> firstName = <span class="string">"Alice"</span>;<br>
+<span class="keyword">const</span> lastName = <span class="string">'Smith'</span>; <span class="comment">// Single or double quotes both work</span><br>
+<span class="keyword">const</span> greeting = <span class="string">`Hello, ${firstName}!`</span>; <span class="comment">// Template literal (backticks)</span><br>
+console.log(greeting);
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-string"></div>
+      </div>
+
+      <h3 style="margin-top: 20px;">Number Examples:</h3>
+      <div class="code-block">
+<span class="keyword">const</span> integer = <span class="number">42</span>;<br>
+<span class="keyword">const</span> float = <span class="number">3.14</span>;<br>
+<span class="keyword">const</span> negative = <span class="number">-10</span>;<br>
+<span class="keyword">const</span> sum = integer + float;<br>
+console.log(<span class="string">`Sum: ${sum}`</span>); <span class="comment">// 45.14</span>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-number"></div>
+      </div>
+
+      <h3 style="margin-top: 20px;">Boolean Examples:</h3>
+      <div class="code-block">
+<span class="keyword">const</span> isStudent = <span class="keyword">true</span>;<br>
+<span class="keyword">const</span> hasGraduated = <span class="keyword">false</span>;<br>
+<span class="keyword">const</span> isEnrolled = <span class="number">10</span> > <span class="number">5</span>; <span class="comment">// true</span><br>
+console.log(<span class="string">`Is enrolled: ${isEnrolled}`</span>);
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-boolean"></div>
+      </div>
+    </div>
+
+    <!-- Section 3: typeof Operator -->
+    <div class="section">
+      <h2>3. The typeof Operator</h2>
+      
+      <p>Use <code>typeof</code> to check data type:</p>
+
+      <div class="code-block">
+console.log(<span class="keyword">typeof</span> <span class="string">"Hello"</span>);      <span class="comment">// "string"</span><br>
+console.log(<span class="keyword">typeof</span> <span class="number">42</span>);           <span class="comment">// "number"</span><br>
+console.log(<span class="keyword">typeof</span> <span class="keyword">true</span>);        <span class="comment">// "boolean"</span><br>
+console.log(<span class="keyword">typeof</span> <span class="keyword">undefined</span>);   <span class="comment">// "undefined"</span><br>
+console.log(<span class="keyword">typeof</span> <span class="keyword">null</span>);        <span class="comment">// "object" (this is a bug!)</span><br>
+console.log(<span class="keyword">typeof</span> {});            <span class="comment">// "object"</span><br>
+console.log(<span class="keyword">typeof</span> []);            <span class="comment">// "object" (arrays are objects)</span><br>
+console.log(<span class="keyword">typeof</span> <span class="keyword">function</span>(){}); <span class="comment">// "function"</span>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-typeof"></div>
+      </div>
+
+      <div class="warning">
+        <div class="warning-label">⚠️ Common Gotcha:</div>
+        <code>typeof null</code> returns <code>"object"</code>, which is a famous JavaScript bug that can't be fixed (would break existing code). To check for null, use <code>value === null</code>.
+      </div>
+    </div>
+
+    <!-- Section 4: Template Literals -->
+    <div class="section">
+      <h2>4. Template Literals (Template Strings)</h2>
+      
+      <p>Use backticks (`) for string interpolation and multi-line strings:</p>
+
+      <div class="code-block">
+<span class="keyword">const</span> name = <span class="string">"Bob"</span>;<br>
+<span class="keyword">const</span> age = <span class="number">30</span>;<br>
+<br>
+<span class="comment">// Old way (string concatenation):</span><br>
+<span class="keyword">const</span> oldWay = <span class="string">"My name is "</span> + name + <span class="string">" and I'm "</span> + age + <span class="string">" years old."</span>;<br>
+<br>
+<span class="comment">// New way (template literal):</span><br>
+<span class="keyword">const</span> newWay = <span class="string">`My name is ${name} and I'm ${age} years old.`</span>;<br>
+<br>
+console.log(newWay);
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-template"></div>
+      </div>
+
+      <h3 style="margin-top: 20px;">Multi-line Strings:</h3>
+      <div class="code-block">
+<span class="keyword">const</span> poem = <span class="string">`Roses are red,<br>
+Violets are blue,<br>
+JavaScript is awesome,<br>
+And so are you!`</span>;<br>
+<br>
+console.log(poem);
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-multiline"></div>
+      </div>
+
+      <h3 style="margin-top: 20px;">Expressions in Template Literals:</h3>
+      <div class="code-block">
+<span class="keyword">const</span> price = <span class="number">19.99</span>;<br>
+<span class="keyword">const</span> quantity = <span class="number">3</span>;<br>
+<br>
+console.log(<span class="string">`Total: $${(price * quantity).toFixed(2)}`</span>); <span class="comment">// Total: $59.97</span>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-expression"></div>
+      </div>
+    </div>
+
+    <!-- Section 5: Type Coercion -->
+    <div class="section">
+      <h2>5. Type Coercion (Automatic Type Conversion)</h2>
+      
+      <p>JavaScript automatically converts types in some situations:</p>
+
+      <div class="code-block">
+<span class="comment">// Number + String = String concatenation</span><br>
+console.log(<span class="number">5</span> + <span class="string">"5"</span>);   <span class="comment">// "55" (string)</span><br>
+<br>
+<span class="comment">// String - Number = Number subtraction</span><br>
+console.log(<span class="string">"10"</span> - <span class="number">5</span>);  <span class="comment">// 5 (number)</span><br>
+<br>
+<span class="comment">// Boolean to Number</span><br>
+console.log(<span class="keyword">true</span> + <span class="number">1</span>);  <span class="comment">// 2 (true becomes 1)</span><br>
+console.log(<span class="keyword">false</span> + <span class="number">1</span>); <span class="comment">// 1 (false becomes 0)</span>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-coercion"></div>
+      </div>
+
+      <div class="warning">
+        <div class="warning-label">⚠️ Be Careful:</div>
+        Type coercion can cause unexpected bugs! Use explicit conversion when needed:
+        <ul>
+          <li><code>Number("42")</code> - convert to number</li>
+          <li><code>String(42)</code> - convert to string</li>
+          <li><code>Boolean(1)</code> - convert to boolean</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 6: Practice Exercises -->
+    <div class="section">
+      <h2>6. 🎯 Practice Exercises</h2>
+      
+      <p><strong>Try these in your console:</strong></p>
+
+      <ol>
+        <li>Declare a constant for your favorite color and log it.</li>
+        <li>Create variables for your first name, last name, and age. Use a template literal to create a sentence.</li>
+        <li>What is the type of <code>typeof typeof 42</code>? (Try it!)</li>
+        <li>Fix this code: <code>const PI = 3.14; PI = 3.14159;</code></li>
+        <li>What does <code>5 + "5" - 5</code> equal? Why?</li>
+      </ol>
+
+      <div class="tip">
+        <div class="tip-label">💡 Challenge:</div>
+        Create variables for a product name, price, and quantity. Use template literals to display a receipt with the total cost.
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Section 1: let example
+    let age = 25;
+    age = 26;
+    document.getElementById('output-let').textContent = `age = ${age}`;
+    console.log("=== DEMO 1: VARIABLES ===");
+    console.log("let age = 25;");
+    console.log("age = 26;");
+    console.log(`age = ${age}`);
+
+    // Section 2: String example
+    const firstName = "Alice";
+    const lastName = 'Smith';
+    const greeting = `Hello, ${firstName}!`;
+    document.getElementById('output-string').textContent = greeting;
+    console.log("\n=== STRING EXAMPLES ===");
+    console.log(greeting);
+
+    // Number example
+    const integer = 42;
+    const float = 3.14;
+    const sum = integer + float;
+    document.getElementById('output-number').textContent = `Sum: ${sum}`;
+    console.log("\n=== NUMBER EXAMPLES ===");
+    console.log(`Sum: ${sum}`);
+
+    // Boolean example
+    const isStudent = true;
+    const hasGraduated = false;
+    const isEnrolled = 10 > 5;
+    document.getElementById('output-boolean').textContent = `Is enrolled: ${isEnrolled}`;
+    console.log("\n=== BOOLEAN EXAMPLES ===");
+    console.log(`Is enrolled: ${isEnrolled}`);
+
+    // Section 3: typeof examples
+    const typeofResults = `
+typeof "Hello": ${typeof "Hello"}
+typeof 42: ${typeof 42}
+typeof true: ${typeof true}
+typeof undefined: ${typeof undefined}
+typeof null: ${typeof null} (⚠️ bug in JavaScript!)
+typeof {}: ${typeof {}}
+typeof []: ${typeof []}
+typeof function(){}: ${typeof function(){}}
+    `.trim();
+    
+    document.getElementById('output-typeof').innerHTML = typeofResults.replace(/\n/g, '<br>');
+    console.log("\n=== TYPEOF EXAMPLES ===");
+    console.log(`typeof "Hello": ${typeof "Hello"}`);
+    console.log(`typeof 42: ${typeof 42}`);
+    console.log(`typeof true: ${typeof true}`);
+    console.log(`typeof undefined: ${typeof undefined}`);
+    console.log(`typeof null: ${typeof null} (bug!)`);
+
+    // Section 4: Template literals
+    const name = "Bob";
+    const userAge = 30;
+    const newWay = `My name is ${name} and I'm ${userAge} years old.`;
+    document.getElementById('output-template').textContent = newWay;
+    console.log("\n=== TEMPLATE LITERALS ===");
+    console.log(newWay);
+
+    // Multi-line
+    const poem = `Roses are red,
+Violets are blue,
+JavaScript is awesome,
+And so are you!`;
+    document.getElementById('output-multiline').innerHTML = poem.replace(/\n/g, '<br>');
+    console.log(poem);
+
+    // Expression in template
+    const price = 19.99;
+    const quantity = 3;
+    const total = `Total: $${(price * quantity).toFixed(2)}`;
+    document.getElementById('output-expression').textContent = total;
+    console.log(total);
+
+    // Section 5: Type coercion
+    const coercionResults = `
+5 + "5" = ${5 + "5"} (string)
+"10" - 5 = ${"10" - 5} (number)
+true + 1 = ${true + 1} (true becomes 1)
+false + 1 = ${false + 1} (false becomes 0)
+    `.trim();
+    
+    document.getElementById('output-coercion').innerHTML = coercionResults.replace(/\n/g, '<br>');
+    console.log("\n=== TYPE COERCION ===");
+    console.log(`5 + "5" = ${5 + "5"}`);
+    console.log(`"10" - 5 = ${"10" - 5}`);
+    console.log(`true + 1 = ${true + 1}`);
+    console.log(`false + 1 = ${false + 1}`);
+
+    console.log("\n=== PRACTICE EXERCISES ===");
+    console.log("Try the exercises listed on the page in your console!");
+    console.log("\nExample:");
+    console.log("const favoriteColor = 'blue';");
+    console.log("console.log(`My favorite color is ${favoriteColor}`);");
+  </script>
+</body>
+</html>

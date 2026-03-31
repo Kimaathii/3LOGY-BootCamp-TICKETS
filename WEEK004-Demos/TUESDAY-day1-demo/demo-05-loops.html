@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demo 05 - Loops</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+    }
+    h1 { color: #333; margin-bottom: 30px; }
+    .section {
+      margin: 20px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    .section h2 { color: #667eea; margin-bottom: 15px; }
+    .code { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: monospace; margin: 10px 0; }
+    .output { background: #e8f4f8; padding: 15px; border-radius: 6px; margin: 10px 0; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔁 Demo 05: Loops</h1>
+
+    <div class="section">
+      <h2>1. for Loop</h2>
+      <div class="code">
+for (let i = 0; i < 5; i++) {<br>
+&nbsp;&nbsp;console.log(`Count: ${i}`);<br>
+}
+      </div>
+      <div class="output" id="output-for"></div>
+    </div>
+
+    <div class="section">
+      <h2>2. while Loop</h2>
+      <div class="code">
+let count = 0;<br>
+while (count < 3) {<br>
+&nbsp;&nbsp;console.log(`Count: ${count}`);<br>
+&nbsp;&nbsp;count++;<br>
+}
+      </div>
+      <div class="output" id="output-while"></div>
+    </div>
+
+    <div class="section">
+      <h2>3. do...while Loop</h2>
+      <div class="code">
+let num = 0;<br>
+do {<br>
+&nbsp;&nbsp;console.log(`Number: ${num}`);<br>
+&nbsp;&nbsp;num++;<br>
+} while (num < 3);
+      </div>
+      <div class="output" id="output-dowhile"></div>
+    </div>
+
+    <div class="section">
+      <h2>4. for...of Loop (Arrays)</h2>
+      <div class="code">
+const fruits = ["apple", "banana", "orange"];<br>
+<br>
+for (const fruit of fruits) {<br>
+&nbsp;&nbsp;console.log(fruit);<br>
+}
+      </div>
+      <div class="output" id="output-forof"></div>
+    </div>
+
+    <div class="section">
+      <h2>5. break & continue</h2>
+      <div class="code">
+// break - exit loop<br>
+for (let i = 0; i < 10; i++) {<br>
+&nbsp;&nbsp;if (i === 5) break;<br>
+&nbsp;&nbsp;console.log(i);<br>
+}<br>
+<br>
+// continue - skip iteration<br>
+for (let i = 0; i < 5; i++) {<br>
+&nbsp;&nbsp;if (i === 2) continue;<br>
+&nbsp;&nbsp;console.log(i);<br>
+}
+      </div>
+      <div class="output" id="output-break"></div>
+    </div>
+
+    <div class="section">
+      <h2>6. Practical - Sum Numbers</h2>
+      <div class="code">
+function sumNumbers(n) {<br>
+&nbsp;&nbsp;let sum = 0;<br>
+&nbsp;&nbsp;for (let i = 1; i <= n; i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sum += i;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;return sum;<br>
+}<br>
+<br>
+console.log(sumNumbers(10)); // 55
+      </div>
+      <div class="output" id="output-sum"></div>
+    </div>
+
+    <div class="section">
+      <h2>7. Practical - Multiplication Table</h2>
+      <div class="output" id="output-table"></div>
+    </div>
+
+  </div>
+
+  <script>
+    console.log("=== DEMO 05: LOOPS ===\n");
+
+    // 1. for loop
+    let forResults = [];
+    for (let i = 0; i < 5; i++) {
+      forResults.push(`Count: ${i}`);
+    }
+    document.getElementById('output-for').innerHTML = forResults.join('<br>');
+    console.log("for loop:", forResults);
+
+    // 2. while loop
+    let count = 0;
+    let whileResults = [];
+    while (count < 3) {
+      whileResults.push(`Count: ${count}`);
+      count++;
+    }
+    document.getElementById('output-while').innerHTML = whileResults.join('<br>');
+    console.log("while loop:", whileResults);
+
+    // 3. do...while
+    let num = 0;
+    let doWhileResults = [];
+    do {
+      doWhileResults.push(`Number: ${num}`);
+      num++;
+    } while (num < 3);
+    document.getElementById('output-dowhile').innerHTML = doWhileResults.join('<br>');
+    console.log("do...while:", doWhileResults);
+
+    // 4. for...of
+    const fruits = ["apple", "banana", "orange"];
+    let forOfResults = [];
+    for (const fruit of fruits) {
+      forOfResults.push(fruit);
+    }
+    document.getElementById('output-forof').innerHTML = forOfResults.join('<br>');
+    console.log("for...of:", forOfResults);
+
+    // 5. break & continue
+    let breakResults = [];
+    for (let i = 0; i < 10; i++) {
+      if (i === 5) break;
+      breakResults.push(i);
+    }
+
+    let continueResults = [];
+    for (let i = 0; i < 5; i++) {
+      if (i === 2) continue;
+      continueResults.push(i);
+    }
+
+    document.getElementById('output-break').innerHTML =
+      `<strong>break (stops at 5):</strong> ${breakResults.join(', ')}<br>` +
+      `<strong>continue (skips 2):</strong> ${continueResults.join(', ')}`;
+    console.log("break:", breakResults);
+    console.log("continue:", continueResults);
+
+    // 6. Sum numbers
+    function sumNumbers(n) {
+      let sum = 0;
+      for (let i = 1; i <= n; i++) {
+        sum += i;
+      }
+      return sum;
+    }
+
+    const sum10 = sumNumbers(10);
+    const sum100 = sumNumbers(100);
+    document.getElementById('output-sum').innerHTML =
+      `sumNumbers(10) = ${sum10}<br>` +
+      `sumNumbers(100) = ${sum100}`;
+    console.log("Sum:", { sum10, sum100 });
+
+    // 7. Multiplication table
+    let table = '<strong>5 × Table:</strong><br>';
+    for (let i = 1; i <= 10; i++) {
+      table += `5 × ${i} = ${5 * i}<br>`;
+    }
+    document.getElementById('output-table').innerHTML = table;
+
+    console.log("\n🎯 Practice loops in your console!");
+    console.log("Try: for (let i = 0; i < 10; i++) { console.log(i); }");
+  </script>
+</body>
+</html>
