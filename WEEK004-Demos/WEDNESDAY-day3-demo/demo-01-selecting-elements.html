@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 01 - Selecting Elements</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #11998e, #38ef7d); padding: 20px; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    h1 { color: #333; margin-bottom: 10px; }
+    .subtitle { color: #666; margin-bottom: 30px; }
+    .section { margin: 25px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #11998e; }
+    .section h2 { color: #11998e; margin-bottom: 12px; }
+    .code-block { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 14px; margin: 10px 0; white-space: pre; overflow-x: auto; }
+    .interactive-area { background: #fff; border: 2px dashed #11998e; padding: 20px; border-radius: 8px; margin: 15px 0; }
+    .output { background: #e8f4f8; padding: 15px; border-radius: 6px; border-left: 4px solid #17a2b8; margin: 10px 0; font-family: monospace; min-height: 40px; }
+    .tip { background: #d4edda; padding: 15px; border-radius: 6px; border-left: 4px solid #28a745; margin: 10px 0; }
+    button { background: #11998e; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; margin: 5px; }
+    button:hover { background: #0d7a6e; }
+    .demo-item { padding: 10px; margin: 5px 0; border: 1px solid #ddd; border-radius: 6px; transition: all 0.3s; }
+    .highlight { background: #11998e !important; color: white !important; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Demo 01: Selecting Elements</h1>
+    <p class="subtitle">Finding HTML elements with getElementById, querySelector, querySelectorAll</p>
+
+    <div class="section">
+      <h2>1. getElementById</h2>
+      <div class="code-block">const title = document.getElementById('unique-title');
+// Returns ONE element (or null if not found)</div>
+      <div class="interactive-area">
+        <p id="unique-title" class="demo-item">I have id="unique-title"</p>
+        <button id="btn-byId">Find by getElementById</button>
+      </div>
+      <div class="output" id="output-1">Click the button above</div>
+    </div>
+
+    <div class="section">
+      <h2>2. querySelector — First Match Only</h2>
+      <div class="code-block">document.querySelector('#myId');     // By ID
+document.querySelector('.myClass');   // By class
+document.querySelector('h1');         // By tag
+document.querySelector('.parent .child'); // Nested</div>
+      <div class="interactive-area">
+        <div class="demo-item card-item">Card 1 (class="card-item")</div>
+        <div class="demo-item card-item">Card 2 (class="card-item")</div>
+        <div class="demo-item card-item">Card 3 (class="card-item")</div>
+        <button id="btn-qs">querySelector('.card-item') — First Only</button>
+        <button id="btn-reset1">Reset</button>
+      </div>
+      <div class="output" id="output-2">Click the button above</div>
+    </div>
+
+    <div class="section">
+      <h2>3. querySelectorAll — All Matches</h2>
+      <div class="code-block">const allCards = document.querySelectorAll('.card-item');
+// Returns a NodeList (like an array)
+console.log(allCards.length);  // 3
+
+allCards.forEach(function(card) {
+  card.style.backgroundColor = 'green';
+});</div>
+      <div class="interactive-area">
+        <div class="demo-item select-item">Item A (class="select-item")</div>
+        <div class="demo-item select-item">Item B (class="select-item")</div>
+        <div class="demo-item select-item">Item C (class="select-item")</div>
+        <div class="demo-item select-item">Item D (class="select-item")</div>
+        <button id="btn-qsAll">querySelectorAll — Highlight All</button>
+        <button id="btn-qsOdd">Highlight Odd Only</button>
+        <button id="btn-reset2">Reset</button>
+      </div>
+      <div class="output" id="output-3">Click the button above</div>
+    </div>
+
+    <div class="section">
+      <h2>4. 🎯 Practice — Try in Console</h2>
+      <ol>
+        <li><code>document.querySelector('h1').textContent</code></li>
+        <li><code>document.querySelectorAll('button').length</code></li>
+        <li><code>document.querySelectorAll('.demo-item').length</code></li>
+        <li><code>document.querySelector('.section:last-child')</code></li>
+      </ol>
+      <div class="tip"><strong>💡 Tip:</strong> querySelector uses the SAME selectors as CSS — if you know CSS, you already know how to select elements in JS!</div>
+    </div>
+  </div>
+
+  <script>
+    // getElementById
+    document.getElementById('btn-byId').addEventListener('click', function() {
+      const el = document.getElementById('unique-title');
+      el.classList.toggle('highlight');
+      document.getElementById('output-1').textContent = el ? `Found: "${el.textContent}"` : 'Not found!';
+    });
+
+    // querySelector (first match)
+    document.getElementById('btn-qs').addEventListener('click', function() {
+      document.querySelectorAll('.card-item').forEach(c => c.classList.remove('highlight'));
+      const first = document.querySelector('.card-item');
+      first.classList.add('highlight');
+      document.getElementById('output-2').textContent = `querySelector found FIRST: "${first.textContent}"`;
+    });
+
+    document.getElementById('btn-reset1').addEventListener('click', function() {
+      document.querySelectorAll('.card-item').forEach(c => c.classList.remove('highlight'));
+      document.getElementById('output-2').textContent = 'Reset!';
+    });
+
+    // querySelectorAll
+    document.getElementById('btn-qsAll').addEventListener('click', function() {
+      const all = document.querySelectorAll('.select-item');
+      all.forEach(item => item.classList.add('highlight'));
+      document.getElementById('output-3').textContent = `querySelectorAll found ${all.length} elements — ALL highlighted!`;
+    });
+
+    document.getElementById('btn-qsOdd').addEventListener('click', function() {
+      const all = document.querySelectorAll('.select-item');
+      all.forEach((item, index) => {
+        item.classList.remove('highlight');
+        if (index % 2 === 0) item.classList.add('highlight');
+      });
+      document.getElementById('output-3').textContent = 'Highlighted odd-indexed items using forEach with index!';
+    });
+
+    document.getElementById('btn-reset2').addEventListener('click', function() {
+      document.querySelectorAll('.select-item').forEach(c => c.classList.remove('highlight'));
+      document.getElementById('output-3').textContent = 'Reset!';
+    });
+  </script>
+</body>
+</html>

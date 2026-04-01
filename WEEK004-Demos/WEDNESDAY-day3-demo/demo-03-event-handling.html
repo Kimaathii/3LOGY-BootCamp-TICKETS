@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 03 - Event Handling</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #11998e, #38ef7d); padding: 20px; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    h1 { color: #333; margin-bottom: 10px; }
+    .subtitle { color: #666; margin-bottom: 30px; }
+    .section { margin: 25px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #11998e; }
+    .section h2 { color: #11998e; margin-bottom: 12px; }
+    .code-block { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 14px; margin: 10px 0; white-space: pre; overflow-x: auto; }
+    .interactive-area { background: #fff; border: 2px dashed #11998e; padding: 20px; border-radius: 8px; margin: 15px 0; }
+    .output { background: #e8f4f8; padding: 15px; border-radius: 6px; border-left: 4px solid #17a2b8; margin: 10px 0; font-family: monospace; }
+    .warning { background: #fff3cd; padding: 15px; border-radius: 6px; border-left: 4px solid #ffc107; margin: 10px 0; }
+    button { background: #11998e; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; margin: 5px; }
+    button:hover { background: #0d7a6e; }
+    input, select { padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; margin: 5px; }
+    input:focus, select:focus { border-color: #11998e; outline: none; }
+    .log-box { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 13px; max-height: 120px; overflow-y: auto; margin: 10px 0; }
+    form { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .result { font-size: 1.2em; font-weight: bold; padding: 10px; margin: 10px 0; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚡ Demo 03: Event Handling</h1>
+    <p class="subtitle">Click events, form submit with preventDefault, input events</p>
+
+    <div class="section">
+      <h2>1. Click Events</h2>
+      <div class="code-block">button.addEventListener('click', function() {
+  // This runs every time button is clicked
+});</div>
+      <div class="interactive-area">
+        <button id="btn-click" style="font-size: 18px; padding: 15px 30px;">🖱️ Click Me!</button>
+        <p style="margin-top: 10px;">Clicks: <strong id="click-count">0</strong></p>
+        <div id="log-clicks" class="log-box">Waiting...</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>2. Form Submit — e.preventDefault()</h2>
+      <div class="code-block">form.addEventListener('submit', function(e) {
+  e.preventDefault();  // ⚠️ CRITICAL! Stops page from reloading
+  const value = input.value;
+  // Process the value...
+});</div>
+      <div class="interactive-area">
+        <form id="demo-form">
+          <input type="text" id="name-input" placeholder="Enter your name" required>
+          <button type="submit">Submit</button>
+        </form>
+        <div class="result" id="form-result"></div>
+      </div>
+      <div class="warning"><strong>⚠️ Without e.preventDefault():</strong> The page reloads on form submit and you lose ALL your JavaScript data! Always include it.</div>
+    </div>
+
+    <div class="section">
+      <h2>3. Input Events — Live Updates</h2>
+      <div class="code-block">input.addEventListener('input', function() {
+  // Fires on EVERY keystroke — perfect for live search!
+  preview.textContent = input.value;
+});</div>
+      <div class="interactive-area">
+        <input type="text" id="live-input" placeholder="Type something..." style="width: 300px;">
+        <div style="margin-top: 15px;">
+          <p>Live preview: <strong id="preview"></strong></p>
+          <p>Characters: <strong id="char-count">0</strong> | Words: <strong id="word-count">0</strong></p>
+          <p>Uppercase: <strong id="upper-preview"></strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>4. The Event Object (e)</h2>
+      <div class="code-block">button.addEventListener('click', function(e) {
+  e.target;    // The element that was clicked
+  e.type;      // "click"
+  e.clientX;   // Mouse X position
+  e.clientY;   // Mouse Y position
+});</div>
+      <div class="interactive-area">
+        <div id="event-area" style="background: #f0f0f0; padding: 30px; border-radius: 8px; cursor: crosshair; text-align: center;">
+          Click anywhere in this box!
+        </div>
+        <div class="output" id="event-output">Click the gray area above</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Section 1: Click events
+    let clicks = 0;
+    const logClicks = document.getElementById('log-clicks');
+
+    document.getElementById('btn-click').addEventListener('click', function() {
+      clicks++;
+      document.getElementById('click-count').textContent = clicks;
+      logClicks.innerHTML += `<br>Click #${clicks} at ${new Date().toLocaleTimeString()}`;
+      logClicks.scrollTop = logClicks.scrollHeight;
+    });
+
+    // Section 2: Form submit
+    document.getElementById('demo-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name-input').value;
+      const result = document.getElementById('form-result');
+      result.textContent = `👋 Welcome, ${name}! (Page did NOT reload — e.preventDefault() worked!)`;
+      result.style.backgroundColor = '#d4edda';
+      result.style.color = '#155724';
+    });
+
+    // Section 3: Input event
+    const liveInput = document.getElementById('live-input');
+    liveInput.addEventListener('input', function() {
+      const val = liveInput.value;
+      document.getElementById('preview').textContent = val;
+      document.getElementById('char-count').textContent = val.length;
+      document.getElementById('word-count').textContent = val.trim() === '' ? 0 : val.trim().split(/\s+/).length;
+      document.getElementById('upper-preview').textContent = val.toUpperCase();
+    });
+
+    // Section 4: Event object
+    document.getElementById('event-area').addEventListener('click', function(e) {
+      const output = document.getElementById('event-output');
+      output.innerHTML = `e.type: "${e.type}" | e.clientX: ${e.clientX} | e.clientY: ${e.clientY}<br>e.target: ${e.target.tagName} | e.target.id: "${e.target.id}"`;
+    });
+  </script>
+</body>
+</html>

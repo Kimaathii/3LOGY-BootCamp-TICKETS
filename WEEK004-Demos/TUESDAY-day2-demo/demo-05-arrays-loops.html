@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 05 - Arrays & Loops in the Browser</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 { color: #333; margin-bottom: 10px; font-size: 2em; }
+    .subtitle { color: #666; margin-bottom: 30px; font-size: 1.1em; }
+
+    .section {
+      margin: 30px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .section h2 { color: #667eea; margin-bottom: 15px; font-size: 1.4em; }
+
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin: 10px 0;
+      white-space: pre;
+    }
+
+    .code-block .comment { color: #6a9955; }
+    .code-block .keyword { color: #569cd6; }
+    .code-block .string { color: #ce9178; }
+    .code-block .number { color: #b5cea8; }
+
+    .output {
+      background: #e8f4f8;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #17a2b8;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+
+    .output-label { font-weight: bold; color: #17a2b8; margin-bottom: 5px; }
+
+    .tip {
+      background: #d4edda;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #28a745;
+      margin: 10px 0;
+    }
+
+    .tip-label { font-weight: bold; color: #155724; margin-bottom: 5px; }
+
+    .warning {
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #ffc107;
+      margin: 10px 0;
+    }
+
+    .warning-label { font-weight: bold; color: #856404; margin-bottom: 5px; }
+
+    .interactive-area {
+      background: #fff;
+      border: 2px dashed #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 5px;
+    }
+
+    button:hover { background: #5a6fd6; }
+
+    input[type="text"] {
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      width: 200px;
+      margin: 5px;
+    }
+
+    input:focus { border-color: #667eea; outline: none; }
+
+    .list-display {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .list-display li {
+      padding: 10px 15px;
+      margin: 5px 0;
+      background: #f8f9fa;
+      border-radius: 6px;
+      border-left: 3px solid #667eea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .list-display li .delete-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    ul { margin-left: 20px; margin-top: 10px; }
+    li { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Demo 05: Arrays & Loops in the Browser</h1>
+    <p class="subtitle">Using arrays to store data and loops to render lists on the page</p>
+
+    <!-- Section 1: Arrays Basics -->
+    <div class="section">
+      <h2>1. Arrays — Storing Multiple Values</h2>
+
+      <div class="code-block"><span class="keyword">const</span> fruits = [<span class="string">'Apple'</span>, <span class="string">'Banana'</span>, <span class="string">'Cherry'</span>];
+
+console.log(fruits[<span class="number">0</span>]);       <span class="comment">// 'Apple' (first item, index 0)</span>
+console.log(fruits.length);   <span class="comment">// 3</span>
+
+fruits.push(<span class="string">'Date'</span>);          <span class="comment">// Add to end</span>
+fruits.pop();                 <span class="comment">// Remove from end</span>
+fruits.includes(<span class="string">'Banana'</span>);    <span class="comment">// true (check if exists)</span></div>
+
+      <div class="interactive-area">
+        <p><strong>Dynamic Fruit List:</strong></p>
+        <input type="text" id="fruitInput" placeholder="Enter a fruit...">
+        <button id="btn-addFruit">Add Fruit</button>
+        <button id="btn-removeFruit">Remove Last</button>
+        <button id="btn-sortFruits">Sort A-Z</button>
+        <ul id="fruitList" class="list-display"></ul>
+        <p>Array length: <strong id="fruitCount">0</strong></p>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Array Contents:</div>
+        <div id="output-1"></div>
+      </div>
+    </div>
+
+    <!-- Section 2: Loops to Render -->
+    <div class="section">
+      <h2>2. Rendering Arrays to the Page</h2>
+
+      <div class="code-block"><span class="keyword">const</span> students = [<span class="string">'Alice'</span>, <span class="string">'Bob'</span>, <span class="string">'Charlie'</span>];
+<span class="keyword">const</span> list = document.querySelector(<span class="string">'#studentList'</span>);
+
+<span class="comment">// Clear the list first</span>
+list.innerHTML = <span class="string">''</span>;
+
+<span class="comment">// Loop through array and create HTML for each item</span>
+students.forEach(<span class="keyword">function</span>(student, index) {
+  <span class="keyword">const</span> li = document.createElement(<span class="string">'li'</span>);
+  li.textContent = <span class="string">`${index + 1}. ${student}`</span>;
+  list.appendChild(li);
+});
+
+<span class="comment">// This is the KEY PATTERN for displaying data on a page!</span></div>
+
+      <div class="interactive-area">
+        <p><strong>Student Roster:</strong></p>
+        <input type="text" id="studentInput" placeholder="Student name...">
+        <button id="btn-addStudent">Add Student</button>
+        <button id="btn-clearStudents">Clear All</button>
+        <ul id="studentList" class="list-display"></ul>
+        <p>Total students: <strong id="studentCount">0</strong></p>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">✅ The Render Pattern:</div>
+        <ol>
+          <li>Keep data in an array (your "source of truth")</li>
+          <li>Create a <code>renderList()</code> function</li>
+          <li>Clear the list element: <code>list.innerHTML = ''</code></li>
+          <li>Loop through array, create elements for each item</li>
+          <li>Call <code>renderList()</code> after every data change</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Section 3: forEach vs for...of -->
+    <div class="section">
+      <h2>3. Loop Types Comparison</h2>
+
+      <div class="code-block"><span class="keyword">const</span> colors = [<span class="string">'red'</span>, <span class="string">'green'</span>, <span class="string">'blue'</span>];
+
+<span class="comment">// 1. for loop (classic)</span>
+<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < colors.length; i++) {
+  console.log(colors[i]);
+}
+
+<span class="comment">// 2. for...of (modern, cleaner)</span>
+<span class="keyword">for</span> (<span class="keyword">const</span> color <span class="keyword">of</span> colors) {
+  console.log(color);
+}
+
+<span class="comment">// 3. forEach (array method — most common for rendering)</span>
+colors.forEach(<span class="keyword">function</span>(color, index) {
+  console.log(<span class="string">`${index}: ${color}`</span>);
+});
+
+<span class="comment">// 4. forEach with arrow function</span>
+colors.forEach((color, i) => console.log(<span class="string">`${i}: ${color}`</span>));</div>
+
+      <div class="interactive-area">
+        <p><strong>Generate colored boxes from an array:</strong></p>
+        <button id="btn-forLoop">Using for loop</button>
+        <button id="btn-forEach">Using forEach</button>
+        <button id="btn-clearBoxes">Clear</button>
+        <div id="colorBoxes" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;"></div>
+      </div>
+    </div>
+
+    <!-- Section 4: Array Methods -->
+    <div class="section">
+      <h2>4. Useful Array Methods</h2>
+
+      <div class="code-block"><span class="keyword">const</span> numbers = [<span class="number">5</span>, <span class="number">3</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">2</span>];
+
+<span class="comment">// filter — keep items that pass a test</span>
+<span class="keyword">const</span> big = numbers.filter(n => n > <span class="number">5</span>);    <span class="comment">// [8, 9]</span>
+
+<span class="comment">// map — transform each item</span>
+<span class="keyword">const</span> doubled = numbers.map(n => n * <span class="number">2</span>);   <span class="comment">// [10, 6, 16, 2, 18, 4]</span>
+
+<span class="comment">// find — get first item that passes test</span>
+<span class="keyword">const</span> found = numbers.find(n => n > <span class="number">5</span>);    <span class="comment">// 8</span>
+
+<span class="comment">// sort — sort the array</span>
+<span class="keyword">const</span> sorted = [...numbers].sort((a, b) => a - b); <span class="comment">// [1, 2, 3, 5, 8, 9]</span></div>
+
+      <div class="interactive-area">
+        <p><strong>Array: [5, 12, 3, 8, 21, 7, 15, 2, 19, 6]</strong></p>
+        <button id="btn-filter">Filter > 10</button>
+        <button id="btn-map">Double All</button>
+        <button id="btn-sort">Sort ↑</button>
+        <button id="btn-find">Find First > 10</button>
+        <button id="btn-resetArr">Reset</button>
+        <div id="arrayResult" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; font-family: monospace; font-size: 16px;">
+          [5, 12, 3, 8, 21, 7, 15, 2, 19, 6]
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: Practice -->
+    <div class="section">
+      <h2>5. 🎯 Practice Exercises</h2>
+      <ol>
+        <li>Create an array of 5 names and render them as a numbered list on the page.</li>
+        <li>Add an input + button that lets users add names to the list.</li>
+        <li>Add "Delete" buttons next to each name that remove it from the array and re-render.</li>
+        <li><strong>Challenge:</strong> Build a "Shopping List" app — add items, mark as purchased (strikethrough), delete items.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    // Section 1: Fruit List
+    let fruits = ['Apple', 'Banana', 'Cherry'];
+
+    function renderFruits() {
+      const list = document.getElementById('fruitList');
+      list.innerHTML = '';
+      fruits.forEach(function(fruit, index) {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${index + 1}. ${fruit}</span>
+          <button class="delete-btn" onclick="deleteFruit(${index})">✕</button>`;
+        list.appendChild(li);
+      });
+      document.getElementById('fruitCount').textContent = fruits.length;
+      document.getElementById('output-1').textContent = JSON.stringify(fruits);
+    }
+
+    window.deleteFruit = function(index) {
+      fruits.splice(index, 1);
+      renderFruits();
+    };
+
+    document.getElementById('btn-addFruit').addEventListener('click', function() {
+      const input = document.getElementById('fruitInput');
+      if (input.value.trim()) {
+        fruits.push(input.value.trim());
+        input.value = '';
+        renderFruits();
+      }
+    });
+
+    document.getElementById('btn-removeFruit').addEventListener('click', function() {
+      fruits.pop();
+      renderFruits();
+    });
+
+    document.getElementById('btn-sortFruits').addEventListener('click', function() {
+      fruits.sort();
+      renderFruits();
+    });
+
+    renderFruits();
+
+    // Section 2: Student Roster
+    let students = [];
+
+    function renderStudents() {
+      const list = document.getElementById('studentList');
+      list.innerHTML = '';
+      students.forEach(function(student, index) {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${index + 1}. ${student}</span>
+          <button class="delete-btn" onclick="deleteStudent(${index})">✕</button>`;
+        list.appendChild(li);
+      });
+      document.getElementById('studentCount').textContent = students.length;
+    }
+
+    window.deleteStudent = function(index) {
+      students.splice(index, 1);
+      renderStudents();
+    };
+
+    document.getElementById('btn-addStudent').addEventListener('click', function() {
+      const input = document.getElementById('studentInput');
+      if (input.value.trim()) {
+        students.push(input.value.trim());
+        input.value = '';
+        renderStudents();
+      }
+    });
+
+    document.getElementById('btn-clearStudents').addEventListener('click', function() {
+      students = [];
+      renderStudents();
+    });
+
+    // Section 3: Color boxes
+    const boxColors = ['#e74c3c', '#2ecc71', '#3498db', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#34495e'];
+
+    document.getElementById('btn-forLoop').addEventListener('click', function() {
+      const container = document.getElementById('colorBoxes');
+      container.innerHTML = '';
+      for (let i = 0; i < boxColors.length; i++) {
+        const div = document.createElement('div');
+        div.style.width = '80px';
+        div.style.height = '80px';
+        div.style.backgroundColor = boxColors[i];
+        div.style.borderRadius = '8px';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.justifyContent = 'center';
+        div.style.color = 'white';
+        div.style.fontWeight = 'bold';
+        div.textContent = `[${i}]`;
+        container.appendChild(div);
+      }
+    });
+
+    document.getElementById('btn-forEach').addEventListener('click', function() {
+      const container = document.getElementById('colorBoxes');
+      container.innerHTML = '';
+      boxColors.forEach(function(color, index) {
+        const div = document.createElement('div');
+        div.style.cssText = `width:80px; height:80px; background:${color}; border-radius:8px; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold;`;
+        div.textContent = `[${index}]`;
+        container.appendChild(div);
+      });
+    });
+
+    document.getElementById('btn-clearBoxes').addEventListener('click', function() {
+      document.getElementById('colorBoxes').innerHTML = '';
+    });
+
+    // Section 4: Array methods
+    const originalArray = [5, 12, 3, 8, 21, 7, 15, 2, 19, 6];
+    const resultEl = document.getElementById('arrayResult');
+
+    document.getElementById('btn-filter').addEventListener('click', function() {
+      const filtered = originalArray.filter(n => n > 10);
+      resultEl.textContent = `filter(n => n > 10): [${filtered.join(', ')}]`;
+    });
+
+    document.getElementById('btn-map').addEventListener('click', function() {
+      const doubled = originalArray.map(n => n * 2);
+      resultEl.textContent = `map(n => n * 2): [${doubled.join(', ')}]`;
+    });
+
+    document.getElementById('btn-sort').addEventListener('click', function() {
+      const sorted = [...originalArray].sort((a, b) => a - b);
+      resultEl.textContent = `sort(): [${sorted.join(', ')}]`;
+    });
+
+    document.getElementById('btn-find').addEventListener('click', function() {
+      const found = originalArray.find(n => n > 10);
+      resultEl.textContent = `find(n => n > 10): ${found}`;
+    });
+
+    document.getElementById('btn-resetArr').addEventListener('click', function() {
+      resultEl.textContent = `[${originalArray.join(', ')}]`;
+    });
+
+    console.log('=== DEMO 05: Arrays & Loops in the Browser ===');
+    console.log('Key pattern: data array → renderList() → forEach → createElement → appendChild');
+  </script>
+</body>
+</html>

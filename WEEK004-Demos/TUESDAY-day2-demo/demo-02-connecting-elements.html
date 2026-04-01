@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 02 - Connecting JS to Page Elements</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 { color: #333; margin-bottom: 10px; font-size: 2em; }
+    .subtitle { color: #666; margin-bottom: 30px; font-size: 1.1em; }
+
+    .section {
+      margin: 30px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .section h2 { color: #667eea; margin-bottom: 15px; font-size: 1.4em; }
+
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin: 10px 0;
+      white-space: pre;
+    }
+
+    .code-block .comment { color: #6a9955; }
+    .code-block .keyword { color: #569cd6; }
+    .code-block .string { color: #ce9178; }
+    .code-block .method { color: #dcdcaa; }
+
+    .output {
+      background: #e8f4f8;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #17a2b8;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+
+    .output-label { font-weight: bold; color: #17a2b8; margin-bottom: 5px; }
+
+    .tip {
+      background: #d4edda;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #28a745;
+      margin: 10px 0;
+    }
+
+    .tip-label { font-weight: bold; color: #155724; margin-bottom: 5px; }
+
+    .warning {
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #ffc107;
+      margin: 10px 0;
+    }
+
+    .warning-label { font-weight: bold; color: #856404; margin-bottom: 5px; }
+
+    .console-note {
+      background: #d1ecf1;
+      padding: 12px;
+      border-radius: 6px;
+      margin: 15px 0;
+      font-size: 0.95em;
+    }
+
+    .interactive-area {
+      background: #fff;
+      border: 2px dashed #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 5px;
+    }
+
+    button:hover { background: #5a6fd6; }
+
+    .demo-box {
+      padding: 15px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    ul { margin-left: 20px; margin-top: 10px; }
+    li { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Demo 02: Connecting JS to Page Elements</h1>
+    <p class="subtitle">Finding HTML elements and reading or changing their content</p>
+
+    <div class="console-note">
+      <strong>👉 Open your browser console (F12) and follow along!</strong><br>
+      Watch how JavaScript finds and modifies HTML elements on the page.
+    </div>
+
+    <!-- Section 1: getElementById -->
+    <div class="section">
+      <h2>1. Finding Elements by ID</h2>
+
+      <div class="code-block"><span class="comment">// HTML: &lt;p id="greeting"&gt;Hello&lt;/p&gt;</span>
+
+<span class="keyword">const</span> element = document.<span class="method">getElementById</span>(<span class="string">'greeting'</span>);
+console.log(element);           <span class="comment">// The entire &lt;p&gt; element</span>
+console.log(element.textContent); <span class="comment">// "Hello"</span></div>
+
+      <div class="interactive-area">
+        <p id="greeting" class="demo-box">Hello, I'm a paragraph with id="greeting"</p>
+        <button id="btn-getById">Get Element by ID</button>
+        <button id="btn-changeById">Change Its Text</button>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-1"></div>
+      </div>
+    </div>
+
+    <!-- Section 2: querySelector -->
+    <div class="section">
+      <h2>2. Finding Elements with querySelector</h2>
+
+      <div class="code-block"><span class="comment">// By ID (use #)</span>
+<span class="keyword">const</span> byId = document.<span class="method">querySelector</span>(<span class="string">'#myId'</span>);
+
+<span class="comment">// By class (use .)</span>
+<span class="keyword">const</span> byClass = document.<span class="method">querySelector</span>(<span class="string">'.myClass'</span>);
+
+<span class="comment">// By tag name</span>
+<span class="keyword">const</span> byTag = document.<span class="method">querySelector</span>(<span class="string">'h1'</span>);
+
+<span class="comment">// querySelector returns the FIRST match only</span></div>
+
+      <div class="interactive-area">
+        <p class="highlight-me demo-box">First paragraph with class "highlight-me"</p>
+        <p class="highlight-me demo-box">Second paragraph with class "highlight-me"</p>
+        <p class="highlight-me demo-box">Third paragraph with class "highlight-me"</p>
+        <button id="btn-querySelector">querySelector('.highlight-me') → First only</button>
+        <button id="btn-querySelectorAll">querySelectorAll('.highlight-me') → All three!</button>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-2"></div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">✅ Best Practice:</div>
+        Use <code>querySelector</code> for single elements and <code>querySelectorAll</code> when you need multiple. They use CSS selector syntax (same as CSS!).
+      </div>
+    </div>
+
+    <!-- Section 3: Reading & Changing Text -->
+    <div class="section">
+      <h2>3. Reading and Changing Text</h2>
+
+      <div class="code-block"><span class="keyword">const</span> heading = document.<span class="method">querySelector</span>(<span class="string">'#myHeading'</span>);
+
+<span class="comment">// READ text</span>
+console.log(heading.<span class="method">textContent</span>);   <span class="comment">// "Old Title"</span>
+
+<span class="comment">// CHANGE text</span>
+heading.<span class="method">textContent</span> = <span class="string">"New Title!"</span>;
+
+<span class="comment">// CHANGE HTML (can include tags)</span>
+heading.<span class="method">innerHTML</span> = <span class="string">"&lt;em&gt;Italic Title&lt;/em&gt;"</span>;</div>
+
+      <div class="interactive-area">
+        <h3 id="changeableTitle" class="demo-box">Original Title — Click buttons to change me!</h3>
+        <button id="btn-readText">Read Text</button>
+        <button id="btn-changeText">Change with textContent</button>
+        <button id="btn-changeHTML">Change with innerHTML</button>
+        <button id="btn-resetText">Reset</button>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Output:</div>
+        <div id="output-3"></div>
+      </div>
+
+      <div class="warning">
+        <div class="warning-label">⚠️ textContent vs innerHTML:</div>
+        <ul>
+          <li><code>textContent</code> — plain text only (safe, prevents XSS)</li>
+          <li><code>innerHTML</code> — can include HTML tags (be careful with user input!)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 4: Changing Styles -->
+    <div class="section">
+      <h2>4. Changing Styles with JavaScript</h2>
+
+      <div class="code-block"><span class="keyword">const</span> box = document.<span class="method">querySelector</span>(<span class="string">'#myBox'</span>);
+
+<span class="comment">// Change individual styles</span>
+box.style.backgroundColor = <span class="string">'#3498db'</span>;
+box.style.color = <span class="string">'white'</span>;
+box.style.fontSize = <span class="string">'20px'</span>;
+box.style.padding = <span class="string">'20px'</span>;
+box.style.borderRadius = <span class="string">'10px'</span>;
+
+<span class="comment">// ⚠️ Note: CSS "background-color" becomes "backgroundColor" in JS</span>
+<span class="comment">// Hyphens become camelCase!</span></div>
+
+      <div class="interactive-area">
+        <div id="styleBox" class="demo-box">Style me with JavaScript!</div>
+        <button id="btn-styleBg">Change Background</button>
+        <button id="btn-styleText">Change Text Color</button>
+        <button id="btn-styleSize">Change Font Size</button>
+        <button id="btn-styleAll">Style Everything!</button>
+        <button id="btn-styleReset">Reset Styles</button>
+      </div>
+    </div>
+
+    <!-- Section 5: Practice -->
+    <div class="section">
+      <h2>5. 🎯 Practice Exercises</h2>
+      <p><strong>Try these in your console (F12):</strong></p>
+      <ol>
+        <li>Type <code>document.querySelector('h1')</code> and see what you get.</li>
+        <li>Change this page's title: <code>document.querySelector('h1').textContent = "My Page"</code></li>
+        <li>Change a section's background: <code>document.querySelector('.section').style.backgroundColor = 'lightyellow'</code></li>
+        <li>Count all buttons: <code>document.querySelectorAll('button').length</code></li>
+      </ol>
+
+      <div class="tip">
+        <div class="tip-label">💡 Key Takeaway:</div>
+        <code>querySelector</code> + <code>textContent</code> + <code>style</code> — these three let you find, read, and change anything on the page!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Section 1: getElementById
+    document.getElementById('btn-getById').addEventListener('click', function() {
+      const el = document.getElementById('greeting');
+      document.getElementById('output-1').textContent = `Found: "${el.textContent}"`;
+      console.log('getElementById("greeting"):', el);
+    });
+
+    document.getElementById('btn-changeById').addEventListener('click', function() {
+      const el = document.getElementById('greeting');
+      el.textContent = '✅ My text was changed by JavaScript!';
+      el.style.color = '#28a745';
+      el.style.fontWeight = 'bold';
+      document.getElementById('output-1').textContent = 'Text changed successfully!';
+    });
+
+    // Section 2: querySelector vs querySelectorAll
+    document.getElementById('btn-querySelector').addEventListener('click', function() {
+      const first = document.querySelector('.highlight-me');
+      // Reset all first
+      document.querySelectorAll('.highlight-me').forEach(p => {
+        p.style.backgroundColor = '';
+        p.style.color = '';
+      });
+      first.style.backgroundColor = '#667eea';
+      first.style.color = 'white';
+      document.getElementById('output-2').textContent = 'querySelector returns ONLY the first match!';
+      console.log('querySelector(".highlight-me"):', first);
+    });
+
+    document.getElementById('btn-querySelectorAll').addEventListener('click', function() {
+      const all = document.querySelectorAll('.highlight-me');
+      all.forEach(function(el, index) {
+        el.style.backgroundColor = '#667eea';
+        el.style.color = 'white';
+      });
+      document.getElementById('output-2').textContent = `querySelectorAll found ${all.length} elements — all highlighted!`;
+      console.log('querySelectorAll(".highlight-me"):', all);
+    });
+
+    // Section 3: Reading & Changing Text
+    const title = document.getElementById('changeableTitle');
+    const originalTitle = title.textContent;
+
+    document.getElementById('btn-readText').addEventListener('click', function() {
+      document.getElementById('output-3').textContent = `textContent: "${title.textContent}"`;
+      console.log('textContent:', title.textContent);
+    });
+
+    document.getElementById('btn-changeText').addEventListener('click', function() {
+      title.textContent = '✅ Changed with textContent!';
+      document.getElementById('output-3').textContent = 'Used textContent (plain text only)';
+    });
+
+    document.getElementById('btn-changeHTML').addEventListener('click', function() {
+      title.innerHTML = '✅ Changed with <em style="color: #e74c3c;">innerHTML</em> — HTML tags work!';
+      document.getElementById('output-3').textContent = 'Used innerHTML (can include HTML tags)';
+    });
+
+    document.getElementById('btn-resetText').addEventListener('click', function() {
+      title.textContent = originalTitle;
+      document.getElementById('output-3').textContent = 'Reset to original!';
+    });
+
+    // Section 4: Changing Styles
+    const styleBox = document.getElementById('styleBox');
+
+    document.getElementById('btn-styleBg').addEventListener('click', function() {
+      styleBox.style.backgroundColor = '#3498db';
+      styleBox.style.color = 'white';
+    });
+
+    document.getElementById('btn-styleText').addEventListener('click', function() {
+      styleBox.style.color = '#e74c3c';
+      styleBox.style.fontWeight = 'bold';
+    });
+
+    document.getElementById('btn-styleSize').addEventListener('click', function() {
+      styleBox.style.fontSize = '24px';
+      styleBox.style.padding = '20px';
+    });
+
+    document.getElementById('btn-styleAll').addEventListener('click', function() {
+      styleBox.style.backgroundColor = '#2ecc71';
+      styleBox.style.color = 'white';
+      styleBox.style.fontSize = '20px';
+      styleBox.style.padding = '25px';
+      styleBox.style.borderRadius = '12px';
+      styleBox.style.textAlign = 'center';
+      styleBox.style.fontWeight = 'bold';
+      styleBox.textContent = '🎨 Fully Styled with JavaScript!';
+    });
+
+    document.getElementById('btn-styleReset').addEventListener('click', function() {
+      styleBox.removeAttribute('style');
+      styleBox.textContent = 'Style me with JavaScript!';
+    });
+
+    console.log('=== DEMO 02: Connecting JS to Page Elements ===');
+    console.log('Methods: getElementById, querySelector, querySelectorAll');
+    console.log('Properties: textContent, innerHTML, style');
+  </script>
+</body>
+</html>

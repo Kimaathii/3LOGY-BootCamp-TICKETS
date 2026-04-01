@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 01 - Form Basics</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #fc5c7d, #6a82fb); padding: 20px; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    h1 { color: #333; margin-bottom: 10px; }
+    .subtitle { color: #666; margin-bottom: 30px; }
+    .section { margin: 25px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #6a82fb; }
+    .section h2 { color: #6a82fb; margin-bottom: 12px; }
+    .code-block { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 14px; margin: 10px 0; white-space: pre; overflow-x: auto; }
+    .interactive-area { background: #fff; border: 2px dashed #6a82fb; padding: 20px; border-radius: 8px; margin: 15px 0; }
+    .output { background: #e8f4f8; padding: 15px; border-radius: 6px; border-left: 4px solid #17a2b8; margin: 10px 0; font-family: monospace; }
+    .warning { background: #fff3cd; padding: 15px; border-radius: 6px; border-left: 4px solid #ffc107; margin: 10px 0; }
+    .tip { background: #d4edda; padding: 15px; border-radius: 6px; border-left: 4px solid #28a745; margin: 10px 0; }
+    button { background: #6a82fb; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; margin: 5px; }
+    button:hover { background: #5a72eb; }
+    input, select, textarea { padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; margin: 5px 0; width: 100%; }
+    input:focus, select:focus, textarea:focus { border-color: #6a82fb; outline: none; }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; color: #333; }
+    form { max-width: 500px; }
+    .result-card { background: #f8f9fa; border: 2px solid #6a82fb; border-radius: 8px; padding: 20px; margin: 15px 0; }
+    .result-card h3 { color: #6a82fb; margin-bottom: 10px; }
+    .checkbox-group { display: flex; align-items: center; gap: 10px; margin: 5px 0; }
+    .checkbox-group input { width: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📋 Demo 01: Form Basics</h1>
+    <p class="subtitle">Getting form values, preventDefault, different input types</p>
+
+    <div class="section">
+      <h2>1. Basic Form Submit</h2>
+      <div class="code-block">form.addEventListener('submit', function(e) {
+  e.preventDefault();  // ⚠️ ALWAYS include!
+  const name = document.querySelector('#name').value;
+  console.log('Name:', name);
+});</div>
+      <div class="interactive-area">
+        <form id="basic-form">
+          <label for="name">Name:</label>
+          <input type="text" id="name" placeholder="Enter your name" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" placeholder="your@email.com" required>
+          <button type="submit" style="margin-top: 15px;">Submit</button>
+        </form>
+        <div id="basic-result" class="result-card" style="display: none;"></div>
+      </div>
+      <div class="warning"><strong>⚠️ Without e.preventDefault():</strong> The page reloads and your JS data is lost! This is the #1 beginner mistake.</div>
+    </div>
+
+    <div class="section">
+      <h2>2. All Input Types</h2>
+      <div class="interactive-area">
+        <form id="all-inputs-form">
+          <label for="text-input">Text:</label>
+          <input type="text" id="text-input" placeholder="Text input" value="Hello">
+
+          <label for="num-input">Number:</label>
+          <input type="number" id="num-input" value="25">
+
+          <label for="date-input">Date:</label>
+          <input type="date" id="date-input">
+
+          <label for="color-input">Color:</label>
+          <input type="color" id="color-input" value="#6a82fb">
+
+          <label>Checkbox:</label>
+          <div class="checkbox-group">
+            <input type="checkbox" id="check-input" checked>
+            <label for="check-input" style="margin: 0; font-weight: normal;">Subscribe to newsletter</label>
+          </div>
+
+          <label for="select-input">Select:</label>
+          <select id="select-input">
+            <option value="">Choose...</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="js">JavaScript</option>
+          </select>
+
+          <label for="textarea-input">Textarea:</label>
+          <textarea id="textarea-input" rows="3" placeholder="Long text here..."></textarea>
+
+          <button type="submit" style="margin-top: 15px;">Get All Values</button>
+        </form>
+        <div class="output" id="all-values"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>3. Reset and Clear Forms</h2>
+      <div class="code-block">// Reset entire form to defaults
+form.reset();
+
+// Clear individual input
+input.value = '';</div>
+      <div class="tip"><strong>💡 Tip:</strong> <code>form.reset()</code> resets to default values. To clear everything to empty, loop through and set <code>.value = ''</code>.</div>
+    </div>
+  </div>
+
+  <script>
+    // Basic form
+    document.getElementById('basic-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const result = document.getElementById('basic-result');
+      result.style.display = 'block';
+      result.innerHTML = `<h3>✅ Form Submitted!</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><em>Page did NOT reload — e.preventDefault() worked!</em></p>`;
+    });
+
+    // All inputs form
+    document.getElementById('all-inputs-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const values = {
+        'Text (.value)': document.getElementById('text-input').value,
+        'Number (Number(.value))': Number(document.getElementById('num-input').value),
+        'Date (.value)': document.getElementById('date-input').value || '(not set)',
+        'Color (.value)': document.getElementById('color-input').value,
+        'Checkbox (.checked)': document.getElementById('check-input').checked,
+        'Select (.value)': document.getElementById('select-input').value || '(not selected)',
+        'Textarea (.value)': document.getElementById('textarea-input').value || '(empty)'
+      };
+
+      let html = '';
+      for (const [key, val] of Object.entries(values)) {
+        html += `${key}: ${val}\n`;
+      }
+      document.getElementById('all-values').textContent = html;
+      console.log('Form values:', values);
+    });
+  </script>
+</body>
+</html>

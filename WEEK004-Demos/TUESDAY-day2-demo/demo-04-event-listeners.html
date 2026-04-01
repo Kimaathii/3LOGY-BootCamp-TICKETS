@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 04 - Event Listeners</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 { color: #333; margin-bottom: 10px; font-size: 2em; }
+    .subtitle { color: #666; margin-bottom: 30px; font-size: 1.1em; }
+
+    .section {
+      margin: 30px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .section h2 { color: #667eea; margin-bottom: 15px; font-size: 1.4em; }
+
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin: 10px 0;
+      white-space: pre;
+    }
+
+    .code-block .comment { color: #6a9955; }
+    .code-block .keyword { color: #569cd6; }
+    .code-block .string { color: #ce9178; }
+    .code-block .number { color: #b5cea8; }
+
+    .output {
+      background: #e8f4f8;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #17a2b8;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+
+    .output-label { font-weight: bold; color: #17a2b8; margin-bottom: 5px; }
+
+    .tip {
+      background: #d4edda;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #28a745;
+      margin: 10px 0;
+    }
+
+    .tip-label { font-weight: bold; color: #155724; margin-bottom: 5px; }
+
+    .warning {
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #ffc107;
+      margin: 10px 0;
+    }
+
+    .warning-label { font-weight: bold; color: #856404; margin-bottom: 5px; }
+
+    .interactive-area {
+      background: #fff;
+      border: 2px dashed #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover { background: #5a6fd6; transform: translateY(-2px); }
+
+    .event-box {
+      width: 200px;
+      height: 200px;
+      background: #667eea;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 15px auto;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      width: 300px;
+      margin: 10px;
+    }
+
+    input:focus { border-color: #667eea; outline: none; }
+
+    .log-box {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 13px;
+      max-height: 150px;
+      overflow-y: auto;
+      margin: 10px 0;
+      text-align: left;
+    }
+
+    ul { margin-left: 20px; margin-top: 10px; }
+    li { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Demo 04: Event Listeners</h1>
+    <p class="subtitle">Making your page respond to user actions — clicks, typing, hovering</p>
+
+    <!-- Section 1: Click Events -->
+    <div class="section">
+      <h2>1. Click Events — addEventListener('click')</h2>
+
+      <div class="code-block"><span class="keyword">const</span> button = document.querySelector(<span class="string">'#myButton'</span>);
+
+button.addEventListener(<span class="string">'click'</span>, <span class="keyword">function</span>() {
+  console.log(<span class="string">'Button was clicked!'</span>);
+});
+
+<span class="comment">// The function runs EVERY TIME the button is clicked</span>
+<span class="comment">// "click" is the event type</span>
+<span class="comment">// The function is the "event handler" (what to do)</span></div>
+
+      <div class="interactive-area">
+        <button id="click-btn" style="font-size: 20px; padding: 15px 30px;">
+          🖱️ Click me!
+        </button>
+        <p style="margin-top: 10px;">Click count: <strong id="click-count">0</strong></p>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Event Log:</div>
+        <div id="log-1" class="log-box">Waiting for clicks...</div>
+      </div>
+    </div>
+
+    <!-- Section 2: Mouse Events -->
+    <div class="section">
+      <h2>2. Mouse Events — hover, enter, leave</h2>
+
+      <div class="code-block"><span class="comment">// Different mouse events:</span>
+element.addEventListener(<span class="string">'mouseenter'</span>, handler); <span class="comment">// Mouse enters element</span>
+element.addEventListener(<span class="string">'mouseleave'</span>, handler); <span class="comment">// Mouse leaves element</span>
+element.addEventListener(<span class="string">'mousemove'</span>, handler);  <span class="comment">// Mouse moves over element</span>
+element.addEventListener(<span class="string">'dblclick'</span>, handler);    <span class="comment">// Double click</span></div>
+
+      <div class="interactive-area">
+        <p>Hover over and interact with the box:</p>
+        <div class="event-box" id="hover-box">Hover Me!</div>
+        <div id="log-2" class="log-box">Waiting for mouse events...</div>
+      </div>
+    </div>
+
+    <!-- Section 3: Input Events (Live Typing) -->
+    <div class="section">
+      <h2>3. Input Events — Live Typing Detection</h2>
+
+      <div class="code-block"><span class="keyword">const</span> input = document.querySelector(<span class="string">'#searchBox'</span>);
+
+<span class="comment">// 'input' event fires on EVERY keystroke</span>
+input.addEventListener(<span class="string">'input'</span>, <span class="keyword">function</span>() {
+  console.log(<span class="string">'You typed:'</span>, input.value);
+  <span class="comment">// Perfect for live search, character counters, validation</span>
+});
+
+<span class="comment">// 'focus' — when user clicks into the input</span>
+<span class="comment">// 'blur' — when user clicks away from input</span></div>
+
+      <div class="interactive-area">
+        <p><strong>Type something — watch it update live:</strong></p>
+        <input type="text" id="liveInput" placeholder="Start typing...">
+        <div style="margin-top: 15px;">
+          <p>Live mirror: <strong id="mirror"></strong></p>
+          <p>Character count: <strong id="charCount">0</strong></p>
+          <p>Word count: <strong id="wordCount">0</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: The Event Object -->
+    <div class="section">
+      <h2>4. The Event Object (e)</h2>
+
+      <div class="code-block"><span class="comment">// The event handler receives an "event object" (e)</span>
+button.addEventListener(<span class="string">'click'</span>, <span class="keyword">function</span>(e) {
+  console.log(e.target);    <span class="comment">// Which element was clicked</span>
+  console.log(e.type);      <span class="comment">// "click"</span>
+  console.log(e.clientX);   <span class="comment">// Mouse X position</span>
+  console.log(e.clientY);   <span class="comment">// Mouse Y position</span>
+});
+
+<span class="comment">// e.target is VERY useful — tells you exactly what was clicked!</span></div>
+
+      <div class="interactive-area">
+        <p>Click any colored button — the event object tells us which one:</p>
+        <div id="color-buttons">
+          <button style="background: #e74c3c;" data-color="Red">🔴 Red</button>
+          <button style="background: #2ecc71;" data-color="Green">🟢 Green</button>
+          <button style="background: #3498db;" data-color="Blue">🔵 Blue</button>
+          <button style="background: #f39c12;" data-color="Orange">🟠 Orange</button>
+          <button style="background: #9b59b6;" data-color="Purple">🟣 Purple</button>
+        </div>
+        <div id="color-result" style="margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 1.2em; font-weight: bold;">
+          Click a color button!
+        </div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">✅ Best Practice — Event Delegation:</div>
+        Instead of adding an event listener to EACH button, add ONE to the parent and use <code>e.target</code> to know which child was clicked. More efficient!
+      </div>
+    </div>
+
+    <!-- Section 5: Keyboard Events -->
+    <div class="section">
+      <h2>5. Keyboard Events</h2>
+
+      <div class="code-block"><span class="comment">// Listen for key presses on the whole document</span>
+document.addEventListener(<span class="string">'keydown'</span>, <span class="keyword">function</span>(e) {
+  console.log(<span class="string">'Key pressed:'</span>, e.key);
+  console.log(<span class="string">'Key code:'</span>, e.code);
+
+  <span class="keyword">if</span> (e.key === <span class="string">'Enter'</span>) {
+    console.log(<span class="string">'Enter was pressed!'</span>);
+  }
+});</div>
+
+      <div class="interactive-area">
+        <p><strong>Press any key on your keyboard:</strong></p>
+        <div id="key-display" style="font-size: 48px; padding: 20px;">⌨️</div>
+        <p>Key: <strong id="key-name">-</strong></p>
+        <p>Code: <strong id="key-code">-</strong></p>
+      </div>
+    </div>
+
+    <!-- Section 6: Practice -->
+    <div class="section">
+      <h2>6. 🎯 Practice Exercises</h2>
+      <ol>
+        <li>Add a click listener to a button that shows/hides a paragraph.</li>
+        <li>Create an input that shows a "Too short!" warning if less than 3 characters.</li>
+        <li>Make a div that changes color when you hover over it.</li>
+        <li><strong>Challenge:</strong> Build a keyboard piano — press different keys to show different notes.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    // Section 1: Click counter
+    let clickCount = 0;
+    const clickBtn = document.getElementById('click-btn');
+    const countDisplay = document.getElementById('click-count');
+    const log1 = document.getElementById('log-1');
+
+    clickBtn.addEventListener('click', function() {
+      clickCount++;
+      countDisplay.textContent = clickCount;
+      log1.innerHTML += `<br>🖱️ Click #${clickCount} at ${new Date().toLocaleTimeString()}`;
+      log1.scrollTop = log1.scrollHeight;
+      console.log(`Click #${clickCount}`);
+    });
+
+    // Section 2: Mouse events on box
+    const hoverBox = document.getElementById('hover-box');
+    const log2 = document.getElementById('log-2');
+
+    hoverBox.addEventListener('mouseenter', function() {
+      hoverBox.style.background = '#2ecc71';
+      hoverBox.textContent = 'Mouse IN! 🎯';
+      log2.innerHTML += '<br>➡️ mouseenter';
+      log2.scrollTop = log2.scrollHeight;
+    });
+
+    hoverBox.addEventListener('mouseleave', function() {
+      hoverBox.style.background = '#667eea';
+      hoverBox.textContent = 'Hover Me!';
+      log2.innerHTML += '<br>⬅️ mouseleave';
+      log2.scrollTop = log2.scrollHeight;
+    });
+
+    hoverBox.addEventListener('dblclick', function() {
+      hoverBox.style.background = '#e74c3c';
+      hoverBox.textContent = 'DOUBLE CLICK! 🔥';
+      log2.innerHTML += '<br>🔥 dblclick';
+      log2.scrollTop = log2.scrollHeight;
+    });
+
+    hoverBox.addEventListener('click', function() {
+      hoverBox.style.background = '#f39c12';
+      hoverBox.textContent = 'Clicked! ✅';
+      log2.innerHTML += '<br>🖱️ click';
+      log2.scrollTop = log2.scrollHeight;
+    });
+
+    // Section 3: Live typing
+    const liveInput = document.getElementById('liveInput');
+    const mirror = document.getElementById('mirror');
+    const charCount = document.getElementById('charCount');
+    const wordCount = document.getElementById('wordCount');
+
+    liveInput.addEventListener('input', function() {
+      mirror.textContent = liveInput.value;
+      charCount.textContent = liveInput.value.length;
+      wordCount.textContent = liveInput.value.trim() === '' ? 0 :
+        liveInput.value.trim().split(/\s+/).length;
+    });
+
+    liveInput.addEventListener('focus', function() {
+      liveInput.style.borderColor = '#28a745';
+    });
+
+    liveInput.addEventListener('blur', function() {
+      liveInput.style.borderColor = '#ddd';
+    });
+
+    // Section 4: Event object — color buttons
+    const colorButtons = document.getElementById('color-buttons');
+    const colorResult = document.getElementById('color-result');
+
+    colorButtons.addEventListener('click', function(e) {
+      if (e.target.tagName === 'BUTTON') {
+        const color = e.target.dataset.color;
+        colorResult.textContent = `You clicked: ${color}! (e.target.dataset.color)`;
+        colorResult.style.backgroundColor = e.target.style.background;
+        colorResult.style.color = 'white';
+        console.log('e.target:', e.target);
+        console.log('e.target.dataset.color:', color);
+      }
+    });
+
+    // Section 5: Keyboard events
+    document.addEventListener('keydown', function(e) {
+      document.getElementById('key-display').textContent = e.key === ' ' ? '⎵ Space' : e.key;
+      document.getElementById('key-name').textContent = e.key;
+      document.getElementById('key-code').textContent = e.code;
+    });
+
+    console.log('=== DEMO 04: Event Listeners ===');
+    console.log('Events: click, mouseenter/leave, input, keydown');
+    console.log('Pattern: element.addEventListener("event", handler)');
+  </script>
+</body>
+</html>

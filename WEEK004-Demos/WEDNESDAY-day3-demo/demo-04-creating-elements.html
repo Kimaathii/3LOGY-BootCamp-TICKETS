@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 04 - Creating Elements</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #11998e, #38ef7d); padding: 20px; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    h1 { color: #333; margin-bottom: 10px; }
+    .subtitle { color: #666; margin-bottom: 30px; }
+    .section { margin: 25px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #11998e; }
+    .section h2 { color: #11998e; margin-bottom: 12px; }
+    .code-block { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 14px; margin: 10px 0; white-space: pre; overflow-x: auto; }
+    .interactive-area { background: #fff; border: 2px dashed #11998e; padding: 20px; border-radius: 8px; margin: 15px 0; }
+    .tip { background: #d4edda; padding: 15px; border-radius: 6px; border-left: 4px solid #28a745; margin: 10px 0; }
+    button { background: #11998e; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; margin: 5px; }
+    button:hover { background: #0d7a6e; }
+    input[type="text"] { padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; margin: 5px; width: 250px; }
+    input:focus { border-color: #11998e; outline: none; }
+    .dynamic-list { list-style: none; padding: 0; }
+    .dynamic-list li { padding: 12px 15px; margin: 5px 0; background: #f8f9fa; border-radius: 6px; border-left: 3px solid #11998e; display: flex; justify-content: space-between; align-items: center; animation: fadeIn 0.3s ease; }
+    .dynamic-list li .del-btn { background: #e74c3c; padding: 5px 12px; font-size: 12px; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    .card-grid { display: flex; flex-wrap: wrap; gap: 15px; margin: 15px 0; }
+    .card { background: white; border: 2px solid #ddd; border-radius: 10px; padding: 20px; width: 200px; text-align: center; transition: all 0.3s; animation: fadeIn 0.4s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏗️ Demo 04: Creating & Removing Elements</h1>
+    <p class="subtitle">createElement, appendChild, remove — building dynamic content</p>
+
+    <div class="section">
+      <h2>1. Create → Configure → Append</h2>
+      <div class="code-block">// 1. CREATE
+const li = document.createElement('li');
+
+// 2. CONFIGURE
+li.textContent = 'New item';
+li.className = 'list-item';
+
+// 3. APPEND
+document.querySelector('#list').appendChild(li);</div>
+      <div class="interactive-area">
+        <input type="text" id="item-input" placeholder="Enter an item...">
+        <button id="btn-add">Add Item</button>
+        <button id="btn-clearAll">Clear All</button>
+        <ul class="dynamic-list" id="dynamic-list"></ul>
+        <p>Total items: <strong id="item-count">0</strong></p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>2. Adding Delete Buttons</h2>
+      <div class="code-block">function addItemWithDelete(text) {
+  const li = document.createElement('li');
+  li.textContent = text;
+
+  // Create delete button
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = 'Delete';
+  deleteBtn.addEventListener('click', function() {
+    li.remove();  // Remove THIS list item
+  });
+
+  li.appendChild(deleteBtn);
+  list.appendChild(li);
+}</div>
+      <div class="tip"><strong>✅ Pattern:</strong> Each item creates its own delete button. The button's click handler removes its parent <code>li</code> element.</div>
+    </div>
+
+    <div class="section">
+      <h2>3. Building Complex Elements</h2>
+      <div class="code-block">// Creating a card with multiple children
+function createCard(title, description) {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const h3 = document.createElement('h3');
+  h3.textContent = title;
+
+  const p = document.createElement('p');
+  p.textContent = description;
+
+  card.appendChild(h3);
+  card.appendChild(p);
+  container.appendChild(card);
+}</div>
+      <div class="interactive-area">
+        <input type="text" id="card-title" placeholder="Card title" style="width: 150px;">
+        <input type="text" id="card-desc" placeholder="Description" style="width: 200px;">
+        <button id="btn-addCard">Add Card</button>
+        <button id="btn-clearCards">Clear Cards</button>
+        <div class="card-grid" id="card-grid"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>4. innerHTML vs createElement</h2>
+      <div class="code-block">// innerHTML — quick but less control
+list.innerHTML += '&lt;li&gt;New item&lt;/li&gt;';
+
+// createElement — more code but better control
+const li = document.createElement('li');
+li.textContent = 'New item';
+list.appendChild(li);
+
+// ⚠️ innerHTML rebuilds ALL children (slow for large lists)
+// createElement adds ONE element (fast, keeps event listeners)</div>
+      <div class="tip"><strong>💡 When to use which:</strong>
+  <br>• <strong>innerHTML:</strong> Quick static content, clearing children (<code>el.innerHTML = ''</code>)
+  <br>• <strong>createElement:</strong> Dynamic elements with event listeners, complex structures</div>
+    </div>
+  </div>
+
+  <script>
+    // Section 1 & 2: Dynamic list with delete buttons
+    const list = document.getElementById('dynamic-list');
+    const countDisplay = document.getElementById('item-count');
+
+    function updateCount() {
+      countDisplay.textContent = list.children.length;
+    }
+
+    document.getElementById('btn-add').addEventListener('click', function() {
+      const input = document.getElementById('item-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const li = document.createElement('li');
+      const span = document.createElement('span');
+      span.textContent = text;
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = '✕ Delete';
+      delBtn.className = 'del-btn';
+      delBtn.addEventListener('click', function() {
+        li.remove();
+        updateCount();
+      });
+
+      li.appendChild(span);
+      li.appendChild(delBtn);
+      list.appendChild(li);
+      input.value = '';
+      input.focus();
+      updateCount();
+    });
+
+    // Enter key support
+    document.getElementById('item-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') document.getElementById('btn-add').click();
+    });
+
+    document.getElementById('btn-clearAll').addEventListener('click', function() {
+      list.innerHTML = '';
+      updateCount();
+    });
+
+    // Section 3: Card builder
+    const cardGrid = document.getElementById('card-grid');
+    const colors = ['#11998e', '#e74c3c', '#3498db', '#f39c12', '#9b59b6'];
+    let cardIndex = 0;
+
+    document.getElementById('btn-addCard').addEventListener('click', function() {
+      const title = document.getElementById('card-title').value.trim() || 'Card ' + (cardIndex + 1);
+      const desc = document.getElementById('card-desc').value.trim() || 'Description here';
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.borderColor = colors[cardIndex % colors.length];
+
+      const h3 = document.createElement('h3');
+      h3.textContent = title;
+      h3.style.color = colors[cardIndex % colors.length];
+
+      const p = document.createElement('p');
+      p.textContent = desc;
+      p.style.color = '#666';
+      p.style.fontSize = '14px';
+      p.style.marginTop = '8px';
+
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'Remove';
+      delBtn.style.marginTop = '10px';
+      delBtn.style.background = '#e74c3c';
+      delBtn.style.fontSize = '12px';
+      delBtn.style.padding = '5px 10px';
+      delBtn.addEventListener('click', () => card.remove());
+
+      card.appendChild(h3);
+      card.appendChild(p);
+      card.appendChild(delBtn);
+      cardGrid.appendChild(card);
+
+      document.getElementById('card-title').value = '';
+      document.getElementById('card-desc').value = '';
+      cardIndex++;
+    });
+
+    document.getElementById('btn-clearCards').addEventListener('click', () => {
+      cardGrid.innerHTML = '';
+      cardIndex = 0;
+    });
+  </script>
+</body>
+</html>

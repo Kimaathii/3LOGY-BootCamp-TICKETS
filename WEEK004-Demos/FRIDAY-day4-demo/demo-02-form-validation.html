@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 02 - Form Validation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #fc5c7d, #6a82fb); padding: 20px; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+    h1 { color: #333; margin-bottom: 10px; }
+    .subtitle { color: #666; margin-bottom: 30px; }
+    .section { margin: 25px 0; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #6a82fb; }
+    .section h2 { color: #6a82fb; margin-bottom: 12px; }
+    .code-block { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 14px; margin: 10px 0; white-space: pre; overflow-x: auto; }
+    .interactive-area { background: #fff; border: 2px dashed #6a82fb; padding: 20px; border-radius: 8px; margin: 15px 0; }
+    .tip { background: #d4edda; padding: 15px; border-radius: 6px; border-left: 4px solid #28a745; margin: 10px 0; }
+    button { background: #6a82fb; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; margin: 5px; }
+    button:hover { background: #5a72eb; }
+    button:disabled { background: #ccc; cursor: not-allowed; }
+    label { display: block; margin: 10px 0 5px; font-weight: bold; color: #333; }
+    input { padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; margin: 5px 0; width: 100%; transition: border-color 0.3s; }
+    input:focus { outline: none; }
+    input.valid { border-color: #28a745; }
+    input.invalid { border-color: #e74c3c; }
+    .error-msg { color: #e74c3c; font-size: 13px; margin: 2px 0 8px; display: none; }
+    .error-msg.show { display: block; }
+    .success-msg { color: #28a745; font-size: 14px; font-weight: bold; margin: 10px 0; display: none; }
+    .password-strength { height: 6px; border-radius: 3px; margin: 5px 0; transition: all 0.3s; }
+    .strength-text { font-size: 13px; margin: 2px 0; }
+    form { max-width: 500px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔒 Demo 02: Form Validation</h1>
+    <p class="subtitle">Validating user input, showing errors, real-time feedback</p>
+
+    <div class="section">
+      <h2>1. Basic Validation</h2>
+      <div class="code-block">function validateName(name) {
+  if (name.trim() === '') return 'Name is required!';
+  if (name.length < 2) return 'Name must be at least 2 characters!';
+  return '';  // Empty string = valid
+}</div>
+      <div class="interactive-area">
+        <form id="basic-validation-form">
+          <label for="v-name">Name (required, min 2 chars):</label>
+          <input type="text" id="v-name" placeholder="Your name">
+          <div class="error-msg" id="name-error"></div>
+
+          <label for="v-email">Email (must contain @):</label>
+          <input type="text" id="v-email" placeholder="your@email.com">
+          <div class="error-msg" id="email-error"></div>
+
+          <label for="v-age">Age (18-120):</label>
+          <input type="number" id="v-age" placeholder="Your age">
+          <div class="error-msg" id="age-error"></div>
+
+          <button type="submit" style="margin-top: 15px;">Submit</button>
+          <div class="success-msg" id="success-msg">✅ Form submitted successfully!</div>
+        </form>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>2. Real-Time Validation</h2>
+      <div class="code-block">input.addEventListener('input', function() {
+  if (input.value.length >= 3) {
+    input.classList.add('valid');
+    input.classList.remove('invalid');
+    errorDiv.classList.remove('show');
+  } else {
+    input.classList.add('invalid');
+    errorDiv.textContent = 'Too short!';
+    errorDiv.classList.add('show');
+  }
+});</div>
+      <div class="interactive-area">
+        <form id="realtime-form">
+          <label for="rt-username">Username (3-15 chars, letters & numbers only):</label>
+          <input type="text" id="rt-username" placeholder="Choose a username">
+          <div class="error-msg" id="username-error"></div>
+
+          <label for="rt-password">Password (min 8 chars):</label>
+          <input type="password" id="rt-password" placeholder="Choose a password">
+          <div class="error-msg" id="password-error"></div>
+          <div class="password-strength" id="password-bar"></div>
+          <div class="strength-text" id="password-strength-text"></div>
+
+          <label for="rt-confirm">Confirm Password:</label>
+          <input type="password" id="rt-confirm" placeholder="Repeat your password">
+          <div class="error-msg" id="confirm-error"></div>
+
+          <button type="submit" id="rt-submit" style="margin-top: 15px;" disabled>Create Account</button>
+          <div class="success-msg" id="rt-success">✅ Account created!</div>
+        </form>
+      </div>
+      <div class="tip"><strong>💡 Pattern:</strong> Validate on every keystroke (<code>input</code> event) AND on submit. Users get instant feedback while typing!</div>
+    </div>
+  </div>
+
+  <script>
+    // Section 1: Basic Validation
+    document.getElementById('basic-validation-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let isValid = true;
+
+      // Validate name
+      const name = document.getElementById('v-name').value.trim();
+      const nameError = document.getElementById('name-error');
+      if (name === '') { nameError.textContent = '❌ Name is required!'; nameError.classList.add('show'); isValid = false; }
+      else if (name.length < 2) { nameError.textContent = '❌ Name must be at least 2 characters!'; nameError.classList.add('show'); isValid = false; }
+      else { nameError.classList.remove('show'); }
+
+      // Validate email
+      const email = document.getElementById('v-email').value.trim();
+      const emailError = document.getElementById('email-error');
+      if (email === '') { emailError.textContent = '❌ Email is required!'; emailError.classList.add('show'); isValid = false; }
+      else if (!email.includes('@') || !email.includes('.')) { emailError.textContent = '❌ Invalid email format!'; emailError.classList.add('show'); isValid = false; }
+      else { emailError.classList.remove('show'); }
+
+      // Validate age
+      const age = Number(document.getElementById('v-age').value);
+      const ageError = document.getElementById('age-error');
+      if (!age) { ageError.textContent = '❌ Age is required!'; ageError.classList.add('show'); isValid = false; }
+      else if (age < 18 || age > 120) { ageError.textContent = '❌ Age must be 18-120!'; ageError.classList.add('show'); isValid = false; }
+      else { ageError.classList.remove('show'); }
+
+      if (isValid) {
+        document.getElementById('success-msg').style.display = 'block';
+        console.log('Valid form:', { name, email, age });
+      } else {
+        document.getElementById('success-msg').style.display = 'none';
+      }
+    });
+
+    // Section 2: Real-time Validation
+    const usernameInput = document.getElementById('rt-username');
+    const passwordInput = document.getElementById('rt-password');
+    const confirmInput = document.getElementById('rt-confirm');
+    const submitBtn = document.getElementById('rt-submit');
+
+    function checkFormValid() {
+      const u = usernameInput.value;
+      const p = passwordInput.value;
+      const c = confirmInput.value;
+      const valid = u.length >= 3 && u.length <= 15 && /^[a-zA-Z0-9]+$/.test(u)
+        && p.length >= 8 && c === p && c.length > 0;
+      submitBtn.disabled = !valid;
+    }
+
+    usernameInput.addEventListener('input', function() {
+      const val = this.value;
+      const err = document.getElementById('username-error');
+      if (val.length === 0) { this.className = ''; err.classList.remove('show'); }
+      else if (val.length < 3) { this.className = 'invalid'; err.textContent = '❌ Too short (min 3)'; err.classList.add('show'); }
+      else if (val.length > 15) { this.className = 'invalid'; err.textContent = '❌ Too long (max 15)'; err.classList.add('show'); }
+      else if (!/^[a-zA-Z0-9]+$/.test(val)) { this.className = 'invalid'; err.textContent = '❌ Letters and numbers only!'; err.classList.add('show'); }
+      else { this.className = 'valid'; err.classList.remove('show'); }
+      checkFormValid();
+    });
+
+    passwordInput.addEventListener('input', function() {
+      const val = this.value;
+      const err = document.getElementById('password-error');
+      const bar = document.getElementById('password-bar');
+      const text = document.getElementById('password-strength-text');
+
+      if (val.length === 0) { this.className = ''; err.classList.remove('show'); bar.style.width = '0'; text.textContent = ''; }
+      else if (val.length < 8) { this.className = 'invalid'; err.textContent = '❌ Min 8 characters'; err.classList.add('show'); bar.style.width = '33%'; bar.style.background = '#e74c3c'; text.textContent = 'Weak'; text.style.color = '#e74c3c'; }
+      else if (val.length < 12) { this.className = 'valid'; err.classList.remove('show'); bar.style.width = '66%'; bar.style.background = '#f39c12'; text.textContent = 'Medium'; text.style.color = '#f39c12'; }
+      else { this.className = 'valid'; err.classList.remove('show'); bar.style.width = '100%'; bar.style.background = '#28a745'; text.textContent = 'Strong'; text.style.color = '#28a745'; }
+
+      // Re-check confirm
+      if (confirmInput.value) confirmInput.dispatchEvent(new Event('input'));
+      checkFormValid();
+    });
+
+    confirmInput.addEventListener('input', function() {
+      const err = document.getElementById('confirm-error');
+      if (this.value === '') { this.className = ''; err.classList.remove('show'); }
+      else if (this.value !== passwordInput.value) { this.className = 'invalid'; err.textContent = '❌ Passwords don\'t match!'; err.classList.add('show'); }
+      else { this.className = 'valid'; err.classList.remove('show'); }
+      checkFormValid();
+    });
+
+    document.getElementById('realtime-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('rt-success').style.display = 'block';
+      this.reset();
+      document.querySelectorAll('#realtime-form input').forEach(i => i.className = '');
+      submitBtn.disabled = true;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 03 - Functions with the DOM</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 { color: #333; margin-bottom: 10px; font-size: 2em; }
+    .subtitle { color: #666; margin-bottom: 30px; font-size: 1.1em; }
+
+    .section {
+      margin: 30px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .section h2 { color: #667eea; margin-bottom: 15px; font-size: 1.4em; }
+
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin: 10px 0;
+      white-space: pre;
+    }
+
+    .code-block .comment { color: #6a9955; }
+    .code-block .keyword { color: #569cd6; }
+    .code-block .string { color: #ce9178; }
+    .code-block .number { color: #b5cea8; }
+
+    .output {
+      background: #e8f4f8;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #17a2b8;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+
+    .output-label { font-weight: bold; color: #17a2b8; margin-bottom: 5px; }
+
+    .tip {
+      background: #d4edda;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #28a745;
+      margin: 10px 0;
+    }
+
+    .tip-label { font-weight: bold; color: #155724; margin-bottom: 5px; }
+
+    .warning {
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #ffc107;
+      margin: 10px 0;
+    }
+
+    .warning-label { font-weight: bold; color: #856404; margin-bottom: 5px; }
+
+    .interactive-area {
+      background: #fff;
+      border: 2px dashed #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    input[type="text"], input[type="number"] {
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      margin: 5px;
+      width: 150px;
+    }
+
+    input:focus { border-color: #667eea; outline: none; }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 5px;
+    }
+
+    button:hover { background: #5a6fd6; }
+
+    .result-box {
+      padding: 15px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1.2em;
+      text-align: center;
+      min-height: 50px;
+    }
+
+    ul { margin-left: 20px; margin-top: 10px; }
+    li { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Demo 03: Functions with the DOM</h1>
+    <p class="subtitle">Writing functions that read user input and update the page</p>
+
+    <!-- Section 1: Function that reads input -->
+    <div class="section">
+      <h2>1. Functions That Read Input</h2>
+
+      <div class="code-block"><span class="comment">// HTML: &lt;input id="nameInput"&gt;&lt;button onclick="sayHello()"&gt;</span>
+
+<span class="keyword">function</span> sayHello() {
+  <span class="keyword">const</span> name = document.querySelector(<span class="string">'#nameInput'</span>).value;
+  <span class="keyword">const</span> result = document.querySelector(<span class="string">'#result'</span>);
+  result.textContent = <span class="string">`Hello, ${name}!`</span>;
+}</div>
+
+      <div class="interactive-area">
+        <p><strong>Enter your name:</strong></p>
+        <input type="text" id="nameInput" placeholder="Your name...">
+        <button id="btn-sayHello">Say Hello</button>
+        <div class="result-box" id="result-1">Result appears here</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">✅ Key Pattern:</div>
+        <code>.value</code> gets the text typed into an input field. This is different from <code>.textContent</code> which gets the text inside a regular element (like a paragraph).
+      </div>
+    </div>
+
+    <!-- Section 2: Function with calculation -->
+    <div class="section">
+      <h2>2. Functions with Calculations</h2>
+
+      <div class="code-block"><span class="keyword">function</span> calculateAge() {
+  <span class="keyword">const</span> birthYear = Number(document.querySelector(<span class="string">'#yearInput'</span>).value);
+  <span class="keyword">const</span> currentYear = <span class="keyword">new</span> Date().getFullYear();
+  <span class="keyword">const</span> age = currentYear - birthYear;
+
+  document.querySelector(<span class="string">'#ageResult'</span>).textContent = <span class="string">`You are ${age} years old!`</span>;
+}
+
+<span class="comment">// ⚠️ Number() converts string from input to a number</span>
+<span class="comment">// Without it: "2025" - "2000" would still work (JS coercion)</span>
+<span class="comment">// But "2025" + "2000" would give "20252000" (string concat!)</span></div>
+
+      <div class="interactive-area">
+        <p><strong>Enter your birth year:</strong></p>
+        <input type="number" id="yearInput" placeholder="e.g. 2000" min="1900" max="2025">
+        <button id="btn-calcAge">Calculate Age</button>
+        <div class="result-box" id="result-2">Your age will appear here</div>
+      </div>
+
+      <div class="warning">
+        <div class="warning-label">⚠️ Always convert input to Number!</div>
+        Input values are always strings. Use <code>Number()</code> or <code>parseInt()</code> before doing math.
+        <br>Otherwise: <code>"5" + "3"</code> = <code>"53"</code> (string concatenation, not 8!)
+      </div>
+    </div>
+
+    <!-- Section 3: Functions that return values -->
+    <div class="section">
+      <h2>3. Functions That Return Values</h2>
+
+      <div class="code-block"><span class="comment">// Reusable function — returns a value, doesn't touch the DOM</span>
+<span class="keyword">function</span> calculateBMI(weight, height) {
+  <span class="keyword">return</span> weight / (height * height);
+}
+
+<span class="comment">// Separate function to handle the UI</span>
+<span class="keyword">function</span> showBMI() {
+  <span class="keyword">const</span> weight = Number(document.querySelector(<span class="string">'#weight'</span>).value);
+  <span class="keyword">const</span> height = Number(document.querySelector(<span class="string">'#height'</span>).value);
+
+  <span class="keyword">const</span> bmi = calculateBMI(weight, height);
+  <span class="keyword">const</span> category = bmi < <span class="number">18.5</span> ? <span class="string">"Underweight"</span>
+    : bmi < <span class="number">25</span> ? <span class="string">"Normal"</span>
+    : bmi < <span class="number">30</span> ? <span class="string">"Overweight"</span>
+    : <span class="string">"Obese"</span>;
+
+  document.querySelector(<span class="string">'#bmiResult'</span>).textContent =
+    <span class="string">`BMI: ${bmi.toFixed(1)} — ${category}`</span>;
+}</div>
+
+      <div class="interactive-area">
+        <p><strong>BMI Calculator:</strong></p>
+        <input type="number" id="weight" placeholder="Weight (kg)" style="width: 130px;">
+        <input type="number" id="height" placeholder="Height (m)" step="0.01" style="width: 130px;">
+        <button id="btn-bmi">Calculate BMI</button>
+        <div class="result-box" id="result-3">Enter weight and height</div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">✅ Best Practice — Separate Logic from UI:</div>
+        <ul>
+          <li><strong>Logic function:</strong> Does the calculation, returns a value</li>
+          <li><strong>UI function:</strong> Reads inputs, calls logic, shows result</li>
+          <li>This makes your code reusable and easier to test!</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 4: Arrow Functions in the Browser -->
+    <div class="section">
+      <h2>4. Arrow Functions as Event Handlers</h2>
+
+      <div class="code-block"><span class="comment">// Arrow function syntax</span>
+<span class="keyword">const</span> greet = (name) => <span class="string">`Hello, ${name}!`</span>;
+
+<span class="comment">// Arrow function as event handler</span>
+<span class="keyword">const</span> btn = document.querySelector(<span class="string">'#myBtn'</span>);
+btn.addEventListener(<span class="string">'click'</span>, () => {
+  <span class="keyword">const</span> name = document.querySelector(<span class="string">'#input'</span>).value;
+  document.querySelector(<span class="string">'#output'</span>).textContent = greet(name);
+});</div>
+
+      <div class="interactive-area">
+        <p><strong>Temperature Converter (uses arrow functions):</strong></p>
+        <input type="number" id="celsius" placeholder="°C" style="width: 100px;">
+        <button id="btn-toF">→ Fahrenheit</button>
+        <button id="btn-toC">← to Celsius</button>
+        <input type="number" id="fahrenheit" placeholder="°F" style="width: 100px;">
+        <div class="result-box" id="result-4">Enter a temperature</div>
+      </div>
+    </div>
+
+    <!-- Section 5: Practice -->
+    <div class="section">
+      <h2>5. 🎯 Practice Exercises</h2>
+      <ol>
+        <li>Create a function that takes a name input and shows "Welcome, [name]!" on the page.</li>
+        <li>Build a tip calculator: input a bill amount, calculate 15% tip, show the total.</li>
+        <li>Make a function that converts km to miles (multiply by 0.621371) with input/output on page.</li>
+        <li><strong>Challenge:</strong> Build a password strength checker — read an input and show "Weak" (under 6 chars), "Medium" (6-9 chars), or "Strong" (10+ chars).</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    // Section 1: Say Hello
+    document.getElementById('btn-sayHello').addEventListener('click', function() {
+      const name = document.getElementById('nameInput').value;
+      const result = document.getElementById('result-1');
+      if (name.trim() === '') {
+        result.textContent = '⚠️ Please enter your name!';
+        result.style.color = '#e74c3c';
+      } else {
+        result.textContent = `Hello, ${name}! 👋 Welcome to JavaScript!`;
+        result.style.color = '#28a745';
+      }
+    });
+
+    // Section 2: Calculate Age
+    document.getElementById('btn-calcAge').addEventListener('click', function() {
+      const birthYear = Number(document.getElementById('yearInput').value);
+      const result = document.getElementById('result-2');
+      const currentYear = new Date().getFullYear();
+
+      if (!birthYear || birthYear < 1900 || birthYear > currentYear) {
+        result.textContent = '⚠️ Enter a valid year!';
+        result.style.color = '#e74c3c';
+        return;
+      }
+
+      const age = currentYear - birthYear;
+      result.textContent = `You are approximately ${age} years old! 🎂`;
+      result.style.color = '#333';
+      console.log(`Birth year: ${birthYear}, Age: ${age}`);
+    });
+
+    // Section 3: BMI Calculator
+    function calculateBMI(weight, height) {
+      return weight / (height * height);
+    }
+
+    document.getElementById('btn-bmi').addEventListener('click', function() {
+      const weight = Number(document.getElementById('weight').value);
+      const height = Number(document.getElementById('height').value);
+      const result = document.getElementById('result-3');
+
+      if (!weight || !height || height <= 0) {
+        result.textContent = '⚠️ Enter valid weight (kg) and height (m)!';
+        result.style.color = '#e74c3c';
+        return;
+      }
+
+      const bmi = calculateBMI(weight, height);
+      const category = bmi < 18.5 ? "Underweight"
+        : bmi < 25 ? "Normal"
+        : bmi < 30 ? "Overweight"
+        : "Obese";
+
+      result.textContent = `BMI: ${bmi.toFixed(1)} — ${category}`;
+      result.style.color = category === "Normal" ? '#28a745' : '#e74c3c';
+    });
+
+    // Section 4: Temperature Converter (arrow functions)
+    const celsiusToF = (c) => (c * 9/5) + 32;
+    const fahrenheitToC = (f) => (f - 32) * 5/9;
+
+    document.getElementById('btn-toF').addEventListener('click', () => {
+      const c = Number(document.getElementById('celsius').value);
+      const result = document.getElementById('result-4');
+      if (isNaN(c)) {
+        result.textContent = '⚠️ Enter a Celsius value!';
+        return;
+      }
+      const f = celsiusToF(c);
+      document.getElementById('fahrenheit').value = f.toFixed(1);
+      result.textContent = `${c}°C = ${f.toFixed(1)}°F`;
+    });
+
+    document.getElementById('btn-toC').addEventListener('click', () => {
+      const f = Number(document.getElementById('fahrenheit').value);
+      const result = document.getElementById('result-4');
+      if (isNaN(f)) {
+        result.textContent = '⚠️ Enter a Fahrenheit value!';
+        return;
+      }
+      const c = fahrenheitToC(f);
+      document.getElementById('celsius').value = c.toFixed(1);
+      result.textContent = `${f}°F = ${c.toFixed(1)}°C`;
+    });
+
+    console.log('=== DEMO 03: Functions with the DOM ===');
+    console.log('Key: .value reads input, Number() converts, textContent displays');
+  </script>
+</body>
+</html>

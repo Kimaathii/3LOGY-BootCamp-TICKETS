@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 01 - Including JavaScript in HTML</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 { color: #333; margin-bottom: 10px; font-size: 2em; }
+    .subtitle { color: #666; margin-bottom: 30px; font-size: 1.1em; }
+
+    .section {
+      margin: 30px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .section h2 { color: #667eea; margin-bottom: 15px; font-size: 1.4em; }
+
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin: 10px 0;
+      white-space: pre;
+    }
+
+    .code-block .comment { color: #6a9955; }
+    .code-block .keyword { color: #569cd6; }
+    .code-block .string { color: #ce9178; }
+    .code-block .tag { color: #569cd6; }
+    .code-block .attr { color: #9cdcfe; }
+
+    .output {
+      background: #e8f4f8;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #17a2b8;
+      margin: 10px 0;
+      font-family: monospace;
+    }
+
+    .output-label { font-weight: bold; color: #17a2b8; margin-bottom: 5px; }
+
+    .warning {
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #ffc107;
+      margin: 10px 0;
+    }
+
+    .warning-label { font-weight: bold; color: #856404; margin-bottom: 5px; }
+
+    .tip {
+      background: #d4edda;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #28a745;
+      margin: 10px 0;
+    }
+
+    .tip-label { font-weight: bold; color: #155724; margin-bottom: 5px; }
+
+    .console-note {
+      background: #d1ecf1;
+      padding: 12px;
+      border-radius: 6px;
+      margin: 15px 0;
+      font-size: 0.95em;
+    }
+
+    .interactive-area {
+      background: #fff;
+      border: 2px dashed #667eea;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 5px;
+    }
+
+    button:hover { background: #5a6fd6; }
+
+    ul { margin-left: 20px; margin-top: 10px; }
+    li { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Demo 01: Including JavaScript in HTML</h1>
+    <p class="subtitle">Three ways to add JavaScript to your web pages</p>
+
+    <div class="console-note">
+      <strong>👉 Open your browser console (F12) and follow along!</strong><br>
+      This demo shows how JavaScript connects to HTML pages.
+    </div>
+
+    <!-- Section 1: Inline JavaScript -->
+    <div class="section">
+      <h2>1. Inline JavaScript (onclick attribute)</h2>
+      <p>The simplest way — add JS directly in HTML attributes:</p>
+
+      <div class="code-block">&lt;<span class="tag">button</span> <span class="attr">onclick</span>=<span class="string">"alert('Hello from inline JS!')"</span>&gt;Click Me&lt;/<span class="tag">button</span>&gt;</div>
+
+      <div class="interactive-area">
+        <p><strong>Try it:</strong></p>
+        <button onclick="alert('Hello from inline JS!')">Click Me — Inline JS</button>
+      </div>
+
+      <div class="warning">
+        <div class="warning-label">⚠️ Don't use inline JS in real projects:</div>
+        It mixes HTML and JavaScript, making code hard to maintain. We're showing it only so you understand it when you see it.
+      </div>
+    </div>
+
+    <!-- Section 2: Internal JavaScript -->
+    <div class="section">
+      <h2>2. Internal JavaScript (&lt;script&gt; tag)</h2>
+      <p>Write JavaScript inside a <code>&lt;script&gt;</code> tag within your HTML file:</p>
+
+      <div class="code-block">&lt;<span class="tag">body</span>&gt;
+  &lt;<span class="tag">h1</span> <span class="attr">id</span>=<span class="string">"title"</span>&gt;Hello&lt;/<span class="tag">h1</span>&gt;
+
+  <span class="comment">&lt;!-- JavaScript goes here, BEFORE closing &lt;/body&gt; --&gt;</span>
+  &lt;<span class="tag">script</span>&gt;
+    <span class="keyword">const</span> title = document.getElementById(<span class="string">'title'</span>);
+    title.textContent = <span class="string">'Hello from Internal JS!'</span>;
+  &lt;/<span class="tag">script</span>&gt;
+&lt;/<span class="tag">body</span>&gt;</div>
+
+      <div class="interactive-area">
+        <p id="internal-demo">This text will change when you click the button.</p>
+        <button id="internal-btn">Run Internal JS</button>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Console Output:</div>
+        <div id="output-internal"></div>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">✅ Best Practice:</div>
+        Place your <code>&lt;script&gt;</code> tag just before the closing <code>&lt;/body&gt;</code> tag. This ensures all HTML elements are loaded before your JS runs.
+      </div>
+    </div>
+
+    <!-- Section 3: External JavaScript -->
+    <div class="section">
+      <h2>3. External JavaScript (separate .js file)</h2>
+      <p>The <strong>recommended approach</strong> — keep JS in a separate file:</p>
+
+      <div class="code-block"><span class="comment">/* File: script.js */</span>
+<span class="keyword">const</span> heading = document.getElementById(<span class="string">'main-heading'</span>);
+heading.textContent = <span class="string">'Loaded from external file!'</span>;
+console.log(<span class="string">'External JS loaded successfully!'</span>);</div>
+
+      <div class="code-block"><span class="comment">&lt;!-- In your HTML file: --&gt;</span>
+&lt;<span class="tag">body</span>&gt;
+  &lt;<span class="tag">h1</span> <span class="attr">id</span>=<span class="string">"main-heading"</span>&gt;Hello&lt;/<span class="tag">h1</span>&gt;
+
+  <span class="comment">&lt;!-- Link to external JS file --&gt;</span>
+  &lt;<span class="tag">script</span> <span class="attr">src</span>=<span class="string">"script.js"</span>&gt;&lt;/<span class="tag">script</span>&gt;
+&lt;/<span class="tag">body</span>&gt;</div>
+
+      <div class="interactive-area">
+        <p id="external-demo">This simulates loading from an external file.</p>
+        <button id="external-btn">Simulate External JS</button>
+      </div>
+
+      <div class="tip">
+        <div class="tip-label">✅ Why external JS?</div>
+        <ul>
+          <li>Separates structure (HTML) from behavior (JS)</li>
+          <li>Browser can cache the JS file (faster loading)</li>
+          <li>Easier to maintain and debug</li>
+          <li>Can reuse the same JS file across multiple pages</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Section 4: Script Placement -->
+    <div class="section">
+      <h2>4. Where to Place Your Script Tag?</h2>
+
+      <div class="code-block"><span class="comment">&lt;!-- ❌ BAD: Script in &lt;head&gt; without defer --&gt;</span>
+&lt;<span class="tag">head</span>&gt;
+  &lt;<span class="tag">script</span> <span class="attr">src</span>=<span class="string">"script.js"</span>&gt;&lt;/<span class="tag">script</span>&gt;
+&lt;/<span class="tag">head</span>&gt;
+<span class="comment">/* Problem: HTML elements don't exist yet when JS runs! */</span>
+
+<span class="comment">&lt;!-- ✅ GOOD: Script before closing &lt;/body&gt; --&gt;</span>
+&lt;<span class="tag">body</span>&gt;
+  &lt;<span class="tag">h1</span>&gt;My Page&lt;/<span class="tag">h1</span>&gt;
+  &lt;<span class="tag">script</span> <span class="attr">src</span>=<span class="string">"script.js"</span>&gt;&lt;/<span class="tag">script</span>&gt;
+&lt;/<span class="tag">body</span>&gt;
+
+<span class="comment">&lt;!-- ✅ ALSO GOOD: defer attribute --&gt;</span>
+&lt;<span class="tag">head</span>&gt;
+  &lt;<span class="tag">script</span> <span class="attr">src</span>=<span class="string">"script.js"</span> <span class="attr">defer</span>&gt;&lt;/<span class="tag">script</span>&gt;
+&lt;/<span class="tag">head</span>&gt;
+<span class="comment">/* defer = load JS but wait until HTML is ready */</span></div>
+
+      <div class="interactive-area">
+        <p><strong>Live Test:</strong> Click to see if JS can find the element below.</p>
+        <p id="placement-target" style="font-weight: bold; color: #667eea;">Target Element — waiting for JS...</p>
+        <button id="placement-btn">Find and Change Target</button>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Result:</div>
+        <div id="output-placement"></div>
+      </div>
+    </div>
+
+    <!-- Section 5: Practice -->
+    <div class="section">
+      <h2>5. 🎯 Practice Exercises</h2>
+      <p><strong>Try these in your own HTML file:</strong></p>
+      <ol>
+        <li>Create an HTML file with a <code>&lt;script&gt;</code> tag that logs "Hello World" to the console.</li>
+        <li>Create a separate <code>script.js</code> file and link it to your HTML with <code>&lt;script src="script.js"&gt;</code>.</li>
+        <li>Add a button with an <code>onclick</code> that changes a paragraph's text.</li>
+        <li>Try placing your <code>&lt;script&gt;</code> in the <code>&lt;head&gt;</code> — what happens? Now add <code>defer</code>.</li>
+      </ol>
+
+      <div class="tip">
+        <div class="tip-label">💡 Key Takeaway:</div>
+        For this course: put <code>&lt;script&gt;</code> before <code>&lt;/body&gt;</code> — it's the simplest and most reliable approach!
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Demo 2: Internal JS
+    document.getElementById('internal-btn').addEventListener('click', function() {
+      document.getElementById('internal-demo').textContent = '✅ Text changed by Internal JavaScript!';
+      document.getElementById('internal-demo').style.color = '#28a745';
+      document.getElementById('internal-demo').style.fontWeight = 'bold';
+      document.getElementById('output-internal').textContent = 'console.log("Internal JS executed!")';
+      console.log('Internal JS executed!');
+    });
+
+    // Demo 3: Simulate External JS
+    document.getElementById('external-btn').addEventListener('click', function() {
+      document.getElementById('external-demo').textContent = '✅ Text changed — simulating external script.js!';
+      document.getElementById('external-demo').style.color = '#667eea';
+      document.getElementById('external-demo').style.fontWeight = 'bold';
+      console.log('External JS loaded successfully!');
+    });
+
+    // Demo 4: Script placement
+    document.getElementById('placement-btn').addEventListener('click', function() {
+      const target = document.getElementById('placement-target');
+      if (target) {
+        target.textContent = '✅ Found it! JS can access this element because script is at bottom of body.';
+        target.style.color = '#28a745';
+        document.getElementById('output-placement').textContent = 'Element found and modified successfully!';
+      } else {
+        document.getElementById('output-placement').textContent = '❌ Element not found — script loaded too early!';
+      }
+    });
+
+    console.log('=== DEMO 01: Including JavaScript in HTML ===');
+    console.log('1. Inline: onclick="..." (avoid in real projects)');
+    console.log('2. Internal: <script> tag inside HTML');
+    console.log('3. External: <script src="file.js"> (recommended!)');
+    console.log('4. Place scripts before </body> or use defer');
+  </script>
+</body>
+</html>

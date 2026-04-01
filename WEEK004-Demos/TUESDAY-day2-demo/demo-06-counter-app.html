@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo 06 - Building a Simple Counter App</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    h1 { color: #333; margin-bottom: 10px; font-size: 2em; }
+    .subtitle { color: #666; margin-bottom: 30px; font-size: 1.1em; }
+
+    .section {
+      margin: 30px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .section h2 { color: #667eea; margin-bottom: 15px; font-size: 1.4em; }
+
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+      margin: 10px 0;
+      white-space: pre;
+    }
+
+    .code-block .comment { color: #6a9955; }
+    .code-block .keyword { color: #569cd6; }
+    .code-block .string { color: #ce9178; }
+    .code-block .number { color: #b5cea8; }
+
+    .tip {
+      background: #d4edda;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 4px solid #28a745;
+      margin: 10px 0;
+    }
+
+    .tip-label { font-weight: bold; color: #155724; margin-bottom: 5px; }
+
+    /* Counter App Styles */
+    .counter-app {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 40px;
+      border-radius: 16px;
+      text-align: center;
+      color: white;
+      margin: 20px 0;
+    }
+
+    .counter-display {
+      font-size: 80px;
+      font-weight: bold;
+      margin: 20px 0;
+      transition: all 0.3s ease;
+    }
+
+    .counter-app button {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.5);
+      padding: 15px 30px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 20px;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .counter-app button:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+
+    .counter-label { font-size: 14px; opacity: 0.8; margin-top: 10px; }
+
+    /* Step-by-step section */
+    .step {
+      margin: 15px 0;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .step h3 {
+      color: #667eea;
+      margin-bottom: 8px;
+    }
+
+    .step-number {
+      background: #667eea;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    ul { margin-left: 20px; margin-top: 10px; }
+    li { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Demo 06: Building a Counter App</h1>
+    <p class="subtitle">Combining everything: variables, functions, events, and DOM manipulation</p>
+
+    <!-- The Counter App -->
+    <div class="section">
+      <h2>The Finished App — Try It!</h2>
+
+      <div class="counter-app">
+        <p style="font-size: 18px; opacity: 0.9;">Simple Counter</p>
+        <div class="counter-display" id="counter-display">0</div>
+        <div>
+          <button id="btn-decrement">➖ Decrease</button>
+          <button id="btn-reset">🔄 Reset</button>
+          <button id="btn-increment">➕ Increase</button>
+        </div>
+        <div class="counter-label">
+          <p>Step size: <span id="step-display">1</span></p>
+          <button id="btn-step1" style="font-size: 14px; padding: 5px 15px;">Step: 1</button>
+          <button id="btn-step5" style="font-size: 14px; padding: 5px 15px;">Step: 5</button>
+          <button id="btn-step10" style="font-size: 14px; padding: 5px 15px;">Step: 10</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step-by-step breakdown -->
+    <div class="section">
+      <h2>How It's Built — Step by Step</h2>
+
+      <div class="step">
+        <h3><span class="step-number">1</span> HTML Structure</h3>
+        <div class="code-block"><span class="comment">&lt;!-- The display and buttons --&gt;</span>
+&lt;div id=<span class="string">"counter-display"</span>&gt;0&lt;/div&gt;
+&lt;button id=<span class="string">"btn-decrement"</span>&gt;Decrease&lt;/button&gt;
+&lt;button id=<span class="string">"btn-reset"</span>&gt;Reset&lt;/button&gt;
+&lt;button id=<span class="string">"btn-increment"</span>&gt;Increase&lt;/button&gt;</div>
+      </div>
+
+      <div class="step">
+        <h3><span class="step-number">2</span> JavaScript Variables (State)</h3>
+        <div class="code-block"><span class="comment">// Store the counter value in a variable</span>
+<span class="keyword">let</span> count = <span class="number">0</span>;
+<span class="keyword">let</span> step = <span class="number">1</span>;
+
+<span class="comment">// Get references to HTML elements</span>
+<span class="keyword">const</span> display = document.querySelector(<span class="string">'#counter-display'</span>);</div>
+      </div>
+
+      <div class="step">
+        <h3><span class="step-number">3</span> Update Function (renders state to DOM)</h3>
+        <div class="code-block"><span class="keyword">function</span> updateDisplay() {
+  display.textContent = count;
+
+  <span class="comment">// Change color based on value</span>
+  <span class="keyword">if</span> (count > <span class="number">0</span>) {
+    display.style.color = <span class="string">'#2ecc71'</span>;  <span class="comment">// Green for positive</span>
+  } <span class="keyword">else if</span> (count < <span class="number">0</span>) {
+    display.style.color = <span class="string">'#e74c3c'</span>;  <span class="comment">// Red for negative</span>
+  } <span class="keyword">else</span> {
+    display.style.color = <span class="string">'white'</span>;    <span class="comment">// White for zero</span>
+  }
+}</div>
+      </div>
+
+      <div class="step">
+        <h3><span class="step-number">4</span> Event Listeners (connect buttons to functions)</h3>
+        <div class="code-block"><span class="comment">// Increment button</span>
+document.querySelector(<span class="string">'#btn-increment'</span>).addEventListener(<span class="string">'click'</span>, () => {
+  count += step;  <span class="comment">// Change the data</span>
+  updateDisplay();  <span class="comment">// Update the UI</span>
+});
+
+<span class="comment">// Decrement button</span>
+document.querySelector(<span class="string">'#btn-decrement'</span>).addEventListener(<span class="string">'click'</span>, () => {
+  count -= step;
+  updateDisplay();
+});
+
+<span class="comment">// Reset button</span>
+document.querySelector(<span class="string">'#btn-reset'</span>).addEventListener(<span class="string">'click'</span>, () => {
+  count = <span class="number">0</span>;
+  updateDisplay();
+});</div>
+      </div>
+    </div>
+
+    <!-- The Pattern -->
+    <div class="section">
+      <h2>📐 The Pattern You'll Use Everywhere</h2>
+
+      <div class="code-block"><span class="comment">// THE PATTERN (memorize this!):</span>
+
+<span class="comment">// 1. DATA — Store state in variables</span>
+<span class="keyword">let</span> data = initialValue;
+
+<span class="comment">// 2. RENDER — Function to update the UI from data</span>
+<span class="keyword">function</span> render() {
+  element.textContent = data;
+}
+
+<span class="comment">// 3. EVENTS — User actions modify data, then re-render</span>
+button.addEventListener(<span class="string">'click'</span>, () => {
+  data = newValue;   <span class="comment">// Change data</span>
+  render();          <span class="comment">// Update UI</span>
+});
+
+<span class="comment">// This is called the "State → Render" pattern</span>
+<span class="comment">// React.js is built entirely on this concept!</span></div>
+
+      <div class="tip">
+        <div class="tip-label">✅ This Pattern Powers Everything:</div>
+        <ul>
+          <li><strong>Counter app:</strong> count variable → display number</li>
+          <li><strong>To-Do list:</strong> tasks array → render list items</li>
+          <li><strong>Shopping cart:</strong> items array → render product cards</li>
+          <li><strong>React.js:</strong> useState → component re-render (same concept!)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Practice -->
+    <div class="section">
+      <h2>🎯 Practice: Extend the Counter</h2>
+      <ol>
+        <li>Add a "Double" button that multiplies the count by 2.</li>
+        <li>Add a "History" section that shows the last 5 values.</li>
+        <li>Add keyboard support (↑ to increment, ↓ to decrement).</li>
+        <li><strong>Challenge:</strong> Build a "Score Keeper" for two players — each has increment/decrement buttons and the app announces the winner when either reaches 10.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    // === THE COUNTER APP ===
+
+    // 1. STATE (data)
+    let count = 0;
+    let step = 1;
+
+    // 2. DOM REFERENCES
+    const display = document.getElementById('counter-display');
+    const stepDisplay = document.getElementById('step-display');
+
+    // 3. RENDER FUNCTION
+    function updateDisplay() {
+      display.textContent = count;
+
+      // Color change based on value
+      if (count > 0) {
+        display.style.color = '#2ecc71';
+      } else if (count < 0) {
+        display.style.color = '#e74c3c';
+      } else {
+        display.style.color = 'white';
+      }
+
+      // Animate
+      display.style.transform = 'scale(1.2)';
+      setTimeout(() => { display.style.transform = 'scale(1)'; }, 200);
+
+      console.log(`Count: ${count}, Step: ${step}`);
+    }
+
+    // 4. EVENT LISTENERS
+    document.getElementById('btn-increment').addEventListener('click', () => {
+      count += step;
+      updateDisplay();
+    });
+
+    document.getElementById('btn-decrement').addEventListener('click', () => {
+      count -= step;
+      updateDisplay();
+    });
+
+    document.getElementById('btn-reset').addEventListener('click', () => {
+      count = 0;
+      updateDisplay();
+    });
+
+    // Step size buttons
+    document.getElementById('btn-step1').addEventListener('click', () => {
+      step = 1;
+      stepDisplay.textContent = '1';
+    });
+
+    document.getElementById('btn-step5').addEventListener('click', () => {
+      step = 5;
+      stepDisplay.textContent = '5';
+    });
+
+    document.getElementById('btn-step10').addEventListener('click', () => {
+      step = 10;
+      stepDisplay.textContent = '10';
+    });
+
+    // Keyboard support
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowUp') {
+        count += step;
+        updateDisplay();
+      } else if (e.key === 'ArrowDown') {
+        count -= step;
+        updateDisplay();
+      } else if (e.key === 'r' || e.key === 'R') {
+        count = 0;
+        updateDisplay();
+      }
+    });
+
+    console.log('=== DEMO 06: Counter App ===');
+    console.log('This demo combines: variables, functions, events, DOM updates');
+    console.log('Pattern: State → Event → Update State → Render');
+    console.log('Keyboard shortcuts: ↑ increment, ↓ decrement, R reset');
+  </script>
+</body>
+</html>
